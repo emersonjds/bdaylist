@@ -33,6 +33,7 @@ export const db = {
         mensagem: "Venha celebrar comigo esse dia especial!",
         capaUrl: "",
         listToken: "festa-rodrigo-25",
+        meta: { alvo: 5000, atingido: 2450 },
       },
     ];
 
@@ -84,6 +85,7 @@ export const db = {
         maisDesejado: false,
         emGrupo: true,
         status: "disponivel",
+        metaGrupo: { alvo: 1500, arrecadado: 600 },
       },
       {
         id: "p5",

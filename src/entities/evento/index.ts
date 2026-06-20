@@ -3,3 +3,4 @@ export { EventoSchema } from "./model";
 export { diasRestantes, rotuloContagem } from "./countdown";
 export type { PainelResponse } from "./api";
 export { getPainel } from "./api";
+export { percentualMeta, type MetaEvento } from "./meta";
