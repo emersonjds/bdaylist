@@ -111,13 +111,12 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
                 </div>
               </div>
 
-              {/* Security badge */}
               <div className="flex items-center gap-4 rounded-xl border border-secondary/20 bg-secondary-container/20 p-4">
                 <ShieldCheck className="h-8 w-8 shrink-0 text-secondary" />
                 <div>
-                  <p className="text-sm font-bold text-secondary">Transação 100% Segura</p>
+                  <p className="text-sm font-bold text-secondary">Reserva registrada com segurança</p>
                   <p className="text-xs text-on-secondary-container">
-                    Seus dados estão protegidos por criptografia de ponta a ponta.
+                    Seus dados de contato ficam protegidos e visíveis apenas para o aniversariante.
                   </p>
                 </div>
               </div>
@@ -141,7 +140,6 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
                 </div>
 
                 <div className="space-y-4 p-6">
-                  {/* PIX option (disabled) */}
                   <div className="flex items-center rounded-xl border-2 border-outline-variant/50 p-4 opacity-50">
                     <div className="flex w-full items-center gap-4">
                       <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white shadow-sm">
@@ -154,7 +152,6 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
                     </div>
                   </div>
 
-                  {/* Credit card option (disabled) */}
                   <div className="flex items-center rounded-xl border-2 border-outline-variant/50 p-4 opacity-50">
                     <div className="flex w-full items-center gap-4">
                       <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white shadow-sm">
@@ -217,7 +214,6 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
                   </div>
                 </div>
 
-                {/* Subtotal / Total */}
                 <div className="flex flex-col gap-2 bg-surface-container-low p-6">
                   <div className="flex justify-between px-2">
                     <span className="text-sm text-on-surface">Subtotal:</span>
