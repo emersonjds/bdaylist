@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Home, Gift, Users, User, Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/features/auth";
 
 const linksPlataforma = [
@@ -26,8 +27,16 @@ const bottomNavItems = [
 ];
 
 export function Footer() {
-  const { signInWithGoogle } = useAuth();
+  const { user, signInWithGoogle } = useAuth();
+  const router = useRouter();
   const [email, setEmail] = useState("");
+
+  async function handleCriarLista() {
+    if (!user) {
+      await signInWithGoogle();
+    }
+    router.push("/painel");
+  }
 
   return (
     <>
@@ -147,7 +156,7 @@ export function Footer() {
       <button
         aria-label="Criar Lista"
         className="group fixed right-6 bottom-24 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-2xl transition-all hover:scale-110 active:scale-95 md:bottom-10"
-        onClick={signInWithGoogle}
+        onClick={handleCriarLista}
       >
         <Plus className="h-7 w-7" />
         <span className="pointer-events-none absolute right-full mr-4 rounded-lg bg-on-surface px-3 py-1.5 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100">

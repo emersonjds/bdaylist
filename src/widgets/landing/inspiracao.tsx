@@ -1,10 +1,19 @@
 "use client";
 
 import { ArrowRight, PartyPopper, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/features/auth";
 
 export function Inspiracao() {
-  const { signInWithGoogle } = useAuth();
+  const { user, signInWithGoogle } = useAuth();
+  const router = useRouter();
+
+  async function handleCriarLista() {
+    if (!user) {
+      await signInWithGoogle();
+    }
+    router.push("/painel");
+  }
 
   return (
     <section className="px-6 py-20 md:py-[80px]">
@@ -72,7 +81,7 @@ export function Inspiracao() {
             </div>
             <button
               className="z-10 mt-6 w-full rounded-2xl bg-white py-4 text-sm font-bold text-primary transition-colors hover:bg-surface-container"
-              onClick={signInWithGoogle}
+              onClick={handleCriarLista}
             >
               Criar minha lista
             </button>

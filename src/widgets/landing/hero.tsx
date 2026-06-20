@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/features/auth";
 
 export function Hero() {
-  const { signInWithGoogle } = useAuth();
+  const { user, signInWithGoogle } = useAuth();
   const router = useRouter();
 
   async function handleCriarLista() {
-    await signInWithGoogle();
+    if (!user) {
+      await signInWithGoogle();
+    }
     router.push("/painel");
   }
 
