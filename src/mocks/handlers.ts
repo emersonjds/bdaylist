@@ -130,7 +130,6 @@ export const handlers = [
     return HttpResponse.json({ success: true });
   }),
 
-  // Reservation logic is stubbed here; Task 8 refines idempotency and 409 conflict
   http.post("/api/presentes/:id/reserva", async ({ params, request }) => {
     const id = params.id as string;
     const presente = db.presentes.find((p) => p.id === id);
@@ -140,7 +139,25 @@ export const handlers = [
         { status: 404 },
       );
     }
+
     const body = (await request.json()) as unknown as ReservaBody;
+
+    // Atomic check: look up existing reservation by presenteId as source of truth
+    const existingReserva = db.reservas.find((r) => r.presenteId === id);
+
+    if (existingReserva) {
+      if (existingReserva.idempotencyKey === body.idempotencyKey) {
+        // Same caller retrying: idempotent replay — return the original record
+        return HttpResponse.json({ reserva: existingReserva }, { status: 200 });
+      }
+      // Different caller: conflict
+      return HttpResponse.json(
+        { message: "Este presente já foi reservado por outra pessoa." },
+        { status: 409 },
+      );
+    }
+
+    // Gift is available: create reservation and flip status server-side
     const reserva = {
       id: nextId(),
       presenteId: id,
@@ -150,6 +167,10 @@ export const handlers = [
       criadaEm: new Date().toISOString(),
     };
     db.reservas.push(reserva);
+
+    const presenteIndex = db.presentes.findIndex((p) => p.id === id);
+    db.presentes[presenteIndex]!.status = "reservado";
+
     return HttpResponse.json({ reserva }, { status: 201 });
   }),
 
