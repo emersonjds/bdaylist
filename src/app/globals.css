@@ -93,6 +93,15 @@
   }
 }
 
+@keyframes float-up {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-120vh) rotate(20deg);
+  }
+}
+
 @keyframes overlay-fade-in {
   from {
     opacity: 0;

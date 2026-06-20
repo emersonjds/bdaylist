@@ -38,6 +38,30 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
 
   return (
     <div className="min-h-screen bg-surface-soft">
+      {/* Floating background balloons */}
+      <div
+        className="pointer-events-none fixed inset-0 overflow-hidden"
+        aria-hidden="true"
+        style={{ zIndex: -1 }}
+      >
+        <div
+          className="absolute bottom-[-100px] left-[10%] h-20 w-16 rounded-full bg-confetti-pink opacity-60"
+          style={{ animation: "float-up 15s linear 0s infinite" }}
+        />
+        <div
+          className="absolute bottom-[-100px] left-[30%] h-16 w-12 rounded-full bg-confetti-blue opacity-60"
+          style={{ animation: "float-up 15s linear 4s infinite" }}
+        />
+        <div
+          className="absolute bottom-[-100px] left-[60%] h-[72px] w-14 rounded-full bg-confetti-yellow opacity-60"
+          style={{ animation: "float-up 15s linear 2s infinite" }}
+        />
+        <div
+          className="absolute bottom-[-100px] left-[85%] h-24 w-20 rounded-full bg-confetti-pink opacity-60"
+          style={{ animation: "float-up 15s linear 8s infinite" }}
+        />
+      </div>
+
       {/* Fixed top navigation */}
       <header className="fixed top-0 left-0 z-50 flex h-16 w-full items-center justify-between border-b border-outline-variant/50 bg-surface px-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
         <div className="flex items-center gap-2">
@@ -98,11 +122,15 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
             ) : (
               <GiftGrid>
                 {presentesFiltrados.map((presente) => (
-                  <GiftCard
+                  <div
                     key={presente.id}
-                    presente={presente}
-                    onPresentear={() => handlePresentear(presente.id)}
-                  />
+                    className={presente.maisDesejado ? "lg:col-span-2" : undefined}
+                  >
+                    <GiftCard
+                      presente={presente}
+                      onPresentear={() => handlePresentear(presente.id)}
+                    />
+                  </div>
                 ))}
               </GiftGrid>
             )}

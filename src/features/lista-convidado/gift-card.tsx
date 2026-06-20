@@ -1,8 +1,9 @@
 "use client";
 
-import { Gift, Star, Users } from "lucide-react";
-import { Badge, Button } from "@/shared/ui";
-import { formatPreco } from "@/entities/presente";
+import { useState } from "react";
+import { Gift, Star, Users, PlusCircle } from "lucide-react";
+import { Badge, Button, ProgressBar, ConfettiBurst } from "@/shared/ui";
+import { formatPreco, percentualGrupo } from "@/entities/presente";
 import type { Presente } from "@/entities/presente";
 
 interface GiftCardProps {
@@ -12,9 +13,19 @@ interface GiftCardProps {
 
 export function GiftCard({ presente, onPresentear }: GiftCardProps) {
   const reservado = presente.status === "reservado";
+  const [showConfetti, setShowConfetti] = useState(false);
+  const isGrupo = presente.emGrupo && presente.metaGrupo !== undefined;
+
+  function handleClick() {
+    setShowConfetti(true);
+    onPresentear();
+    setTimeout(() => setShowConfetti(false), 3500);
+  }
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-3xl border border-outline-variant bg-surface-container-lowest shadow-[0px_10px_30px_rgba(255,90,112,0.08)] transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.02]">
+    <div className="relative flex flex-col overflow-hidden rounded-3xl border border-outline-variant bg-surface-container-lowest shadow-[0px_10px_30px_rgba(255,90,112,0.08)] transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.02]">
+      <ConfettiBurst trigger={showConfetti} />
+
       {/* Image */}
       <div className="relative h-56">
         {presente.imagemUrl ? (
@@ -57,22 +68,55 @@ export function GiftCard({ presente, onPresentear }: GiftCardProps) {
         <div>
           <h3 className="mb-1 text-lg font-bold text-on-surface">{presente.nome}</h3>
           <p className="mb-4 line-clamp-2 text-sm text-on-surface-variant">{presente.descricao}</p>
+
+          {isGrupo && presente.metaGrupo && (
+            <div className="mb-4">
+              <div className="mb-1 flex justify-between text-xs font-bold">
+                <span className="text-secondary">
+                  R$ {presente.metaGrupo.arrecadado.toLocaleString("pt-BR")} arrecadados
+                </span>
+                <span className="text-outline">
+                  R$ {presente.metaGrupo.alvo.toLocaleString("pt-BR")}
+                </span>
+              </div>
+              <ProgressBar
+                value={percentualGrupo(presente.metaGrupo)}
+                label={`${percentualGrupo(presente.metaGrupo)}% arrecadado`}
+              />
+            </div>
+          )}
         </div>
 
         <div>
-          <div className="mb-4 text-xl font-bold text-primary">
-            {formatPreco(presente.precoReferencia)}
-          </div>
-          <Button
-            variant="primary"
-            size="lg"
-            className="w-full"
-            disabled={reservado}
-            onClick={onPresentear}
-          >
-            <Gift className="h-4 w-4" />
-            Presentear
-          </Button>
+          {!isGrupo && (
+            <div className="mb-4 text-xl font-bold text-primary">
+              {formatPreco(presente.precoReferencia)}
+            </div>
+          )}
+
+          {isGrupo ? (
+            <Button
+              variant="secondary"
+              size="lg"
+              className="w-full"
+              disabled={reservado}
+              onClick={handleClick}
+            >
+              <PlusCircle className="h-4 w-4" />
+              Contribuir
+            </Button>
+          ) : (
+            <Button
+              variant="primary"
+              size="lg"
+              className="w-full"
+              disabled={reservado}
+              onClick={handleClick}
+            >
+              <Gift className="h-4 w-4" />
+              Presentear
+            </Button>
+          )}
         </div>
       </div>
     </div>
