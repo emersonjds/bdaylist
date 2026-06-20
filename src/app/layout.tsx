@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Montserrat } from "next/font/google";
+import { Toaster } from "sonner";
 import { QueryProvider } from "@/shared/providers/query-provider";
 import { MswProvider } from "@/shared/providers/msw-provider";
 import { AuthProvider } from "@/features/auth";
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <MswProvider>
             <AuthProvider>{children}</AuthProvider>
           </MswProvider>
+          <Toaster richColors position="top-center" />
         </QueryProvider>
       </body>
     </html>

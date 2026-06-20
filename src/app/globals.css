@@ -85,3 +85,19 @@
     box-shadow: 0 10px 30px rgba(255, 90, 112, 0.08);
   }
 }
+
+@keyframes confetti-fall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes overlay-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
