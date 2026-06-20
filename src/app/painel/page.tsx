@@ -9,6 +9,7 @@ import type { GiftFormValues } from "@/features/gerenciar-presentes/gift-form";
 import { HostGiftCard } from "@/features/gerenciar-presentes/host-gift-card";
 import { AppShell } from "@/widgets/app-shell/app-shell";
 import { ResumoCard } from "@/widgets/painel/resumo-card";
+import { MetaCard } from "@/widgets/painel/meta-card";
 import { ConvidadosRecentes } from "@/widgets/painel/convidados-recentes";
 import { diasRestantes, rotuloContagem } from "@/entities/evento";
 import type { Presente } from "@/entities/presente";
@@ -98,7 +99,11 @@ function PainelContent() {
       {/* Métricas */}
       <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-3">
         <div className="md:col-span-2">
-          <ResumoCard total={presentes.length} reservados={reservados} disponiveis={disponiveis} />
+          {evento.meta ? (
+            <MetaCard meta={evento.meta} />
+          ) : (
+            <ResumoCard total={presentes.length} reservados={reservados} disponiveis={disponiveis} />
+          )}
         </div>
 
         {/* Convidados Confirmados */}
