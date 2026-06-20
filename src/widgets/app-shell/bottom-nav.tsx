@@ -7,9 +7,9 @@ import { cn } from "@/shared/lib/cn";
 
 const NAV_ITEMS = [
   { href: "/painel", rotulo: "Início", icone: Home },
-  { href: "/painel/presentes", rotulo: "Presentes", icone: Gift },
-  { href: "/painel/convidados", rotulo: "Convidados", icone: Users },
-  { href: "/painel/perfil", rotulo: "Perfil", icone: User },
+  { href: "/painel", rotulo: "Presentes", icone: Gift },
+  { href: "/painel", rotulo: "Convidados", icone: Users },
+  { href: "/painel", rotulo: "Perfil", icone: User },
 ] as const;
 
 export function BottomNav() {
