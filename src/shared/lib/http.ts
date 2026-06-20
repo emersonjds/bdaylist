@@ -8,9 +8,12 @@ export class HttpError extends Error {
   }
 }
 
-export async function apiGet<T>(path: string): Promise<T> {
+export async function apiGet<T>(
+  path: string,
+  init?: { headers?: Record<string, string> },
+): Promise<T> {
   const res = await fetch(path, {
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...init?.headers },
   });
   if (!res.ok) {
     const errBody = await res.json().catch(() => ({ message: res.statusText }));

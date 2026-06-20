@@ -1,59 +1,9 @@
-// Local shapes — Task 6 replaces these with entity types from src/entities/
-
-interface Evento {
-  id: string;
-  hostId: string;
-  titulo: string;
-  dataAniversario: string;
-  tema: string;
-  mensagem: string;
-  capaUrl: string;
-  listToken: string;
-}
-
-interface Presente {
-  id: string;
-  eventoId: string;
-  nome: string;
-  descricao: string;
-  imagemUrl: string;
-  precoReferencia: number;
-  linkLoja: string;
-  maisDesejado: boolean;
-  emGrupo: boolean;
-  status: "disponivel" | "reservado";
-}
-
-interface Convidado {
-  id: string;
-  eventoId: string;
-  nome: string;
-  email: string;
-}
-
-interface Reserva {
-  id: string;
-  presenteId: string;
-  convidadoNome: string;
-  recado: string;
-  idempotencyKey: string;
-  criadaEm: string;
-}
-
-interface Rsvp {
-  id: string;
-  eventoId: string;
-  nome: string;
-  status: "confirmado" | "recusado";
-}
-
-interface Recado {
-  id: string;
-  eventoId: string;
-  autor: string;
-  texto: string;
-  criadoEm: string;
-}
+import type { Evento } from "@/entities/evento/model";
+import type { Presente } from "@/entities/presente/model";
+import type { Convidado } from "@/entities/convidado/model";
+import type { Reserva } from "@/entities/reserva/model";
+import type { Rsvp } from "@/entities/rsvp/model";
+import type { Recado } from "@/entities/recado/model";
 
 let idCounter = 0;
 
