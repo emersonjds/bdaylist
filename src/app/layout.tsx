@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Montserrat } from "next/font/google";
+import { QueryProvider } from "@/shared/providers/query-provider";
+import { MswProvider } from "@/shared/providers/msw-provider";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -23,7 +25,11 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="pt-BR" className={montserrat.variable}>
-      <body>{children}</body>
+      <body>
+        <QueryProvider>
+          <MswProvider>{children}</MswProvider>
+        </QueryProvider>
+      </body>
     </html>
   );
 }
