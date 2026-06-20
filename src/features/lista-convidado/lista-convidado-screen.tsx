@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PartyPopper, CalendarCheck, Gift } from "lucide-react";
 import { HostHeader } from "@/widgets/host-header/host-header";
 import { GiftGrid } from "@/widgets/gift-grid/gift-grid";
+import { RsvpModal } from "@/features/rsvp/rsvp-modal";
 import { GiftCard } from "./gift-card";
 import { PriceFilter } from "./price-filter";
 import { SearchBox } from "./search-box";
@@ -15,6 +17,7 @@ interface ListaConvidadoScreenProps {
 
 export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
   const router = useRouter();
+  const [rsvpOpen, setRsvpOpen] = useState(false);
 
   const {
     lista,
@@ -42,9 +45,10 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
           </span>
         </div>
 
-        {/* Desktop RSVP — placeholder; wiring comes in Task 11 */}
+        {/* Desktop RSVP button */}
         <button
           type="button"
+          onClick={() => setRsvpOpen(true)}
           className="hidden md:flex items-center gap-2 px-6 py-2 bg-primary text-on-primary rounded-full font-bold text-sm transition-all hover:scale-105 active:scale-95 shadow-lg"
         >
           <CalendarCheck className="w-4 h-4" />
@@ -78,6 +82,7 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
               dataAniversario={lista.evento.dataAniversario}
               capaUrl={lista.evento.capaUrl}
               hostNome={lista.host.nome}
+              onRsvp={() => setRsvpOpen(true)}
             />
 
             <section className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant">
@@ -106,6 +111,14 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
           </>
         )}
       </main>
+
+      {lista && (
+        <RsvpModal
+          open={rsvpOpen}
+          onClose={() => setRsvpOpen(false)}
+          eventoId={lista.evento.id}
+        />
+      )}
 
       {/* Footer */}
       <footer className="w-full flex flex-col items-center gap-4 px-6 pb-8 pt-12 bg-surface-container border-t border-outline-variant/30">
