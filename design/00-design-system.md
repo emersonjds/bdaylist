@@ -111,6 +111,13 @@ spacing:
   container-max-width: 1200px
 ---
 
+> **Referência visual atual (atualizado em 2026-06-20):** Os renders do Stitch substituem as versões anteriores como fonte de verdade visual para três telas:
+> - `03-painel-aniversariante.png` — painel do aniversariante (contagem regressiva, meta, grid de presentes, convidados).
+> - `04-lista-presentes-convidado.png` — lista do convidado (hero, bento de stats, filtros, grid de presentes, grupo).
+> - `05-finalizar-presente.png` — tela de finalizar/checkout do convidado.
+>
+> **Importante:** a UI de pagamento exibida no Stitch (campo de valor, "Contribuir") é decorativa — o fluxo atual é apenas **reserva**, sem dinheiro passando pelo app. Não implementar processamento de pagamento sem decisão explícita do produto.
+
 ## Brand & Style
 
 This design system is built to evoke the infectious joy of a birthday celebration. It transforms the structured reliability of a registry platform into a high-energy, festive experience. The aesthetic is a fusion of **Modern Corporate** structure and **High-Contrast/Bold** playfulness, ensuring the platform remains functional for gift management while feeling like a party.
