@@ -2,7 +2,7 @@
 
 import { Pencil, Trash2, Link, Users } from "lucide-react";
 import type { Presente } from "@/entities/presente";
-import { formatPreco } from "@/entities/presente";
+import { formatPreco, percentualGrupo } from "@/entities/presente";
 import { Badge } from "@/shared/ui";
 import { cn } from "@/shared/lib/cn";
 
@@ -61,10 +61,16 @@ export function HostGiftCard({ presente, onEdit, onDelete }: HostGiftCardProps) 
         </p>
 
         <div className="flex items-center justify-between border-t border-outline-variant pt-3">
-          <span className="flex items-center gap-1 text-xs font-semibold text-on-surface-variant">
-            <Link className="h-3.5 w-3.5" />
-            {presente.linkLoja ? "Link Externo" : "Sem link"}
-          </span>
+          {presente.emGrupo && presente.metaGrupo ? (
+            <span className="flex items-center gap-1 text-xs font-semibold text-on-surface-variant">
+              {percentualGrupo(presente.metaGrupo)}% Arrecadado
+            </span>
+          ) : (
+            <span className="flex items-center gap-1 text-xs font-semibold text-on-surface-variant">
+              <Link className="h-3.5 w-3.5" />
+              {presente.linkLoja ? "Link Externo" : "Sem link"}
+            </span>
+          )}
 
           <div className="flex gap-1">
             <button
