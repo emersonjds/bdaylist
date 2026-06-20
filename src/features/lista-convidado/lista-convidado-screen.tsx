@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { PartyPopper, CalendarCheck, Gift } from "lucide-react";
+import { PartyPopper, CalendarCheck, Gift, MessageCircleHeart } from "lucide-react";
 import { HostHeader } from "@/widgets/host-header/host-header";
 import { GiftGrid } from "@/widgets/gift-grid/gift-grid";
 import { RsvpModal } from "@/features/rsvp/rsvp-modal";
+import { RecadoForm } from "@/features/recados/recado-form";
+import { RecadoList } from "@/features/recados/recado-list";
 import { GiftCard } from "./gift-card";
 import { PriceFilter } from "./price-filter";
 import { SearchBox } from "./search-box";
@@ -108,6 +110,36 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
                 ))}
               </GiftGrid>
             )}
+
+            {/* Mural de Recados */}
+            <section className="mt-16">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary-container/20">
+                  <MessageCircleHeart className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-extrabold text-on-surface tracking-tight">
+                    Mural de Recados
+                  </h2>
+                  <p className="text-sm text-on-surface-variant">
+                    Deixe uma mensagem carinhosa para o aniversariante
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-1 bg-surface-container-lowest rounded-2xl border border-outline-variant/30 shadow-card p-6">
+                  <h3 className="text-base font-bold text-on-surface mb-4">
+                    Deixe seu recado
+                  </h3>
+                  <RecadoForm eventoId={lista.evento.id} />
+                </div>
+
+                <div className="lg:col-span-2">
+                  <RecadoList eventoId={lista.evento.id} />
+                </div>
+              </div>
+            </section>
           </>
         )}
       </main>
