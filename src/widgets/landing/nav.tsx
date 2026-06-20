@@ -1,10 +1,17 @@
 "use client";
 
 import { Menu, User } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/features/auth";
 
 export function Nav() {
   const { signInWithGoogle } = useAuth();
+  const router = useRouter();
+
+  async function handleSignIn() {
+    await signInWithGoogle();
+    router.push("/painel");
+  }
 
   return (
     <nav className="fixed top-0 left-0 z-50 flex h-16 w-full items-center justify-between bg-surface px-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
@@ -39,14 +46,14 @@ export function Nav() {
       <div className="flex items-center gap-4">
         <button
           className="hidden rounded-full border-2 border-primary px-6 py-2 text-sm font-bold text-primary transition-transform hover:scale-105 md:block"
-          onClick={signInWithGoogle}
+          onClick={handleSignIn}
         >
           Entrar
         </button>
         <button
           aria-label="Abrir menu"
           className="text-primary md:hidden"
-          onClick={signInWithGoogle}
+          onClick={handleSignIn}
         >
           <Menu className="h-6 w-6" />
         </button>
