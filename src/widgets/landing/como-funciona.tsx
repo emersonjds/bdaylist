@@ -35,10 +35,7 @@ const steps = [
 
 export function ComoFunciona() {
   return (
-    <section
-      className="bg-surface px-6 py-20 md:py-[80px]"
-      id="how-it-works"
-    >
+    <section className="bg-surface px-6 py-20 md:py-[80px]" id="how-it-works">
       <div className="mx-auto max-w-[1200px]">
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-3xl font-bold text-on-surface">
@@ -60,7 +57,7 @@ export function ComoFunciona() {
                 >
                   <Icon className={`h-9 w-9 ${step.iconColor}`} />
                 </div>
-                <span className="absolute right-8 top-8 z-0 text-6xl font-extrabold text-surface-container-high">
+                <span className="absolute top-8 right-8 z-0 text-6xl font-extrabold text-surface-container-high">
                   {step.number}
                 </span>
                 <h3 className="relative z-10 mb-4 text-2xl font-bold text-on-surface">

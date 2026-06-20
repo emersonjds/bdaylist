@@ -67,7 +67,7 @@ export function GiftForm({ open, onClose, presente, onSubmit }: GiftFormProps) {
               linkLoja: "",
               maisDesejado: false,
               emGrupo: false,
-            },
+            }
       );
     }
   }, [open, presente, reset]);
@@ -81,7 +81,7 @@ export function GiftForm({ open, onClose, presente, onSubmit }: GiftFormProps) {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <h2 className="text-xl font-extrabold text-on-surface">{titulo}</h2>
         <button
           type="button"
@@ -93,11 +93,7 @@ export function GiftForm({ open, onClose, presente, onSubmit }: GiftFormProps) {
         </button>
       </div>
 
-      <form
-        onSubmit={handleSubmit(handleFormSubmit)}
-        className="flex flex-col gap-4"
-        noValidate
-      >
+      <form onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col gap-4" noValidate>
         <div>
           <Input
             id="nome"
@@ -105,9 +101,7 @@ export function GiftForm({ open, onClose, presente, onSubmit }: GiftFormProps) {
             placeholder="Ex: Fone Bluetooth"
             {...register("nome")}
           />
-          {errors.nome && (
-            <p className="mt-1 text-xs text-error">{errors.nome.message}</p>
-          )}
+          {errors.nome && <p className="mt-1 text-xs text-error">{errors.nome.message}</p>}
         </div>
 
         <Textarea
@@ -129,9 +123,7 @@ export function GiftForm({ open, onClose, presente, onSubmit }: GiftFormProps) {
             {...register("precoReferencia", { valueAsNumber: true })}
           />
           {errors.precoReferencia && (
-            <p className="mt-1 text-xs text-error">
-              {errors.precoReferencia.message}
-            </p>
+            <p className="mt-1 text-xs text-error">{errors.precoReferencia.message}</p>
           )}
         </div>
 
@@ -158,9 +150,7 @@ export function GiftForm({ open, onClose, presente, onSubmit }: GiftFormProps) {
               className="h-4 w-4 rounded accent-primary"
               {...register("maisDesejado")}
             />
-            <span className="text-sm font-semibold text-on-surface">
-              Mais Desejado
-            </span>
+            <span className="text-sm font-semibold text-on-surface">Mais Desejado</span>
           </label>
 
           <label className="flex cursor-pointer items-center gap-2">
@@ -169,19 +159,12 @@ export function GiftForm({ open, onClose, presente, onSubmit }: GiftFormProps) {
               className="h-4 w-4 rounded accent-primary"
               {...register("emGrupo")}
             />
-            <span className="text-sm font-semibold text-on-surface">
-              Presente em Grupo
-            </span>
+            <span className="text-sm font-semibold text-on-surface">Presente em Grupo</span>
           </label>
         </div>
 
         <div className="flex gap-3 pt-2">
-          <Button
-            type="button"
-            variant="ghost"
-            className="flex-1"
-            onClick={onClose}
-          >
+          <Button type="button" variant="ghost" className="flex-1" onClick={onClose}>
             Cancelar
           </Button>
           <Button type="submit" className="flex-1" disabled={isSubmitting}>

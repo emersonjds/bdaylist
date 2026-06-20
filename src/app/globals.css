@@ -78,7 +78,7 @@
 
 @layer base {
   body {
-    @apply bg-surface-soft text-on-surface font-display antialiased;
+    @apply bg-surface-soft font-display text-on-surface antialiased;
   }
 
   .shadow-card {

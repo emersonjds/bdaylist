@@ -16,8 +16,7 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: "BdayList",
-  description:
-    "Crie sua lista de presentes de aniversário e compartilhe com seus convidados.",
+  description: "Crie sua lista de presentes de aniversário e compartilhe com seus convidados.",
 };
 
 interface RootLayoutProps {

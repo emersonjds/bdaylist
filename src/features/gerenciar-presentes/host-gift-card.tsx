@@ -19,7 +19,7 @@ export function HostGiftCard({ presente, onEdit, onDelete }: HostGiftCardProps) 
     <div
       className={cn(
         "group overflow-hidden rounded-xl border border-outline-variant/30 bg-surface-container-lowest",
-        "transition-all duration-300 hover:-translate-y-1 hover:shadow-[0px_10px_30px_rgba(255,90,112,0.15)]",
+        "transition-all duration-300 hover:-translate-y-1 hover:shadow-[0px_10px_30px_rgba(255,90,112,0.15)]"
       )}
     >
       {/* Imagem */}
@@ -55,9 +55,7 @@ export function HostGiftCard({ presente, onEdit, onDelete }: HostGiftCardProps) 
 
       {/* Conteúdo */}
       <div className="p-4">
-        <h3 className="mb-1 truncate text-base font-bold text-on-surface">
-          {presente.nome}
-        </h3>
+        <h3 className="mb-1 truncate text-base font-bold text-on-surface">{presente.nome}</h3>
         <p className="mb-3 text-xl font-bold text-primary">
           {formatPreco(presente.precoReferencia)}
         </p>

@@ -1,8 +1,7 @@
 "use client";
 
 import { Gift, Star, Users } from "lucide-react";
-import { Badge } from "@/shared/ui";
-import { Button } from "@/shared/ui";
+import { Badge, Button } from "@/shared/ui";
 import { formatPreco } from "@/entities/presente";
 import type { Presente } from "@/entities/presente";
 
@@ -15,7 +14,7 @@ export function GiftCard({ presente, onPresentear }: GiftCardProps) {
   const reservado = presente.status === "reservado";
 
   return (
-    <div className="bg-surface-container-lowest rounded-3xl overflow-hidden border border-outline-variant flex flex-col transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.02] shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
+    <div className="flex flex-col overflow-hidden rounded-3xl border border-outline-variant bg-surface-container-lowest shadow-[0px_10px_30px_rgba(255,90,112,0.08)] transition-transform duration-300 hover:-translate-y-2 hover:scale-[1.02]">
       {/* Image */}
       <div className="relative h-56">
         {presente.imagemUrl ? (
@@ -23,11 +22,11 @@ export function GiftCard({ presente, onPresentear }: GiftCardProps) {
           <img
             src={presente.imagemUrl}
             alt={presente.nome}
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-surface-container-low flex items-center justify-center">
-            <Gift className="w-16 h-16 text-outline-variant" />
+          <div className="flex h-full w-full items-center justify-center bg-surface-container-low">
+            <Gift className="h-16 w-16 text-outline-variant" />
           </div>
         )}
 
@@ -35,18 +34,18 @@ export function GiftCard({ presente, onPresentear }: GiftCardProps) {
         <div className="absolute top-4 left-4 flex flex-col gap-2">
           {presente.maisDesejado && (
             <Badge tone="tertiary" className="flex items-center gap-1 shadow-md">
-              <Star className="w-3 h-3 fill-current" />
+              <Star className="h-3 w-3 fill-current" />
               Mais Desejado
             </Badge>
           )}
           {presente.emGrupo && (
             <Badge tone="primary" className="flex items-center gap-1 shadow-md">
-              <Users className="w-3 h-3" />
+              <Users className="h-3 w-3" />
               Presente em Grupo
             </Badge>
           )}
           {reservado && (
-            <Badge className="bg-surface-container border border-outline-variant text-on-surface-variant shadow-md">
+            <Badge className="border border-outline-variant bg-surface-container text-on-surface-variant shadow-md">
               Reservado
             </Badge>
           )}
@@ -54,18 +53,14 @@ export function GiftCard({ presente, onPresentear }: GiftCardProps) {
       </div>
 
       {/* Card body */}
-      <div className="p-6 flex flex-col flex-grow justify-between">
+      <div className="flex flex-grow flex-col justify-between p-6">
         <div>
-          <h3 className="font-bold text-lg text-on-surface mb-1">
-            {presente.nome}
-          </h3>
-          <p className="text-on-surface-variant text-sm mb-4 line-clamp-2">
-            {presente.descricao}
-          </p>
+          <h3 className="mb-1 text-lg font-bold text-on-surface">{presente.nome}</h3>
+          <p className="mb-4 line-clamp-2 text-sm text-on-surface-variant">{presente.descricao}</p>
         </div>
 
         <div>
-          <div className="text-primary font-bold text-xl mb-4">
+          <div className="mb-4 text-xl font-bold text-primary">
             {formatPreco(presente.precoReferencia)}
           </div>
           <Button
@@ -75,7 +70,7 @@ export function GiftCard({ presente, onPresentear }: GiftCardProps) {
             disabled={reservado}
             onClick={onPresentear}
           >
-            <Gift className="w-4 h-4" />
+            <Gift className="h-4 w-4" />
             Presentear
           </Button>
         </div>

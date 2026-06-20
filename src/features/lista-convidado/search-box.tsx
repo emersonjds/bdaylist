@@ -10,13 +10,13 @@ interface SearchBoxProps {
 export function SearchBox({ value, onChange }: SearchBoxProps) {
   return (
     <div className="relative w-full md:w-64">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-outline w-5 h-5 pointer-events-none" />
+      <Search className="pointer-events-none absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-outline" />
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Buscar presente..."
-        className="w-full pl-10 pr-4 py-3 rounded-xl border-2 border-outline-variant focus:border-secondary focus:ring-0 transition-colors bg-surface-container-lowest"
+        className="w-full rounded-xl border-2 border-outline-variant bg-surface-container-lowest py-3 pr-4 pl-10 transition-colors focus:border-secondary focus:ring-0"
       />
     </div>
   );

@@ -118,6 +118,7 @@ Regra: **um agent por função, sem duplicação**.
 - **Recado/Mensagem**: mensagem carinhosa do convidado ao aniversariante (mural).
 
 ### Telas-núcleo (ver `design/`)
+
 - **Landing page** — marketing: hero, "como funciona", inspiração, depoimentos, FAQ.
 - **Painel do aniversariante** — contagem regressiva, presentes (adicionar/editar), convidados confirmados, atividade recente. Bottom nav: Início, Presentes, Convidados, Perfil.
 - **Lista (visão convidado)** — header do aniversariante, confirmar presença (RSVP), filtro por preço, busca, grid de presentes com "Presentear".

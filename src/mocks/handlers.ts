@@ -44,10 +44,7 @@ export const handlers = [
     const token = params.token as string;
     const evento = db.eventos.find((e) => e.listToken === token);
     if (!evento) {
-      return HttpResponse.json(
-        { message: "Lista não encontrada" },
-        { status: 404 },
-      );
+      return HttpResponse.json({ message: "Lista não encontrada" }, { status: 404 });
     }
     const presentes = db.presentes.filter((p) => p.eventoId === evento.id);
     const host = { nome: "Rodrigo", id: evento.hostId };
@@ -60,15 +57,12 @@ export const handlers = [
     }
     const evento = db.eventos[0];
     if (!evento) {
-      return HttpResponse.json(
-        { message: "Evento não encontrado" },
-        { status: 404 },
-      );
+      return HttpResponse.json({ message: "Evento não encontrado" }, { status: 404 });
     }
     const presentes = db.presentes.filter((p) => p.eventoId === evento.id);
     const convidados = db.convidados.filter((c) => c.eventoId === evento.id);
     const confirmados = db.rsvps.filter(
-      (r) => r.eventoId === evento.id && r.status === "confirmado",
+      (r) => r.eventoId === evento.id && r.status === "confirmado"
     ).length;
     return HttpResponse.json({
       evento,
@@ -82,10 +76,7 @@ export const handlers = [
     const body = (await request.json()) as unknown as CriarPresenteBody;
     const evento = db.eventos[0];
     if (!evento) {
-      return HttpResponse.json(
-        { message: "Evento não encontrado" },
-        { status: 404 },
-      );
+      return HttpResponse.json({ message: "Evento não encontrado" }, { status: 404 });
     }
     const presente = {
       id: `new-${nextId()}`,
@@ -107,10 +98,7 @@ export const handlers = [
     const id = params.id as string;
     const index = db.presentes.findIndex((p) => p.id === id);
     if (index === -1) {
-      return HttpResponse.json(
-        { message: "Presente não encontrado" },
-        { status: 404 },
-      );
+      return HttpResponse.json({ message: "Presente não encontrado" }, { status: 404 });
     }
     const body = (await request.json()) as unknown as AtualizarPresenteBody;
     db.presentes[index] = { ...db.presentes[index]!, ...body };
@@ -121,10 +109,7 @@ export const handlers = [
     const id = params.id as string;
     const index = db.presentes.findIndex((p) => p.id === id);
     if (index === -1) {
-      return HttpResponse.json(
-        { message: "Presente não encontrado" },
-        { status: 404 },
-      );
+      return HttpResponse.json({ message: "Presente não encontrado" }, { status: 404 });
     }
     db.presentes.splice(index, 1);
     return HttpResponse.json({ success: true });
@@ -134,10 +119,7 @@ export const handlers = [
     const id = params.id as string;
     const presente = db.presentes.find((p) => p.id === id);
     if (!presente) {
-      return HttpResponse.json(
-        { message: "Presente não encontrado" },
-        { status: 404 },
-      );
+      return HttpResponse.json({ message: "Presente não encontrado" }, { status: 404 });
     }
 
     const body = (await request.json()) as unknown as ReservaBody;
@@ -153,7 +135,7 @@ export const handlers = [
       // Different caller: conflict
       return HttpResponse.json(
         { message: "Este presente já foi reservado por outra pessoa." },
-        { status: 409 },
+        { status: 409 }
       );
     }
 

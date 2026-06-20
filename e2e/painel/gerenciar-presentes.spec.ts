@@ -43,9 +43,9 @@ test("adiciona, edita e remove um presente no painel do aniversariante", async (
   await page.getByRole("button", { name: "Adicionar Novo", exact: true }).click();
 
   // Aguarda o formulário "Adicionar Presente" abrir
-  await expect(
-    page.getByRole("heading", { name: "Adicionar Presente", level: 2 }),
-  ).toBeVisible({ timeout: 5_000 });
+  await expect(page.getByRole("heading", { name: "Adicionar Presente", level: 2 })).toBeVisible({
+    timeout: 5_000,
+  });
 
   // 3. Preenche o nome do novo presente
   await page.getByLabel("Nome do Presente").fill("Presente E2E Test");
@@ -64,9 +64,9 @@ test("adiciona, edita e remove um presente no painel do aniversariante", async (
   await page.getByLabel("Editar Presente E2E Test").click();
 
   // Aguarda o formulário de edição abrir
-  await expect(
-    page.getByRole("heading", { name: "Editar Presente", level: 2 }),
-  ).toBeVisible({ timeout: 5_000 });
+  await expect(page.getByRole("heading", { name: "Editar Presente", level: 2 })).toBeVisible({
+    timeout: 5_000,
+  });
 
   // Altera o nome
   const nomeInput = page.getByLabel("Nome do Presente");

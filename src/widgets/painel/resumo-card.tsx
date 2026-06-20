@@ -15,21 +15,21 @@ export function ResumoCard({ total, reservados, disponiveis }: ResumoCardProps) 
         <div className="flex flex-col items-center gap-1 px-2 text-center">
           <Gift className="mb-1 h-6 w-6 text-primary" />
           <span className="text-3xl font-extrabold text-primary">{total}</span>
-          <span className="text-[11px] font-semibold uppercase tracking-wide text-on-surface-variant">
+          <span className="text-[11px] font-semibold tracking-wide text-on-surface-variant uppercase">
             Presentes
           </span>
         </div>
         <div className="flex flex-col items-center gap-1 px-2 text-center">
           <CheckCircle className="mb-1 h-6 w-6 text-secondary" />
           <span className="text-3xl font-extrabold text-secondary">{reservados}</span>
-          <span className="text-[11px] font-semibold uppercase tracking-wide text-on-surface-variant">
+          <span className="text-[11px] font-semibold tracking-wide text-on-surface-variant uppercase">
             Reservados
           </span>
         </div>
         <div className="flex flex-col items-center gap-1 px-2 text-center">
           <Circle className="mb-1 h-6 w-6 text-outline" />
           <span className="text-3xl font-extrabold text-on-surface">{disponiveis}</span>
-          <span className="text-[11px] font-semibold uppercase tracking-wide text-on-surface-variant">
+          <span className="text-[11px] font-semibold tracking-wide text-on-surface-variant uppercase">
             Disponíveis
           </span>
         </div>

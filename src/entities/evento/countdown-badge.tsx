@@ -10,8 +10,8 @@ export function CountdownBadge({ dataAniversario }: CountdownBadgeProps) {
   const rotulo = rotuloContagem(dias);
 
   return (
-    <div className="inline-flex items-center gap-2 bg-tertiary-fixed text-on-tertiary-fixed px-4 py-2 rounded-full font-bold text-sm shadow-md">
-      <CalendarCheck className="w-4 h-4 shrink-0" />
+    <div className="inline-flex items-center gap-2 rounded-full bg-tertiary-fixed px-4 py-2 text-sm font-bold text-on-tertiary-fixed shadow-md">
+      <CalendarCheck className="h-4 w-4 shrink-0" />
       <span>{rotulo}</span>
     </div>
   );

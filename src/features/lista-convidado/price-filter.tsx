@@ -18,10 +18,8 @@ interface PriceFilterProps {
 
 export function PriceFilter({ value, onChange }: PriceFilterProps) {
   return (
-    <div className="flex flex-col gap-2">
-      <label className="font-bold text-primary text-sm px-1">
-        Filtrar por Preço
-      </label>
+    <div className="flex flex-col gap-2" role="group" aria-label="Filtrar por faixa de preço">
+      <span className="px-1 text-sm font-bold text-primary">Filtrar por Preço</span>
       <div className="flex flex-wrap gap-2">
         {FAIXAS.map((faixa) => (
           <button
@@ -29,10 +27,10 @@ export function PriceFilter({ value, onChange }: PriceFilterProps) {
             type="button"
             onClick={() => onChange(faixa.value)}
             className={cn(
-              "px-4 py-2 rounded-full border-2 font-bold text-sm transition-all",
+              "rounded-full border-2 px-4 py-2 text-sm font-bold transition-all",
               value === faixa.value
                 ? "border-primary bg-primary text-on-primary"
-                : "border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary",
+                : "border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary"
             )}
           >
             {faixa.label}

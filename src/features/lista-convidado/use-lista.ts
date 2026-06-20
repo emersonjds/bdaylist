@@ -45,8 +45,7 @@ export function useLista(token: string): UseListaResult {
 
   const presentesFiltrados = presentes.filter((presente) => {
     const matchesSearch =
-      search.trim() === "" ||
-      presente.nome.toLowerCase().includes(search.toLowerCase());
+      search.trim() === "" || presente.nome.toLowerCase().includes(search.toLowerCase());
     const matchesPrice = matchesPriceFaixa(presente.precoReferencia, priceFaixa);
     return matchesSearch && matchesPrice;
   });

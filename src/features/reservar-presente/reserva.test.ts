@@ -34,7 +34,6 @@ test("reserva por outra pessoa retorna 409", async () => {
       convidadoNome: "Ciro",
       recado: "y",
       idempotencyKey: "k4",
-    }),
+    })
   ).rejects.toMatchObject({ status: 409 });
 });
-

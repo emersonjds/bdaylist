@@ -24,13 +24,9 @@ test("reserva um presente disponível, confirma sucesso e verifica bloqueio de s
 
   // 2. Clica em "Presentear" na Câmera Instantânea (presente p2)
   const giftGrid = page.locator("div.grid").first();
-  const cameraCard = giftGrid
-    .locator("> div")
-    .filter({ hasText: "Câmera Instantânea" });
+  const cameraCard = giftGrid.locator("> div").filter({ hasText: "Câmera Instantânea" });
 
-  await expect(
-    cameraCard.getByRole("button", { name: "Presentear" }),
-  ).toBeEnabled();
+  await expect(cameraCard.getByRole("button", { name: "Presentear" })).toBeEnabled();
   await cameraCard.getByRole("button", { name: "Presentear" }).click();
 
   // 3. Aguarda a página de reserva carregar
@@ -39,9 +35,7 @@ test("reserva um presente disponível, confirma sucesso e verifica bloqueio de s
 
   // 4. Preenche o formulário de reserva
   await page.getByLabel("Seu nome").fill("Ana Teste");
-  await page
-    .getByLabel("Mensagem Carinhosa")
-    .fill("Parabéns, Rodrigo! Muitas felicidades!");
+  await page.getByLabel("Mensagem Carinhosa").fill("Parabéns, Rodrigo! Muitas felicidades!");
 
   // 5. Finaliza a reserva
   await page.getByRole("button", { name: /Finalizar Presente/ }).click();

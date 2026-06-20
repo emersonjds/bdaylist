@@ -16,13 +16,11 @@ test("submete o nome e exibe confirmação de presença", async () => {
   render(
     <QueryClientProvider client={client}>
       <RsvpModal open eventoId="1" onClose={onClose} />
-    </QueryClientProvider>,
+    </QueryClientProvider>
   );
 
   await userEvent.type(screen.getByLabelText(/Seu nome/i), "Ana");
   await userEvent.click(screen.getByRole("button", { name: /Confirmar Presença/i }));
 
-  await waitFor(() =>
-    expect(screen.getByText("Presença Confirmada!")).toBeInTheDocument(),
-  );
+  await waitFor(() => expect(screen.getByText("Presença Confirmada!")).toBeInTheDocument());
 });

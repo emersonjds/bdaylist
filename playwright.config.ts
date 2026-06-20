@@ -5,10 +5,7 @@ export default defineConfig({
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  reporter: [
-    ["html", { outputFolder: "playwright-report", open: "never" }],
-    ["list"],
-  ],
+  reporter: [["html", { outputFolder: "playwright-report", open: "never" }], ["list"]],
   use: {
     baseURL: "http://localhost:3000",
     trace: "retain-on-failure",

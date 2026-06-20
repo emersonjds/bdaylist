@@ -47,7 +47,7 @@ Safer shapes, applied where they fit:
     key: string,
     value: unknown
   ): void => {
-    if (key === '__proto__') {
+    if (key === "__proto__") {
       Object.defineProperty(target, key, {
         value,
         writable: true,

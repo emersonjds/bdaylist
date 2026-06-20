@@ -38,14 +38,11 @@ export function RsvpModal({ open, onClose, eventoId }: RsvpModalProps) {
   return (
     <Dialog open={open} onClose={handleClose}>
       {confirmed ? (
-        <div className="text-center py-2">
-          <CheckCircle2 className="w-14 h-14 text-secondary mx-auto mb-4" />
-          <h2 className="text-2xl font-extrabold text-on-surface mb-2">
-            Presença Confirmada!
-          </h2>
-          <p className="text-on-surface-variant mb-6">
-            Mal posso esperar para te ver na festa. Prepare-se para muita
-            diversão!
+        <div className="py-2 text-center">
+          <CheckCircle2 className="mx-auto mb-4 h-14 w-14 text-secondary" />
+          <h2 className="mb-2 text-2xl font-extrabold text-on-surface">Presença Confirmada!</h2>
+          <p className="mb-6 text-on-surface-variant">
+            Mal posso esperar para te ver na festa. Prepare-se para muita diversão!
           </p>
           <Button className="w-full" size="lg" onClick={handleClose}>
             Excelente!
@@ -53,7 +50,7 @@ export function RsvpModal({ open, onClose, eventoId }: RsvpModalProps) {
         </div>
       ) : (
         <div className="flex flex-col gap-6">
-          <h2 className="text-xl font-extrabold text-on-surface text-center">
+          <h2 className="text-center text-xl font-extrabold text-on-surface">
             Confirmar Presença (RSVP)
           </h2>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -75,7 +72,7 @@ export function RsvpModal({ open, onClose, eventoId }: RsvpModalProps) {
               {mutation.isPending ? "Confirmando..." : "Confirmar Presença"}
             </Button>
             {mutation.isError && (
-              <p className="text-primary text-sm text-center">
+              <p className="text-center text-sm text-primary">
                 Não foi possível confirmar. Tente novamente.
               </p>
             )}

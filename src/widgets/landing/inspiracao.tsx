@@ -11,12 +11,10 @@ export function Inspiracao() {
       <div className="mx-auto max-w-[1200px]">
         <div className="mb-12 flex flex-col items-end justify-between gap-6 md:flex-row">
           <div className="max-w-xl">
-            <h2 className="mb-4 text-3xl font-bold text-on-surface">
-              Inspire-se com listas reais
-            </h2>
+            <h2 className="mb-4 text-3xl font-bold text-on-surface">Inspire-se com listas reais</h2>
             <p className="text-base text-on-surface-variant">
-              Veja como outros aniversariantes estão organizando suas festas dos
-              sonhos ao redor do Brasil.
+              Veja como outros aniversariantes estão organizando suas festas dos sonhos ao redor do
+              Brasil.
             </p>
           </div>
           <button className="group flex items-center gap-2 text-sm font-bold text-primary">
@@ -38,23 +36,16 @@ export function Inspiracao() {
                 <span className="rounded-full bg-primary px-3 py-1 text-xs font-bold text-white">
                   DESTAQUE
                 </span>
-                <span className="flex items-center gap-1 text-sm text-white/80">
-                  São Paulo, SP
-                </span>
+                <span className="flex items-center gap-1 text-sm text-white/80">São Paulo, SP</span>
               </div>
               <h3 className="mb-2 text-2xl font-bold text-white">
                 30 Anos da Julia: Viagem para o Atacama
               </h3>
               <div className="flex items-center justify-between">
                 <div className="flex -space-x-3">
-                  {["bg-gray-200", "bg-gray-300", "bg-gray-400"].map(
-                    (bg, i) => (
-                      <div
-                        key={i}
-                        className={`h-10 w-10 rounded-full border-2 border-white ${bg}`}
-                      />
-                    ),
-                  )}
+                  {["bg-gray-200", "bg-gray-300", "bg-gray-400"].map((bg, i) => (
+                    <div key={i} className={`h-10 w-10 rounded-full border-2 border-white ${bg}`} />
+                  ))}
                   <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white bg-primary text-xs font-bold text-white">
                     +45
                   </div>
@@ -73,12 +64,10 @@ export function Inspiracao() {
               <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20">
                 <PartyPopper className="h-8 w-8 text-white" />
               </div>
-              <h3 className="mb-4 text-2xl font-bold text-white">
-                Comece agora
-              </h3>
+              <h3 className="mb-4 text-2xl font-bold text-white">Comece agora</h3>
               <p className="text-base text-white/80">
-                Crie sua lista em minutos e compartilhe com quem você ama. É
-                simples, gratuito e sem complicação.
+                Crie sua lista em minutos e compartilhe com quem você ama. É simples, gratuito e sem
+                complicação.
               </p>
             </div>
             <button
@@ -87,7 +76,7 @@ export function Inspiracao() {
             >
               Criar minha lista
             </button>
-            <div className="absolute right-0 top-0 p-4 opacity-10">
+            <div className="absolute top-0 right-0 p-4 opacity-10">
               <PartyPopper className="h-[120px] w-[120px] text-white" />
             </div>
           </div>
@@ -107,9 +96,7 @@ export function Inspiracao() {
           {/* Card 4 — security (col-span-8) */}
           <div className="flex h-[300px] overflow-hidden rounded-[32px] bg-white shadow-lg md:col-span-8">
             <div className="flex w-full flex-col justify-center p-8 md:w-1/2">
-              <h4 className="mb-4 text-2xl font-bold text-on-surface">
-                Segurança total para você
-              </h4>
+              <h4 className="mb-4 text-2xl font-bold text-on-surface">Segurança total para você</h4>
               <ul className="space-y-3">
                 {[
                   "Reservas protegidas sem duplicação",
@@ -131,9 +118,7 @@ export function Inspiracao() {
             <div className="hidden w-1/2 items-center justify-center bg-gradient-to-br from-secondary-fixed to-secondary-container md:flex">
               <div className="text-center">
                 <div className="mb-4 text-7xl">🔒</div>
-                <p className="text-sm font-bold text-secondary">
-                  100% seguro
-                </p>
+                <p className="text-sm font-bold text-secondary">100% seguro</p>
               </div>
             </div>
           </div>

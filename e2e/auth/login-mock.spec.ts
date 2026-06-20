@@ -16,9 +16,9 @@ test("exibe CTA de login ao acessar /painel sem sessão e entra com Google", asy
   await page.goto("/painel");
 
   // Aguarda o MSW inicializar e o LoginCTA aparecer
-  await expect(
-    page.getByRole("button", { name: "Entrar com Google" }),
-  ).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByRole("button", { name: "Entrar com Google" })).toBeVisible({
+    timeout: 20_000,
+  });
 
   await page.screenshot({ path: `${DIR}/${proj}-01-login-cta.png` });
 

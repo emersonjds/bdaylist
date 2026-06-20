@@ -77,10 +77,12 @@ e2e/<feature>/…                    Playwright specs + evidencias/*.png
 ### Task 1: Scaffold project
 
 **Files:**
+
 - Create: `package.json`, `next.config.ts`, `postcss.config.js`, `tsconfig.json`, `eslint.config.mjs`, `prettier.config.js`, `next-env.d.ts`, `.env.local.example`
 - Reference: copy/adapt from `~/Documents/workspace/projects/bolao-copa/{package.json,next.config.ts,postcss.config.js,tsconfig.json,eslint.config.mjs,prettier.config.js}`
 
 **Interfaces:**
+
 - Produces: pnpm scripts `dev`, `build`, `type-check`, `lint`, `test`, `test:run`, `test:e2e`; path aliases `@/*`, `@/app/*`, `@/widgets/*`, `@/features/*`, `@/entities/*`, `@/shared/*`.
 
 - [ ] **Step 1: Create `package.json`** with name `bdaylist`, `packageManager: "pnpm@10.0.0"`, scripts mirroring bolao-copa (`dev`, `build`, `type-check`, `lint`, `lint:fix`, `format`, `test`, `test:run`, `test:coverage`, `test:e2e`, `validate`). Dependencies: `next@16`, `react@19`, `react-dom@19`, `@tanstack/react-query`, `react-hook-form`, `@hookform/resolvers`, `zod`, `lucide-react`, `sonner`, `class-variance-authority`, `clsx`, `tailwind-merge`. devDeps: `typescript@6`, `@types/*`, `tailwindcss@4`, `@tailwindcss/postcss`, `@tailwindcss/forms`, `postcss`, `autoprefixer`, `eslint@9`, `eslint-config-next@16`, `eslint-config-prettier`, `prettier`, `prettier-plugin-tailwindcss`, `msw`, `vitest@4`, `@vitejs/plugin-react`, `jsdom`, `@testing-library/react`, `@testing-library/dom`, `@testing-library/jest-dom`, `@testing-library/user-event`, `@playwright/test`, `@faker-js/faker`.
@@ -92,6 +94,7 @@ e2e/<feature>/…                    Playwright specs + evidencias/*.png
 - [ ] **Step 4: Create `postcss.config.js`, `prettier.config.js`, `eslint.config.mjs`** — copy bolao-copa's. In `prettier.config.js` keep `tailwindStylesheet: "./src/app/globals.css"`.
 
 - [ ] **Step 5: Create `.env.local.example`** with:
+
 ```
 # Liga o MSW no browser enquanto o Supabase não existe
 NEXT_PUBLIC_API_MOCKING=enabled
@@ -105,6 +108,7 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
 - [ ] **Step 7: Verify** — Run: `pnpm type-check`. Expected: PASS (no `src` yet is fine; if it errors on missing files, create an empty `src/app/layout.tsx` and `src/app/page.tsx` returning `null` placeholders — replaced in Task 2).
 
 - [ ] **Step 8: Commit**
+
 ```bash
 git add package.json next.config.ts postcss.config.js tsconfig.json eslint.config.mjs prettier.config.js next-env.d.ts .env.local.example pnpm-lock.yaml
 git commit -m "scaffold next.js static-export project"
@@ -115,10 +119,12 @@ git commit -m "scaffold next.js static-export project"
 ### Task 2: Tailwind theme + root layout + fonts
 
 **Files:**
+
 - Create: `src/app/globals.css`, `src/app/layout.tsx`
 - Source: `design/00-design-system.md` (colors/typography/rounded/spacing), bolao-copa `src/app/globals.css` for the `@theme` pattern.
 
 **Interfaces:**
+
 - Produces: Tailwind utility colors `primary`, `primary-container`, `secondary`, `secondary-container`, `tertiary`, `tertiary-container`, `surface`, `surface-soft`, `surface-container-lowest`, `on-surface`, `on-surface-variant`, `outline`, `outline-variant`, `confetti-pink|blue|yellow`, plus `--font-display` Montserrat and soft coral shadow utility `shadow-card`.
 
 - [ ] **Step 1: Write `globals.css`** — `@import "tailwindcss";` then a `@theme` block translating every color from `design/00-design-system.md` to `--color-<name>` (use the exact hex values: `--color-primary: #b5213e; --color-primary-container: #ff5a70; --color-secondary: #006874; --color-secondary-container: #5ce9fe; --color-tertiary: #cda721; --color-tertiary-fixed: #ffe087; --color-surface: #f4fafd; --color-surface-soft: #FFF9FB; --color-surface-container-lowest: #ffffff; --color-on-surface: #161d1f; --color-on-surface-variant: #594042; --color-outline: #8d7071; --color-outline-variant: #e1bebf; --color-confetti-pink: #FF85A2; --color-confetti-blue: #76E4F7; --color-confetti-yellow: #FFE082;` and the remaining tokens from the file). Set `--font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;`. Add `--radius-lg: 1rem; --radius-md: 0.5rem;`. In `@layer base`, set `body { @apply bg-surface-soft text-on-surface font-display antialiased; }` and define `.shadow-card { box-shadow: 0 10px 30px rgba(255,90,112,0.08); }`.
@@ -130,6 +136,7 @@ git commit -m "scaffold next.js static-export project"
 - [ ] **Step 4: Verify** — Run: `pnpm type-check`. Expected: PASS.
 
 - [ ] **Step 5: Commit**
+
 ```bash
 git add src/app/globals.css src/app/layout.tsx src/app/page.tsx
 git commit -m "add vibrant celebration tailwind theme and root layout"
@@ -140,10 +147,12 @@ git commit -m "add vibrant celebration tailwind theme and root layout"
 ### Task 3: Shared UI primitives
 
 **Files:**
+
 - Create: `src/shared/lib/cn.ts`, `src/shared/ui/button.tsx`, `src/shared/ui/input.tsx`, `src/shared/ui/textarea.tsx`, `src/shared/ui/card.tsx`, `src/shared/ui/badge.tsx`, `src/shared/ui/dialog.tsx`, `src/shared/ui/index.ts`
 - Test: `src/shared/ui/button.test.tsx`
 
 **Interfaces:**
+
 - Produces:
   - `cn(...classes): string` (clsx + tailwind-merge).
   - `Button` props `{ variant?: "primary" | "ghost" | "secondary"; size?: "md" | "lg"; } & ButtonHTMLAttributes`. Pill shape (`rounded-full`), coral fill / 2px coral ghost border, `hover:scale-105 active:scale-95`.
@@ -153,6 +162,7 @@ git commit -m "add vibrant celebration tailwind theme and root layout"
   - `Dialog` — controlled `{ open, onClose, children }` overlay (`bg-black/50 backdrop-blur-sm`), centered white `rounded-3xl` panel.
 
 - [ ] **Step 1: Write failing test** `button.test.tsx`:
+
 ```tsx
 import { render, screen } from "@testing-library/react";
 import { Button } from "./button";
@@ -171,6 +181,7 @@ test("aplica a variante ghost", () => {
 - [ ] **Step 2: Run test, verify it fails** — Run: `pnpm test:run src/shared/ui/button.test.tsx`. Expected: FAIL (module not found).
 
 - [ ] **Step 3: Implement `cn.ts`**:
+
 ```ts
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -186,6 +197,7 @@ export function cn(...inputs: ClassValue[]): string {
 - [ ] **Step 6: Verify** — Run: `pnpm type-check`. Expected: PASS.
 
 - [ ] **Step 7: Commit**
+
 ```bash
 git add src/shared/lib/cn.ts src/shared/ui
 git commit -m "add shared ui primitives with celebration styling"
@@ -196,12 +208,14 @@ git commit -m "add shared ui primitives with celebration styling"
 ### Task 4: MSW infra + data fetcher + query provider
 
 **Files:**
+
 - Create: `src/shared/lib/http.ts`, `src/shared/lib/query-client.ts`, `src/shared/providers/query-provider.tsx`, `src/shared/providers/msw-provider.tsx`, `src/mocks/db.ts`, `src/mocks/handlers.ts`, `src/mocks/browser.ts`, `src/mocks/server.ts`, `src/test/setup.ts`
 - Create: `vitest.config.ts`
 - Modify: `src/app/layout.tsx` (wrap children in `QueryProvider` + `MswProvider`)
 - Generate: `public/mockServiceWorker.js` via `pnpm msw init public/ --save`
 
 **Interfaces:**
+
 - Produces:
   - `apiGet<T>(path): Promise<T>`, `apiSend<T>(path, { method, body }): Promise<T>` — base path `""`, throws `HttpError { status, message }` on `res.ok === false`.
   - `db` object with arrays `eventos`, `presentes`, `convidados`, `reservas`, `rsvps`, `recados` and a `reset()` seeding deterministic data: **one** evento (`titulo: "Meus 25 Anos!"`, `dataAniversario` = today + 12 days computed at seed time from a fixed base passed by caller — see note), host `Rodrigo`, `listToken: "festa-rodrigo-25"`, 5 presentes (mirroring the Stitch list: Fone Bluetooth R$1299 maisDesejado, Câmera Instantânea R$450, Kit Velas R$120 novo, Cafeteira R$1500 emGrupo, Livro Luxo R$89,90), all `status: "disponivel"`.
@@ -232,6 +246,7 @@ git commit -m "add shared ui primitives with celebration styling"
 - [ ] **Step 8: Write `vitest.config.ts` + `src/test/setup.ts`** — jsdom env, `setupFiles: ["src/test/setup.ts"]`; setup imports `@testing-library/jest-dom/vitest`, starts `server.listen({ onUnhandledRequest: "error" })`, `afterEach` cleanup + `server.resetHandlers()` + `db.reset()`, `afterAll` close.
 
 - [ ] **Step 9: Write integration test** `src/mocks/handlers.test.ts`:
+
 ```ts
 import { apiGet } from "@/shared/lib/http";
 test("GET /api/lista/:token devolve evento e presentes", async () => {
@@ -245,6 +260,7 @@ test("GET /api/lista/:token devolve evento e presentes", async () => {
 - [ ] **Step 11: Wire layout** — wrap `{children}` in `layout.tsx` with `<QueryProvider><MswProvider>…</MswProvider></QueryProvider>`.
 
 - [ ] **Step 12: Commit**
+
 ```bash
 git add src/shared/lib src/shared/providers src/mocks src/test vitest.config.ts public/mockServiceWorker.js src/app/layout.tsx
 git commit -m "add msw mock api, query provider and test harness"
@@ -255,11 +271,13 @@ git commit -m "add msw mock api, query provider and test harness"
 ### Task 5: Mock auth with Google seam
 
 **Files:**
+
 - Create: `src/features/auth/auth-context.ts`, `src/features/auth/auth-provider.tsx`, `src/features/auth/use-auth.ts`, `src/features/auth/sign-in.ts`, `src/features/auth/login-cta.tsx`, `src/features/auth/index.ts`
 - Test: `src/features/auth/auth-provider.test.tsx`
 - Modify: `src/app/layout.tsx` (add `AuthProvider`)
 
 **Interfaces:**
+
 - Consumes: `apiSend` (Task 4), `POST /api/auth/google` handler.
 - Produces:
   - `AuthUser = { id: string; nome: string; email: string; avatarUrl: string }`.
@@ -268,6 +286,7 @@ git commit -m "add msw mock api, query provider and test harness"
   - `<LoginCTA titulo? descricao? />` — card with "Entrar com Google" button calling `signInWithGoogle`.
 
 - [ ] **Step 1: Write failing test** `auth-provider.test.tsx`:
+
 ```tsx
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -280,10 +299,16 @@ function Probe() {
 }
 
 test("entra com Google e expõe o usuário mock", async () => {
-  render(<AuthProvider><Probe /></AuthProvider>);
+  render(
+    <AuthProvider>
+      <Probe />
+    </AuthProvider>
+  );
   expect(screen.getByRole("button", { name: "deslogado" })).toBeInTheDocument();
   await userEvent.click(screen.getByRole("button"));
-  await waitFor(() => expect(screen.getByRole("button", { name: /Rodrigo|.+/ })).not.toHaveTextContent("deslogado"));
+  await waitFor(() =>
+    expect(screen.getByRole("button", { name: /Rodrigo|.+/ })).not.toHaveTextContent("deslogado")
+  );
 });
 ```
 
@@ -298,6 +323,7 @@ test("entra com Google e expõe o usuário mock", async () => {
 - [ ] **Step 6: Wire layout** — add `<AuthProvider>` inside the providers in `layout.tsx`. Verify `pnpm type-check`.
 
 - [ ] **Step 7: Commit**
+
 ```bash
 git add src/features/auth src/app/layout.tsx
 git commit -m "add mock auth provider with google sign-in seam"
@@ -310,12 +336,14 @@ git commit -m "add mock auth provider with google sign-in seam"
 ### Task 6: Domain entities (models + pure logic + fetchers)
 
 **Files:**
+
 - Create per entity: `src/entities/<name>/model.ts`, `src/entities/<name>/index.ts`; fetchers in `src/entities/<name>/api.ts`.
 - Pure logic: `src/entities/evento/countdown.ts`, `src/entities/presente/format-preco.ts`, `src/entities/lista/token.ts`
 - Tests: `countdown.test.ts`, `format-preco.test.ts`, `token.test.ts`
 - Modify: `src/mocks/db.ts` (import these types, drop local shapes)
 
 **Interfaces:**
+
 - Produces (exact types):
   - `Evento = { id: string; hostId: string; titulo: string; dataAniversario: string; tema: string; mensagem: string; capaUrl: string; listToken: string }`
   - `Presente = { id: string; eventoId: string; nome: string; descricao: string; imagemUrl: string; precoReferencia: number; linkLoja: string; maisDesejado: boolean; emGrupo: boolean; status: "disponivel" | "reservado" }`
@@ -330,6 +358,7 @@ git commit -m "add mock auth provider with google sign-in seam"
   - Each entity `api.ts` exports typed fetchers (e.g. `getLista(token): Promise<{ evento; host; presentes }>`, `criarReserva(presenteId, body)`, `enviarRsvp(body)`, etc.) using `apiGet/apiSend`.
 
 - [ ] **Step 1: Write failing tests** for the three pure functions:
+
 ```ts
 // countdown.test.ts
 import { diasRestantes, rotuloContagem } from "./countdown";
@@ -343,14 +372,19 @@ test("rótulos pt-BR", () => {
 });
 // format-preco.test.ts
 import { formatPreco } from "./format-preco";
-test("formata em BRL", () => { expect(formatPreco(1299)).toBe("R$ 1.299,00"); });
+test("formata em BRL", () => {
+  expect(formatPreco(1299)).toBe("R$ 1.299,00");
+});
 // token.test.ts
 import { gerarListToken } from "./token";
 test("gera token único e não sequencial", () => {
-  const a = gerarListToken(); const b = gerarListToken();
-  expect(a).not.toBe(b); expect(a.length).toBeGreaterThanOrEqual(16);
+  const a = gerarListToken();
+  const b = gerarListToken();
+  expect(a).not.toBe(b);
+  expect(a.length).toBeGreaterThanOrEqual(16);
 });
 ```
+
 > Note: `Intl` currency uses a non-breaking space (` `) between `R$` and the number — assert with ` `.
 
 - [ ] **Step 2: Run tests, verify they fail** — Run: `pnpm test:run src/entities`. Expected: FAIL (modules missing).
@@ -360,6 +394,7 @@ test("gera token único e não sequencial", () => {
 - [ ] **Step 4: Run tests, verify they pass** — Run: `pnpm test:run src/entities`. Expected: PASS. Then `pnpm type-check`.
 
 - [ ] **Step 5: Commit**
+
 ```bash
 git add src/entities src/mocks/db.ts
 git commit -m "add domain entities, countdown, price format and list token"
@@ -372,6 +407,7 @@ git commit -m "add domain entities, countdown, price format and list token"
 **Replicates:** `lista_de_presentes_vis_o_convidado/code.html`.
 
 **Files:**
+
 - Create: `src/widgets/host-header/host-header.tsx`, `src/entities/evento/countdown-badge.tsx`, `src/widgets/gift-grid/gift-grid.tsx`, `src/features/lista-convidado/gift-card.tsx`, `src/features/lista-convidado/price-filter.tsx`, `src/features/lista-convidado/search-box.tsx`, `src/features/lista-convidado/use-lista.ts`, `src/app/l/[token]/page.tsx`
 - Test: `src/features/lista-convidado/gift-card.test.tsx`, `src/features/lista-convidado/use-lista.test.tsx`
 
@@ -380,6 +416,7 @@ git commit -m "add domain entities, countdown, price format and list token"
 **Adaptations from HTML:** drop the "Presente em Grupo / Contribuir / progresso em R$" money UI — group gifts show a "Presente em Grupo" badge and the same **"Presentear"** button (no money). Reserved gifts render the card disabled with a "Reservado" badge. Static `data-alt` images become the entity `imagemUrl`.
 
 **Interfaces:**
+
 - Consumes: `getLista` (Task 6), `formatPreco`, `diasRestantes/rotuloContagem`, shared UI, lucide icons.
 - Produces:
   - `<GiftCard presente onPresentear />` — image (rounded-2xl top), badges (maisDesejado⇒tertiary "Mais Desejado", emGrupo⇒primary "Presente em Grupo", `status==="reservado"`⇒outline "Reservado" + disabled), title `headline-md`, `formatPreco`, primary "Presentear" `Button` (disabled when reserved).
@@ -388,10 +425,22 @@ git commit -m "add domain entities, countdown, price format and list token"
   - `useLista(token)` — react-query `["lista", token]` → `getLista`; exposes filtering by search + price faixa client-side.
 
 - [ ] **Step 1: Write failing test** `gift-card.test.tsx`:
+
 ```tsx
 import { render, screen } from "@testing-library/react";
 import { GiftCard } from "./gift-card";
-const base = { id: "1", eventoId: "1", nome: "Câmera Instantânea", descricao: "x", imagemUrl: "", precoReferencia: 450, linkLoja: "", maisDesejado: false, emGrupo: false, status: "disponivel" as const };
+const base = {
+  id: "1",
+  eventoId: "1",
+  nome: "Câmera Instantânea",
+  descricao: "x",
+  imagemUrl: "",
+  precoReferencia: 450,
+  linkLoja: "",
+  maisDesejado: false,
+  emGrupo: false,
+  status: "disponivel" as const,
+};
 test("mostra nome, preço formatado e botão presentear", () => {
   render(<GiftCard presente={base} onPresentear={() => {}} />);
   expect(screen.getByText("Câmera Instantânea")).toBeInTheDocument();
@@ -417,6 +466,7 @@ test("desabilita quando reservado", () => {
 - [ ] **Step 7: Manual check** — `pnpm dev`, open `/l/festa-rodrigo-25`, compare against `lista_de_presentes_vis_o_convidado/screen.png` at 375/768/1280px. Stop server.
 
 - [ ] **Step 8: Commit**
+
 ```bash
 git add src/widgets/host-header src/widgets/gift-grid src/features/lista-convidado src/entities/evento/countdown-badge.tsx src/app/l
 git commit -m "add guest gift list screen"
@@ -429,11 +479,13 @@ git commit -m "add guest gift list screen"
 ### Task 8: Reservation engine (idempotent, conflict-safe)
 
 **Files:**
+
 - Modify: `src/mocks/handlers.ts` (`POST /api/presentes/:id/reserva`), `src/mocks/db.ts`
 - Create: `src/entities/reserva/api.ts` (if not in Task 6, finalize `criarReserva`)
 - Test: `src/features/reservar-presente/reserva.test.ts`
 
 **Interfaces:**
+
 - Produces: handler behavior for `POST /api/presentes/:id/reserva` with body `{ convidadoNome: string; recado: string; idempotencyKey: string }`:
   - If gift `status === "disponivel"`: set `reservado`, create `Reserva`, return `201 { reserva }`.
   - If already reserved **by the same `idempotencyKey`**: return `200 { reserva }` (idempotent replay — same result, no double).
@@ -441,24 +493,35 @@ git commit -m "add guest gift list screen"
   - `criarReserva(presenteId, body)` fetcher maps 409 to a thrown `HttpError` the UI catches.
 
 - [ ] **Step 1: Write failing tests** `reserva.test.ts`:
+
 ```ts
 import { criarReserva } from "@/entities/reserva/api";
 import { HttpError } from "@/shared/lib/http";
 test("reserva um presente disponível", async () => {
-  const r = await criarReserva("p2", { convidadoNome: "Ana", recado: "Parabéns!", idempotencyKey: "k1" });
+  const r = await criarReserva("p2", {
+    convidadoNome: "Ana",
+    recado: "Parabéns!",
+    idempotencyKey: "k1",
+  });
   expect(r.reserva.presenteId).toBe("p2");
 });
 test("replay idêntico é idempotente (não duplica)", async () => {
   await criarReserva("p3", { convidadoNome: "Bia", recado: "x", idempotencyKey: "k2" });
-  const again = await criarReserva("p3", { convidadoNome: "Bia", recado: "x", idempotencyKey: "k2" });
+  const again = await criarReserva("p3", {
+    convidadoNome: "Bia",
+    recado: "x",
+    idempotencyKey: "k2",
+  });
   expect(again.reserva.presenteId).toBe("p3");
 });
 test("reserva por outra pessoa retorna 409", async () => {
   await criarReserva("p4", { convidadoNome: "Bia", recado: "x", idempotencyKey: "k3" });
-  await expect(criarReserva("p4", { convidadoNome: "Ciro", recado: "y", idempotencyKey: "k4" }))
-    .rejects.toMatchObject({ status: 409 });
+  await expect(
+    criarReserva("p4", { convidadoNome: "Ciro", recado: "y", idempotencyKey: "k4" })
+  ).rejects.toMatchObject({ status: 409 });
 });
 ```
+
 > Use the seeded gift ids from `db.reset()`; adjust ids (`p2`…`p4`) to match the seed.
 
 - [ ] **Step 2: Run tests, verify they fail** — Run: `pnpm test:run src/features/reservar-presente/reserva.test.ts`. Expected: FAIL (handler returns plain 201).
@@ -468,6 +531,7 @@ test("reserva por outra pessoa retorna 409", async () => {
 - [ ] **Step 4: Run tests, verify they pass** — Run: `pnpm test:run src/features/reservar-presente/reserva.test.ts`. Expected: PASS (all three). Then `pnpm type-check`.
 
 - [ ] **Step 5: Commit**
+
 ```bash
 git add src/mocks/handlers.ts src/mocks/db.ts src/entities/reserva
 git commit -m "add idempotent conflict-safe reservation handler"
@@ -480,10 +544,12 @@ git commit -m "add idempotent conflict-safe reservation handler"
 **Replicates:** `finalizar_presente/code.html` — **adapted**: remove the entire payment section (PIX/cartão/total). Keep gift summary + "Mensagem Carinhosa" textarea + a single primary **"Finalizar Presente"** button, and the "Presente Enviado!" success overlay.
 
 **Files:**
+
 - Create: `src/shared/ui/confetti-burst.tsx`, `src/features/reservar-presente/reserva-form.tsx`, `src/features/reservar-presente/success-overlay.tsx`, `src/features/reservar-presente/use-reservar.ts`, `src/app/l/[token]/presentear/[giftId]/page.tsx`
 - Test: `src/features/reservar-presente/reserva-form.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `criarReserva`, `getLista` (to load the chosen gift), `formatPreco`, shared UI, `HttpError`.
 - Produces:
   - `<ConfettiBurst trigger />` — React port of the HTML confetti (30 dots, confetti palette `#FF85A2 #76E4F7 #FFE082 #b5213e`, CSS-animated, cleaned up on unmount). No inline scripts.
@@ -491,11 +557,23 @@ git commit -m "add idempotent conflict-safe reservation handler"
   - `<ReservaForm gift onSuccess />` — react-hook-form + zod (`convidadoNome` required, `recado` optional, max 500). Submit → mutation; on 409 show a sonner error toast "Este presente já foi reservado." and navigate back to the list.
 
 - [ ] **Step 1: Write failing test** `reserva-form.test.tsx`:
+
 ```tsx
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ReservaForm } from "./reserva-form";
-const gift = { id: "p3", eventoId: "1", nome: "Kit Velas", descricao: "", imagemUrl: "", precoReferencia: 120, linkLoja: "", maisDesejado: false, emGrupo: false, status: "disponivel" as const };
+const gift = {
+  id: "p3",
+  eventoId: "1",
+  nome: "Kit Velas",
+  descricao: "",
+  imagemUrl: "",
+  precoReferencia: 120,
+  linkLoja: "",
+  maisDesejado: false,
+  emGrupo: false,
+  status: "disponivel" as const,
+};
 test("envia a reserva e chama onSuccess", async () => {
   const onSuccess = vi.fn();
   render(<ReservaForm gift={gift} onSuccess={onSuccess} />); // wrap in QueryClientProvider in the test
@@ -517,6 +595,7 @@ test("envia a reserva e chama onSuccess", async () => {
 - [ ] **Step 6: Manual check** — reserve a gift end-to-end at `/l/festa-rodrigo-25`, confirm confetti + success, and that the gift now shows "Reservado" in the list. Compare to `finalizar_presente/screen.png`.
 
 - [ ] **Step 7: Commit**
+
 ```bash
 git add src/shared/ui/confetti-burst.tsx src/features/reservar-presente src/app/l/[token]/presentear
 git commit -m "add gift reservation finalize screen with confetti"
@@ -529,11 +608,13 @@ git commit -m "add gift reservation finalize screen with confetti"
 ### Task 10: RSVP
 
 **Files:**
+
 - Create: `src/features/rsvp/rsvp-modal.tsx`, `src/features/rsvp/use-rsvp.ts`
 - Modify: guest list `page.tsx` (wire the "Confirmar Presença (RSVP)" buttons + success modal — replicate `#rsvp-modal` from the list HTML)
 - Test: `src/features/rsvp/use-rsvp.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `enviarRsvp` (entity api), shared `Dialog`.
 - Produces: `<RsvpModal open onClose eventoId />` with a name field + confirm; on success shows "Presença Confirmada!" (`CheckCircle2`, secondary color) per the HTML. `useRsvp(eventoId)` mutation.
 
@@ -542,6 +623,7 @@ git commit -m "add gift reservation finalize screen with confetti"
 - [ ] **Step 3: Implement** modal + hook; wire both desktop and mobile RSVP buttons in the list page.
 - [ ] **Step 4: Run, verify pass** + `pnpm type-check`.
 - [ ] **Step 5: Commit**
+
 ```bash
 git add src/features/rsvp src/app/l
 git commit -m "add rsvp confirmation flow"
@@ -552,11 +634,13 @@ git commit -m "add rsvp confirmation flow"
 ### Task 11: Message wall (Mural de Recados)
 
 **Files:**
+
 - Create: `src/features/recados/recado-form.tsx`, `src/features/recados/recado-list.tsx`, `src/features/recados/use-recados.ts`
 - Modify: guest list `page.tsx` (append a "Mural de Recados" section below the grid)
 - Test: `src/features/recados/use-recados.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `getRecados`, `criarRecado` (entity api).
 - Produces: `<RecadoForm eventoId />` (autor + texto, zod, max 500), `<RecadoList eventoId />` (cards), `useRecados(eventoId)` query+mutation invalidating `["recados", eventoId]`.
 
@@ -564,6 +648,7 @@ git commit -m "add rsvp confirmation flow"
 - [ ] **Step 2: Implement** form + list + hook; add section to list page.
 - [ ] **Step 3: Run, verify pass** + `pnpm type-check`.
 - [ ] **Step 4: Commit**
+
 ```bash
 git add src/features/recados src/app/l
 git commit -m "add birthday message wall"
@@ -578,10 +663,12 @@ git commit -m "add birthday message wall"
 **Replicates:** header + bottom-nav from `painel_do_aniversariante/code.html`.
 
 **Files:**
+
 - Create: `src/widgets/app-shell/app-shell.tsx`, `src/widgets/app-shell/bottom-nav.tsx`, `src/features/auth/require-auth.tsx`
 - Test: `src/features/auth/require-auth.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `useAuth`.
 - Produces:
   - `<AppShell header children />` — fixed top bar (menu, BdayList wordmark, avatar) + `BottomNav` (Início, Presentes, Convidados, Perfil; active = coral dot under label, per design §"Lists & Navigation").
@@ -591,6 +678,7 @@ git commit -m "add birthday message wall"
 - [ ] **Step 2: Implement** `AppShell`, `BottomNav`, `RequireAuth`.
 - [ ] **Step 3: Run, verify pass** + `pnpm type-check`.
 - [ ] **Step 4: Commit**
+
 ```bash
 git add src/widgets/app-shell src/features/auth/require-auth.tsx
 git commit -m "add app shell, bottom nav and route protection"
@@ -603,10 +691,12 @@ git commit -m "add app shell, bottom nav and route protection"
 **Replicates:** `painel_do_aniversariante/code.html` — **adapted**: the "Meta de Presentes R$ / % arrecadado" money card becomes a **"Resumo da Lista"** card (totals: X presentes, Y reservados, Z disponíveis). Keep "Convidados Confirmados" count, recent guests bubbles, gift management grid with edit/delete + "Adicionar Presente".
 
 **Files:**
+
 - Create: `src/features/gerenciar-presentes/gift-form.tsx` (Dialog), `src/features/gerenciar-presentes/host-gift-card.tsx`, `src/features/gerenciar-presentes/use-presentes.ts`, `src/widgets/painel/resumo-card.tsx`, `src/widgets/painel/convidados-recentes.tsx`, `src/app/painel/page.tsx`
 - Test: `src/features/gerenciar-presentes/gift-form.test.tsx`, `src/features/gerenciar-presentes/use-presentes.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `getPainel`, `criarPresente`, `atualizarPresente`, `removerPresente` (entity api), `RequireAuth`, `AppShell`, `formatPreco`.
 - Produces:
   - `usePresentes()` — query `["painel"]` + mutations (create/update/delete) invalidating it.
@@ -619,6 +709,7 @@ git commit -m "add app shell, bottom nav and route protection"
 - [ ] **Step 4: Run tests, verify pass** + `pnpm type-check`.
 - [ ] **Step 5: Manual check** — login (mock) → `/painel`, add/edit/delete a gift, compare to `painel_do_aniversariante/screen.png`.
 - [ ] **Step 6: Commit**
+
 ```bash
 git add src/features/gerenciar-presentes src/widgets/painel src/app/painel
 git commit -m "add host dashboard with gift management"
@@ -633,10 +724,12 @@ git commit -m "add host dashboard with gift management"
 **Replicates:** `landing_page_bdaylist/code.html` — **adapted copy**: "Receba em dinheiro" ⇒ "Receba seus presentes"; remove the "Monte sua lista em segundos com IA" card (replace with a generic "Comece agora" CTA card). Keep nav, hero (two CTAs), "Como funciona" (3 steps), inspiração, segurança, depoimentos, FAQ accordion, newsletter footer, mobile bottom-nav, floating action button.
 
 **Files:**
+
 - Create: `src/widgets/landing/{nav,hero,como-funciona,inspiracao,seguranca,depoimentos,faq,footer}.tsx`, `src/app/page.tsx`
 - Test: `src/widgets/landing/faq.test.tsx`
 
 **Interfaces:**
+
 - Consumes: `useAuth` (nav "Entrar" → `signInWithGoogle`; hero "Criar minha lista" → `signInWithGoogle` then `/painel`), shared UI.
 - Produces: section components, each with a named props interface where parameterized; `<Faq items />` accordion (one open at a time).
 
@@ -646,6 +739,7 @@ git commit -m "add host dashboard with gift management"
 - [ ] **Step 4: Run test, verify pass** + `pnpm type-check`.
 - [ ] **Step 5: Manual check** — `/` at 375/768/1280, compare to `landing_page_bdaylist/screen.png`.
 - [ ] **Step 6: Commit**
+
 ```bash
 git add src/widgets/landing src/app/page.tsx
 git commit -m "add marketing landing page"
@@ -658,10 +752,12 @@ git commit -m "add marketing landing page"
 ### Task 15: Playwright E2E with PNG evidence
 
 **Files:**
+
 - Create: `playwright.config.ts`, `e2e/reserva/reservar-presente.spec.ts`, `e2e/rsvp/confirmar-presenca.spec.ts`, `e2e/painel/gerenciar-presentes.spec.ts`, `e2e/auth/login-mock.spec.ts`
 - Evidence dirs: `e2e/<feature>/evidencias/*.png`
 
 **Interfaces:**
+
 - Consumes: the running app (`pnpm build && npx serve out`, or `pnpm dev`) with `NEXT_PUBLIC_API_MOCKING=enabled`.
 - Produces: passing specs that each `await page.screenshot({ path: "e2e/<feature>/evidencias/<step>.png" })` at key moments.
 
@@ -672,6 +768,7 @@ git commit -m "add marketing landing page"
 - [ ] **Step 5: Write `gerenciar-presentes.spec.ts`** — from dashboard add a gift → appears in grid (screenshot); edit it; delete it.
 - [ ] **Step 6: Run** — Run: `pnpm test:e2e`. Expected: all specs PASS; PNGs present under each `evidencias/`.
 - [ ] **Step 7: Commit**
+
 ```bash
 git add playwright.config.ts e2e
 git commit -m "add e2e flows with screenshot evidence"
@@ -700,4 +797,7 @@ git commit -m "add e2e flows with screenshot evidence"
 - §10 DoD → Task 16. ✅
 - §11 Execution order matches phases. ✅
 - Out-of-scope adaptations (money/AI) called out in Tasks 7, 9, 13, 14. ✅
+
+```
+
 ```

@@ -5,24 +5,18 @@ import { useAuth } from "./use-auth";
 
 function Probe() {
   const { user, signInWithGoogle } = useAuth();
-  return (
-    <button onClick={() => signInWithGoogle()}>
-      {user ? user.nome : "deslogado"}
-    </button>
-  );
+  return <button onClick={() => signInWithGoogle()}>{user ? user.nome : "deslogado"}</button>;
 }
 
 test("entra com Google e expõe o usuário mock", async () => {
   render(
     <AuthProvider>
       <Probe />
-    </AuthProvider>,
+    </AuthProvider>
   );
   expect(screen.getByRole("button", { name: "deslogado" })).toBeInTheDocument();
   await userEvent.click(screen.getByRole("button"));
   await waitFor(() =>
-    expect(
-      screen.getByRole("button", { name: /Rodrigo|.+/ }),
-    ).not.toHaveTextContent("deslogado"),
+    expect(screen.getByRole("button", { name: /Rodrigo|.+/ })).not.toHaveTextContent("deslogado")
   );
 });

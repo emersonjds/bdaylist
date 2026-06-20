@@ -9,6 +9,7 @@
 Construir o MVP navegável do BdayList com as 4 telas do design (Landing, Painel do aniversariante, Lista visão convidado, Finalizar presente), **todas as funcionalidades mockadas com MSW no browser** enquanto o Supabase não está configurado. O login Google fica **pré-estruturado** (entrypoint real `signInWithGoogle`) mas servido pelo mock, para que ligar o Supabase depois seja só trocar a implementação do fetcher/auth e o `.env`.
 
 ### Não-objetivos (YAGNI)
+
 - Nenhum processamento de pagamento / PIX / contribuição em dinheiro (é direção futura do Stitch, fora de escopo).
 - Sem backend Supabase real nesta fatia (entra depois, sem mexer na UI).
 - Sem e-mail/notificações reais (cron, nodemailer) nesta fatia.
@@ -29,6 +30,7 @@ Espelha o projeto `bolao-copa`:
 - Lint/format: eslint (flat config) + prettier + prettier-plugin-tailwindcss; `pnpm type-check` limpo é gate.
 
 ### Arquitetura FSD
+
 ```
 src/
 ├── app/        Rotas e layouts (sem regra de negócio)
@@ -37,6 +39,7 @@ src/
 ├── entities/   Domínio (evento, presente, lista, convidado, reserva, rsvp, recado)
 └── shared/     Infra (ui, lib, hooks, providers)
 ```
+
 Regra de import: só de layers **abaixo**; nunca lateral entre slices da mesma layer.
 
 ## 3. Design system → Tailwind 4
@@ -68,6 +71,7 @@ O app fala com uma **API REST fake** por fetchers tipados (em `entities/*/api` e
 ## 5. Auth (mock agora, pronto pra Google)
 
 `features/auth`:
+
 - `AuthProvider` + `useAuth()` expõem `{ user, loading, signInWithGoogle, signOut }`.
 - `signInWithGoogle()` é o **entrypoint real do futuro**. Hoje dispara um fluxo que o MSW resolve com uma **sessão Google simulada** (usuário aniversariante de exemplo). A sessão mock persiste em `localStorage` para sobreviver a reload.
 - Rotas protegidas (`/painel`) redirecionam para a Landing/CTA quando sem sessão.
@@ -89,20 +93,25 @@ Cada entity tem `model.ts` (tipos + schema zod) e `api/` (fetchers).
 ## 7. Rotas e telas
 
 ### `/` — Landing (`landing_page_bdaylist/code.html`)
+
 Marketing: hero com CTA "Criar minha lista", "como funciona" (passos), inspiração/galeria, depoimentos, FAQ (accordion), footer. CTA de login → `signInWithGoogle`.
 
 ### `/painel` — Painel do aniversariante (`painel_do_aniversariante/code.html`) — protegida
+
 Contagem regressiva do evento; seção de presentes com adicionar/editar/remover (modal `gift-form`); convidados confirmados; atividade recente. **Bottom-nav** mobile: Início, Presentes, Convidados, Perfil. Sem sessão → CTA de login.
 
 ### `/l/[token]` — Lista visão convidado (`lista_de_presentes_vis_o_convidado/code.html`) — pública
+
 Header do aniversariante (capa, nome, contagem). **RSVP** (confirmar presença). Busca por nome + **filtro por faixa de preço**. **Grid de presentes** (`gift-card` com imagem, nome, preço, badges, botão "Presentear"; itens reservados aparecem desabilitados). Mural de recados.
 
 ### `/l/[token]/presentear/[giftId]` — Finalizar presente (`finalizar_presente/code.html`)
+
 Resumo do presente escolhido; campo de **recado carinhoso**; botão confirmar → chama reserva (idempotente). Sucesso: tela "Presente Enviado!" com **confetti-burst**. Conflito (já reservado) → mensagem amigável e volta à lista.
 
 ## 8. Widgets e componentes
 
 Extraídos das HTMLs (fiel ao design):
+
 - `widgets/app-shell` — header + bottom-nav (mobile) reutilizável no painel.
 - `widgets/host-header` — capa + nome + contagem regressiva (lista do convidado).
 - `widgets/gift-grid` — grade responsiva (1–2 col mobile, 3–4 desktop, gutter 24px).
@@ -113,6 +122,7 @@ Extraídos das HTMLs (fiel ao design):
 ## 9. Testes (SDD obrigatório por feature)
 
 Três camadas, E2E vale mais que mocks:
+
 1. **Unit** (vitest): regras puras — contagem regressiva, formatação de preço, derivação de status, validação zod.
 2. **Integração MSW** (vitest + `server.ts`): fetchers contra handlers — inclusive **reserva idempotente / conflito 409**.
 3. **E2E Playwright**: fluxos reais no browser com **prints PNG** em `e2e/<feature>/evidencias/*.png`. Âncoras: reservar presente (sucesso + duplo-reservar bloqueado), RSVP, criar/editar presente no painel, login mock.
@@ -132,6 +142,7 @@ Três camadas, E2E vale mais que mocks:
 ## 11. Ordem de execução (micro-commits)
 
 Planejamento é único; execução incremental nesta ordem sugerida:
+
 1. **Fundação**: scaffold (package.json, next.config export, tsconfig, eslint/prettier, tailwind tema, FSD vazia), `.env.local.example`, MSW browser+server+db+handlers seed, AuthProvider mock, react-query provider, `shared/ui` base.
 2. **Lista do convidado** (`/l/[token]`) + entities (evento/presente/lista) + gift-grid/gift-card/host-header + filtro/busca.
 3. **Finalizar presente** + motor de reserva (idempotência/409) + confetti.

@@ -44,27 +44,15 @@ export function RecadoForm({ eventoId }: RecadoFormProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <label
-          htmlFor="recado-autor"
-          className="text-sm font-semibold text-on-surface"
-        >
-          Seu nome
+        <label htmlFor="recado-autor" className="text-sm font-semibold text-on-surface">
+          Seu nome no recado
         </label>
-        <Input
-          id="recado-autor"
-          placeholder="Como devemos te chamar?"
-          {...register("autor")}
-        />
-        {errors.autor && (
-          <p className="text-xs text-primary">{errors.autor.message}</p>
-        )}
+        <Input id="recado-autor" placeholder="Como devemos te chamar?" {...register("autor")} />
+        {errors.autor && <p className="text-xs text-primary">{errors.autor.message}</p>}
       </div>
 
       <div className="flex flex-col gap-1">
-        <label
-          htmlFor="recado-texto"
-          className="text-sm font-semibold text-on-surface"
-        >
+        <label htmlFor="recado-texto" className="text-sm font-semibold text-on-surface">
           Mensagem
         </label>
         <Textarea
@@ -73,15 +61,9 @@ export function RecadoForm({ eventoId }: RecadoFormProps) {
           placeholder="Deixe um recado carinhoso..."
           {...register("texto")}
         />
-        <div className="flex justify-between items-center">
-          {errors.texto ? (
-            <p className="text-xs text-primary">{errors.texto.message}</p>
-          ) : (
-            <span />
-          )}
-          <span className="text-xs text-on-surface-variant">
-            {textoLength}/500
-          </span>
+        <div className="flex items-center justify-between">
+          {errors.texto ? <p className="text-xs text-primary">{errors.texto.message}</p> : <span />}
+          <span className="text-xs text-on-surface-variant">{textoLength}/500</span>
         </div>
       </div>
 
@@ -91,7 +73,7 @@ export function RecadoForm({ eventoId }: RecadoFormProps) {
         disabled={isSubmitting || enviar.isPending}
         className="self-end"
       >
-        <Send className="w-4 h-4" />
+        <Send className="h-4 w-4" />
         Enviar Recado
       </Button>
     </form>

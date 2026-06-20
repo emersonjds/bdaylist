@@ -11,24 +11,24 @@ interface SuccessOverlayProps {
 export function SuccessOverlay({ onVoltar }: SuccessOverlayProps) {
   return (
     <div
-      className="fixed inset-0 z-[100] bg-primary-container/95 flex items-center justify-center p-6 overflow-hidden"
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-primary-container/95 p-6"
       style={{ animation: "overlay-fade-in 0.5s ease-out" }}
     >
       <ConfettiBurst trigger={true} />
 
       <div
-        className="relative z-10 w-full max-w-lg text-center rounded-3xl p-10 shadow-2xl"
+        className="relative z-10 w-full max-w-lg rounded-3xl p-10 text-center shadow-2xl"
         style={{ background: "rgba(255, 255, 255, 0.8)", backdropFilter: "blur(8px)" }}
       >
-        <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
-          <CheckCircle2 className="w-12 h-12 text-white" strokeWidth={2.5} />
+        <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-primary shadow-xl">
+          <CheckCircle2 className="h-12 w-12 text-white" strokeWidth={2.5} />
         </div>
 
-        <h1 className="text-4xl font-extrabold text-on-primary-container mb-4">
+        <h1 className="mb-4 text-4xl font-extrabold text-on-primary-container">
           Presente Enviado!
         </h1>
 
-        <p className="text-lg text-on-primary-container/80 mb-8">
+        <p className="mb-8 text-lg text-on-primary-container/80">
           Você acabou de tornar o dia de alguém muito mais feliz!
         </p>
 

@@ -41,9 +41,7 @@ export default function LandingPage() {
         <section className="px-6 py-20 md:py-[80px]" id="faq">
           <div className="mx-auto max-w-3xl">
             <div className="mb-12 text-center">
-              <h2 className="mb-4 text-3xl font-bold text-on-surface">
-                Dúvidas Frequentes
-              </h2>
+              <h2 className="mb-4 text-3xl font-bold text-on-surface">Dúvidas Frequentes</h2>
               <p className="text-on-surface-variant">
                 Tudo o que você precisa saber para começar agora mesmo.
               </p>

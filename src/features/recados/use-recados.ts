@@ -16,8 +16,7 @@ export function useRecados(eventoId: string) {
   });
 
   const mutation = useMutation({
-    mutationFn: (body: EnviarRecadoBody) =>
-      criarRecado({ eventoId, ...body }),
+    mutationFn: (body: EnviarRecadoBody) => criarRecado({ eventoId, ...body }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["recados", eventoId] });
     },

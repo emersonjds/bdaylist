@@ -66,7 +66,7 @@ export function ReservaForm({ gift, token, onSuccess }: ReservaFormProps) {
           {...register("convidadoNome")}
         />
         {errors.convidadoNome && (
-          <p className="text-xs text-error mt-1" role="alert">
+          <p className="mt-1 text-xs text-error" role="alert">
             {errors.convidadoNome.message}
           </p>
         )}
@@ -82,7 +82,7 @@ export function ReservaForm({ gift, token, onSuccess }: ReservaFormProps) {
           {...register("recado")}
         />
         {errors.recado && (
-          <p className="text-xs text-error mt-1" role="alert">
+          <p className="mt-1 text-xs text-error" role="alert">
             {errors.recado.message}
           </p>
         )}
@@ -94,7 +94,7 @@ export function ReservaForm({ gift, token, onSuccess }: ReservaFormProps) {
         className="w-full"
         disabled={isSubmitting || mutation.isPending}
       >
-        <PartyPopper className="w-5 h-5" />
+        <PartyPopper className="h-5 w-5" />
         Finalizar Presente
       </Button>
     </form>

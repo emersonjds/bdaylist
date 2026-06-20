@@ -8,8 +8,9 @@ var runHook = async (moduleUrl, handler) => {
     try {
       stdout.write(await handler(argv.slice(2)));
     } catch (error) {
-      stderr.write(`${error instanceof Error ? error.message : String(error)}
-`), process.exitCode = 1;
+      (stderr.write(`${error instanceof Error ? error.message : String(error)}
+`),
+        (process.exitCode = 1));
     }
 };
 
@@ -17,23 +18,24 @@ var runHook = async (moduleUrl, handler) => {
 var SKILLS_CATALOG = [
   {
     name: "regex",
-    tags: ["RegExp", "Regular Expression"]
+    tags: ["RegExp", "Regular Expression"],
   },
   {
     name: "javascript",
-    tags: ["JavaScript", "Node.js", "Deno", "Bun", "TypeScript", "Workers"]
+    tags: ["JavaScript", "Node.js", "Deno", "Bun", "TypeScript", "Workers"],
   },
   {
     name: "browser",
-    tags: ["Browser", "DOM", "Navigator"]
-  }
+    tags: ["Browser", "DOM", "Navigator"],
+  },
 ];
 
 // src/hooks/skills/skills.ts
-var list = (catalog) => catalog.length === 0 ? `No sub-skills available.
-` : `${catalog.map(
-  (entry) => `${entry.name}: ${entry.tags.join(", ")}`
-).join(`
+var list = (catalog) =>
+  catalog.length === 0
+    ? `No sub-skills available.
+`
+    : `${catalog.map((entry) => `${entry.name}: ${entry.tags.join(", ")}`).join(`
 `)}
 `;
 

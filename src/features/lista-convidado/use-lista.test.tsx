@@ -35,11 +35,9 @@ test("carrega 5 presentes do token", async () => {
   render(
     <QueryClientProvider client={client}>
       <TestComponent token="festa-rodrigo-25" />
-    </QueryClientProvider>,
+    </QueryClientProvider>
   );
-  await waitFor(() =>
-    expect(screen.queryByText("Carregando...")).not.toBeInTheDocument(),
-  );
+  await waitFor(() => expect(screen.queryByText("Carregando...")).not.toBeInTheDocument());
   expect(screen.getAllByRole("listitem")).toHaveLength(5);
 });
 
@@ -48,11 +46,9 @@ test("filtro ate100 retorna apenas presentes até R$ 100", async () => {
   render(
     <QueryClientProvider client={client}>
       <TestComponent token="festa-rodrigo-25" />
-    </QueryClientProvider>,
+    </QueryClientProvider>
   );
-  await waitFor(() =>
-    expect(screen.queryByText("Carregando...")).not.toBeInTheDocument(),
-  );
+  await waitFor(() => expect(screen.queryByText("Carregando...")).not.toBeInTheDocument());
 
   await userEvent.click(screen.getByRole("button", { name: "filtrar-ate100" }));
 

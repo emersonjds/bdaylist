@@ -40,21 +40,17 @@ export function Footer() {
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-container">
                   <span className="text-sm font-extrabold text-white">B</span>
                 </div>
-                <span className="text-xl font-extrabold text-primary">
-                  BdayList
-                </span>
+                <span className="text-xl font-extrabold text-primary">BdayList</span>
               </div>
               <p className="text-sm text-on-surface-variant">
-                A plataforma que transforma seus sonhos em realidade através da
-                generosidade de quem te ama.
+                A plataforma que transforma seus sonhos em realidade através da generosidade de quem
+                te ama.
               </p>
             </div>
 
             {/* Plataforma */}
             <div>
-              <h4 className="mb-6 text-sm font-bold text-on-surface">
-                Plataforma
-              </h4>
+              <h4 className="mb-6 text-sm font-bold text-on-surface">Plataforma</h4>
               <ul className="space-y-4">
                 {linksPlataforma.map((link) => (
                   <li key={link.label}>
@@ -88,9 +84,7 @@ export function Footer() {
 
             {/* Newsletter */}
             <div>
-              <h4 className="mb-6 text-sm font-bold text-on-surface">
-                Newsletter
-              </h4>
+              <h4 className="mb-6 text-sm font-bold text-on-surface">Newsletter</h4>
               <p className="mb-4 text-sm text-on-surface-variant">
                 Receba dicas de como planejar a festa perfeita.
               </p>
@@ -111,8 +105,7 @@ export function Footer() {
 
           <div className="flex flex-col items-center justify-between gap-4 border-t border-outline-variant pt-8 md:flex-row">
             <p className="text-xs text-on-surface-variant">
-              © {new Date().getFullYear()} BdayList — Transformando desejos em
-              festas.
+              © {new Date().getFullYear()} BdayList — Transformando desejos em festas.
             </p>
             <div className="flex gap-6">
               {["Termos de Uso", "Privacidade", "Contato"].map((item) => (
@@ -153,11 +146,11 @@ export function Footer() {
       {/* FAB */}
       <button
         aria-label="Criar Lista"
-        className="group fixed bottom-24 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-2xl transition-all hover:scale-110 active:scale-95 md:bottom-10"
+        className="group fixed right-6 bottom-24 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-2xl transition-all hover:scale-110 active:scale-95 md:bottom-10"
         onClick={signInWithGoogle}
       >
         <Plus className="h-7 w-7" />
-        <span className="pointer-events-none absolute right-full mr-4 whitespace-nowrap rounded-lg bg-on-surface px-3 py-1.5 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
+        <span className="pointer-events-none absolute right-full mr-4 rounded-lg bg-on-surface px-3 py-1.5 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100">
           Criar Lista
         </span>
       </button>

@@ -21,9 +21,7 @@ interface AtualizarPresenteBody {
   emGrupo?: boolean;
 }
 
-export async function criarPresente(
-  body: CriarPresenteBody,
-): Promise<{ presente: Presente }> {
+export async function criarPresente(body: CriarPresenteBody): Promise<{ presente: Presente }> {
   return apiSend<{ presente: Presente }>("/api/presentes", {
     method: "POST",
     body,
@@ -32,7 +30,7 @@ export async function criarPresente(
 
 export async function atualizarPresente(
   id: string,
-  body: AtualizarPresenteBody,
+  body: AtualizarPresenteBody
 ): Promise<{ presente: Presente }> {
   return apiSend<{ presente: Presente }>(`/api/presentes/${id}`, {
     method: "PATCH",

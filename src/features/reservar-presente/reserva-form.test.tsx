@@ -8,7 +8,9 @@ vi.mock("next/navigation", () => ({
 }));
 
 function createTestClient() {
-  return new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });
+  return new QueryClient({
+    defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
+  });
 }
 
 const gift = {
@@ -30,7 +32,7 @@ test("envia a reserva e chama onSuccess", async () => {
   render(
     <QueryClientProvider client={client}>
       <ReservaForm gift={gift} onSuccess={onSuccess} />
-    </QueryClientProvider>,
+    </QueryClientProvider>
   );
   await userEvent.type(screen.getByLabelText(/Seu nome/i), "Ana");
   await userEvent.type(screen.getByLabelText(/Mensagem Carinhosa/i), "Feliz aniversário!");

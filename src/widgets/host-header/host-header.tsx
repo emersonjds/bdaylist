@@ -21,39 +21,31 @@ export function HostHeader({
   return (
     <section className="mb-12 text-center">
       {/* Avatar / Cover with cake badge */}
-      <div className="relative inline-block mb-6">
-        <div className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-primary p-1 bg-surface shadow-xl mx-auto overflow-hidden">
+      <div className="relative mb-6 inline-block">
+        <div className="mx-auto h-32 w-32 overflow-hidden rounded-full border-4 border-primary bg-surface p-1 shadow-xl md:h-40 md:w-40">
           {capaUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={capaUrl}
-              alt={hostNome}
-              className="w-full h-full object-cover rounded-full"
-            />
+            <img src={capaUrl} alt={hostNome} className="h-full w-full rounded-full object-cover" />
           ) : (
-            <div className="w-full h-full rounded-full bg-primary-container flex items-center justify-center">
+            <div className="flex h-full w-full items-center justify-center rounded-full bg-primary-container">
               <span className="text-4xl font-extrabold text-primary">
                 {hostNome.charAt(0).toUpperCase()}
               </span>
             </div>
           )}
         </div>
-        <div className="absolute -bottom-2 -right-2 bg-confetti-yellow p-2 rounded-full shadow-lg animate-bounce">
-          <Cake className="w-5 h-5 text-on-tertiary-container" />
+        <div className="absolute -right-2 -bottom-2 animate-bounce rounded-full bg-confetti-yellow p-2 shadow-lg">
+          <Cake className="h-5 w-5 text-on-tertiary-container" />
         </div>
       </div>
 
-      <h1 className="text-3xl md:text-4xl font-extrabold text-primary mb-4">
-        {titulo}
-      </h1>
+      <h1 className="mb-4 text-3xl font-extrabold text-primary md:text-4xl">{titulo}</h1>
 
       <div className="mb-6">
         <CountdownBadge dataAniversario={dataAniversario} />
       </div>
 
-      <p className="text-on-surface-variant text-lg max-w-2xl mx-auto">
-        {mensagem}
-      </p>
+      <p className="mx-auto max-w-2xl text-lg text-on-surface-variant">{mensagem}</p>
 
       {/* Mobile-only RSVP button */}
       {onRsvp && (
@@ -61,7 +53,7 @@ export function HostHeader({
           <button
             type="button"
             onClick={onRsvp}
-            className="w-full py-4 bg-primary text-on-primary rounded-xl font-bold flex items-center justify-center gap-2 shadow-xl active:scale-95 transition-transform"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 font-bold text-on-primary shadow-xl transition-transform active:scale-95"
           >
             Confirmar Presença (RSVP)
           </button>

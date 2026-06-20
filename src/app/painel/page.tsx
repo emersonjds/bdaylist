@@ -26,13 +26,10 @@ export default function PainelPage() {
 
 function PainelContent() {
   const { user } = useAuth();
-  const { painel, isLoading, isError, criar, atualizar, remover } =
-    usePresentes();
+  const { painel, isLoading, isError, criar, atualizar, remover } = usePresentes();
 
   const [formOpen, setFormOpen] = useState(false);
-  const [editingPresente, setEditingPresente] = useState<Presente | undefined>(
-    undefined,
-  );
+  const [editingPresente, setEditingPresente] = useState<Presente | undefined>(undefined);
 
   function abrirCriar() {
     setEditingPresente(undefined);
@@ -62,9 +59,7 @@ function PainelContent() {
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary-container border-t-primary" />
-          <p className="text-sm text-on-surface-variant">
-            Carregando seu painel...
-          </p>
+          <p className="text-sm text-on-surface-variant">Carregando seu painel...</p>
         </div>
       </div>
     );
@@ -89,7 +84,7 @@ function PainelContent() {
   return (
     <>
       {/* Saudação */}
-      <section className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <section className="animate-in fade-in slide-in-from-bottom-4 mb-8 duration-700">
         <h1 className="mb-3 text-2xl font-extrabold tracking-tight text-on-surface md:text-3xl">
           Olá, {user?.nome ?? "Aniversariante"}!{" "}
           <span className="inline-block animate-bounce">🎈</span>
@@ -103,11 +98,7 @@ function PainelContent() {
       {/* Métricas */}
       <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-3">
         <div className="md:col-span-2">
-          <ResumoCard
-            total={presentes.length}
-            reservados={reservados}
-            disponiveis={disponiveis}
-          />
+          <ResumoCard total={presentes.length} reservados={reservados} disponiveis={disponiveis} />
         </div>
 
         {/* Convidados Confirmados */}
@@ -115,10 +106,8 @@ function PainelContent() {
           <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-secondary-container">
             <Users className="h-7 w-7 text-on-secondary-container" />
           </div>
-          <p className="text-4xl font-extrabold text-primary">
-            {metrics.confirmados}
-          </p>
-          <p className="mt-1 text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+          <p className="text-4xl font-extrabold text-primary">{metrics.confirmados}</p>
+          <p className="mt-1 text-xs font-bold tracking-wider text-on-surface-variant uppercase">
             Convidados Confirmados
           </p>
           <button
@@ -134,9 +123,7 @@ function PainelContent() {
       <section className="mb-14">
         <div className="mb-6 flex items-end justify-between">
           <div>
-            <h2 className="text-2xl font-extrabold text-on-surface">
-              Meus Presentes
-            </h2>
+            <h2 className="text-2xl font-extrabold text-on-surface">Meus Presentes</h2>
             <p className="mt-1 text-sm text-on-surface-variant">
               Gerencie os itens da sua lista de desejos
             </p>
@@ -144,7 +131,7 @@ function PainelContent() {
           <button
             type="button"
             onClick={abrirCriar}
-            className="hidden items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-white shadow-card transition-all hover:scale-105 active:scale-95 md:flex"
+            className="shadow-card hidden items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-white transition-all hover:scale-105 active:scale-95 md:flex"
           >
             <Plus className="h-4 w-4" />
             Adicionar Presente
@@ -155,7 +142,7 @@ function PainelContent() {
         <button
           type="button"
           onClick={abrirCriar}
-          className="mb-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-sm font-bold text-white shadow-card active:scale-95 md:hidden"
+          className="shadow-card mb-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-sm font-bold text-white active:scale-95 md:hidden"
         >
           <Plus className="h-4 w-4" />
           Adicionar Novo Presente
@@ -181,9 +168,7 @@ function PainelContent() {
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-container text-primary transition-transform group-hover:scale-110">
               <Plus className="h-7 w-7" />
             </div>
-            <span className="text-sm font-bold text-on-surface-variant">
-              Adicionar Novo
-            </span>
+            <span className="text-sm font-bold text-on-surface-variant">Adicionar Novo</span>
           </button>
         </div>
       </section>
@@ -192,9 +177,7 @@ function PainelContent() {
       <section className="mb-10">
         <Card className="flex flex-col items-center gap-4 p-6 text-center md:flex-row md:justify-between md:text-left">
           <div>
-            <h3 className="text-lg font-bold text-on-surface">
-              Compartilhe sua lista
-            </h3>
+            <h3 className="text-lg font-bold text-on-surface">Compartilhe sua lista</h3>
             <p className="mt-1 text-sm text-on-surface-variant">
               Envie o link para seus convidados escolherem um presente
             </p>
@@ -216,9 +199,7 @@ function PainelContent() {
       {/* Convidados Recentes */}
       <section className="mb-6">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-extrabold text-on-surface">
-            Confirmados Recentemente
-          </h2>
+          <h2 className="text-2xl font-extrabold text-on-surface">Confirmados Recentemente</h2>
           {metrics.confirmados > 0 && (
             <button
               type="button"
@@ -229,10 +210,7 @@ function PainelContent() {
           )}
         </div>
 
-        <ConvidadosRecentes
-          convidados={convidados}
-          confirmados={metrics.confirmados}
-        />
+        <ConvidadosRecentes convidados={convidados} confirmados={metrics.confirmados} />
       </section>
 
       {/* Formulário (Dialog) */}

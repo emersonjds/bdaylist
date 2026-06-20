@@ -1,7 +1,7 @@
 export class HttpError extends Error {
   constructor(
     public readonly status: number,
-    message: string,
+    message: string
   ) {
     super(message);
     this.name = "HttpError";
@@ -10,7 +10,7 @@ export class HttpError extends Error {
 
 export async function apiGet<T>(
   path: string,
-  init?: { headers?: Record<string, string> },
+  init?: { headers?: Record<string, string> }
 ): Promise<T> {
   const res = await fetch(path, {
     headers: { "Content-Type": "application/json", ...init?.headers },
@@ -24,7 +24,7 @@ export async function apiGet<T>(
 
 export async function apiSend<T>(
   path: string,
-  options: { method: string; body?: unknown },
+  options: { method: string; body?: unknown }
 ): Promise<T> {
   const { method, body } = options;
   const res = await fetch(path, {

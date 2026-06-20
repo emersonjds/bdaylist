@@ -62,3 +62,4 @@ next-env.d.ts
 .mcp.json.local
 .serena/
 skills-lock.json
+.superpowers/

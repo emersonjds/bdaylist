@@ -18,7 +18,7 @@ export function AppShell({ children }: AppShellProps) {
 
   return (
     <>
-      <header className="fixed top-0 left-0 z-50 flex w-full items-center justify-between px-6 h-16 bg-surface shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
+      <header className="fixed top-0 left-0 z-50 flex h-16 w-full items-center justify-between bg-surface px-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
         <div className="flex items-center gap-4">
           <button
             type="button"
@@ -27,9 +27,7 @@ export function AppShell({ children }: AppShellProps) {
           >
             <Menu className="h-6 w-6 text-primary" />
           </button>
-          <span className="text-2xl font-extrabold tracking-tight text-primary">
-            BdayList
-          </span>
+          <span className="text-2xl font-extrabold tracking-tight text-primary">BdayList</span>
         </div>
 
         {user && (
@@ -44,7 +42,7 @@ export function AppShell({ children }: AppShellProps) {
         )}
       </header>
 
-      <main className="mx-auto min-h-screen max-w-[1200px] px-4 pb-32 pt-24 md:px-6">
+      <main className="mx-auto min-h-screen max-w-[1200px] px-4 pt-24 pb-32 md:px-6">
         {children}
       </main>
 

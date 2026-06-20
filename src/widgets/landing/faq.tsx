@@ -28,21 +28,19 @@ export function Faq({ items }: FaqProps) {
           >
             <button
               aria-expanded={isOpen}
-              className="flex w-full items-center justify-between p-6 text-left font-bold text-sm text-on-surface"
+              className="flex w-full items-center justify-between p-6 text-left text-sm font-bold text-on-surface"
               onClick={() => setOpenId(isOpen ? null : item.id)}
             >
               <span>{item.pergunta}</span>
               <ChevronDown
                 className={cn(
                   "h-5 w-5 shrink-0 transition-transform duration-200",
-                  isOpen && "rotate-180",
+                  isOpen && "rotate-180"
                 )}
               />
             </button>
             {isOpen && (
-              <div className="px-6 pb-6 text-base text-on-surface-variant">
-                {item.resposta}
-              </div>
+              <div className="px-6 pb-6 text-base text-on-surface-variant">{item.resposta}</div>
             )}
           </div>
         );

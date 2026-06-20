@@ -22,10 +22,6 @@ test("mostra nome, preço formatado e botão presentear", () => {
 });
 
 test("desabilita quando reservado", () => {
-  render(
-    <GiftCard presente={{ ...base, status: "reservado" }} onPresentear={() => {}} />,
-  );
-  expect(
-    screen.getByRole("button", { name: /Reservado|Presentear/ }),
-  ).toBeDisabled();
+  render(<GiftCard presente={{ ...base, status: "reservado" }} onPresentear={() => {}} />);
+  expect(screen.getByRole("button", { name: /Reservado|Presentear/ })).toBeDisabled();
 });

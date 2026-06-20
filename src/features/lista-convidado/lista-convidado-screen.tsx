@@ -39,38 +39,34 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
   return (
     <div className="min-h-screen bg-surface-soft">
       {/* Fixed top navigation */}
-      <header className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-surface border-b border-outline-variant/50 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
+      <header className="fixed top-0 left-0 z-50 flex h-16 w-full items-center justify-between border-b border-outline-variant/50 bg-surface px-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
         <div className="flex items-center gap-2">
-          <PartyPopper className="w-5 h-5 text-primary" />
-          <span className="text-xl font-extrabold text-primary tracking-tight">
-            BdayList
-          </span>
+          <PartyPopper className="h-5 w-5 text-primary" />
+          <span className="text-xl font-extrabold tracking-tight text-primary">BdayList</span>
         </div>
 
         {/* Desktop RSVP button */}
         <button
           type="button"
           onClick={() => setRsvpOpen(true)}
-          className="hidden md:flex items-center gap-2 px-6 py-2 bg-primary text-on-primary rounded-full font-bold text-sm transition-all hover:scale-105 active:scale-95 shadow-lg"
+          className="hidden items-center gap-2 rounded-full bg-primary px-6 py-2 text-sm font-bold text-on-primary shadow-lg transition-all hover:scale-105 active:scale-95 md:flex"
         >
-          <CalendarCheck className="w-4 h-4" />
+          <CalendarCheck className="h-4 w-4" />
           Confirmar Presença (RSVP)
         </button>
       </header>
 
-      <main className="pt-24 pb-32 max-w-[1200px] mx-auto px-6">
+      <main className="mx-auto max-w-[1200px] px-6 pt-24 pb-32">
         {isLoading && (
-          <div className="flex flex-col items-center justify-center py-24 gap-4">
-            <Gift className="w-12 h-12 text-primary-container animate-pulse" />
-            <p className="text-on-surface-variant text-lg">
-              Carregando presentes...
-            </p>
+          <div className="flex flex-col items-center justify-center gap-4 py-24">
+            <Gift className="h-12 w-12 animate-pulse text-primary-container" />
+            <p className="text-lg text-on-surface-variant">Carregando presentes...</p>
           </div>
         )}
 
         {isError && (
           <div className="flex flex-col items-center justify-center py-24">
-            <p className="text-on-surface-variant text-lg">
+            <p className="text-lg text-on-surface-variant">
               Não foi possível carregar a lista. Tente novamente.
             </p>
           </div>
@@ -87,15 +83,15 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
               onRsvp={() => setRsvpOpen(true)}
             />
 
-            <section className="mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-outline-variant">
+            <section className="mb-10 flex flex-col items-start justify-between gap-6 rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-sm md:flex-row md:items-center">
               <PriceFilter value={priceFaixa} onChange={setPriceFaixa} />
               <SearchBox value={search} onChange={setSearch} />
             </section>
 
             {presentesFiltrados.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-16 gap-4">
-                <Gift className="w-12 h-12 text-outline-variant" />
-                <p className="text-on-surface-variant text-lg">
+              <div className="flex flex-col items-center justify-center gap-4 py-16">
+                <Gift className="h-12 w-12 text-outline-variant" />
+                <p className="text-lg text-on-surface-variant">
                   Nenhum presente encontrado com esses filtros.
                 </p>
               </div>
@@ -113,12 +109,12 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
 
             {/* Mural de Recados */}
             <section className="mt-16">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary-container/20">
-                  <MessageCircleHeart className="w-5 h-5 text-primary" />
+              <div className="mb-8 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-container/20">
+                  <MessageCircleHeart className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-extrabold text-on-surface tracking-tight">
+                  <h2 className="text-2xl font-extrabold tracking-tight text-on-surface">
                     Mural de Recados
                   </h2>
                   <p className="text-sm text-on-surface-variant">
@@ -127,11 +123,9 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-1 bg-surface-container-lowest rounded-2xl border border-outline-variant/30 shadow-card p-6">
-                  <h3 className="text-base font-bold text-on-surface mb-4">
-                    Deixe seu recado
-                  </h3>
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+                <div className="shadow-card rounded-2xl border border-outline-variant/30 bg-surface-container-lowest p-6 lg:col-span-1">
+                  <h3 className="mb-4 text-base font-bold text-on-surface">Deixe seu recado</h3>
                   <RecadoForm eventoId={lista.evento.id} />
                 </div>
 
@@ -145,31 +139,27 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
       </main>
 
       {lista && (
-        <RsvpModal
-          open={rsvpOpen}
-          onClose={() => setRsvpOpen(false)}
-          eventoId={lista.evento.id}
-        />
+        <RsvpModal open={rsvpOpen} onClose={() => setRsvpOpen(false)} eventoId={lista.evento.id} />
       )}
 
       {/* Footer */}
-      <footer className="w-full flex flex-col items-center gap-4 px-6 pb-8 pt-12 bg-surface-container border-t border-outline-variant/30">
+      <footer className="flex w-full flex-col items-center gap-4 border-t border-outline-variant/30 bg-surface-container px-6 pt-12 pb-8">
         <div className="flex items-center gap-2">
-          <PartyPopper className="w-5 h-5 text-primary" />
+          <PartyPopper className="h-5 w-5 text-primary" />
           <span className="text-xl font-bold text-primary">BdayList</span>
         </div>
-        <div className="flex gap-6 text-on-surface-variant text-xs font-semibold">
-          <a href="#" className="hover:text-primary transition-colors">
+        <div className="flex gap-6 text-xs font-semibold text-on-surface-variant">
+          <a href="#" className="transition-colors hover:text-primary">
             Termos de Uso
           </a>
-          <a href="#" className="hover:text-primary transition-colors">
+          <a href="#" className="transition-colors hover:text-primary">
             Privacidade
           </a>
-          <a href="#" className="hover:text-primary transition-colors">
+          <a href="#" className="transition-colors hover:text-primary">
             Contato
           </a>
         </div>
-        <p className="text-on-surface-variant text-xs opacity-70">
+        <p className="text-xs text-on-surface-variant opacity-70">
           © 2024 BdayList — Transformando desejos em festas.
         </p>
       </footer>

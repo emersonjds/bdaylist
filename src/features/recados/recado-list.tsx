@@ -28,33 +28,27 @@ export function RecadoList({ eventoId }: RecadoListProps) {
 
   if (isLoading) {
     return (
-      <p className="text-on-surface-variant text-sm text-center py-4">
-        Carregando recados...
-      </p>
+      <p className="py-4 text-center text-sm text-on-surface-variant">Carregando recados...</p>
     );
   }
 
   if (recados.length === 0) {
     return (
       <div className="flex flex-col items-center gap-3 py-10 text-on-surface-variant">
-        <MessageCircleHeart className="w-10 h-10 opacity-40" />
+        <MessageCircleHeart className="h-10 w-10 opacity-40" />
         <p className="text-sm">Seja o primeiro a deixar um recado!</p>
       </div>
     );
   }
 
   return (
-    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {recados.map((recado) => (
         <li key={recado.id}>
-          <Card className="p-5 flex flex-col gap-3">
-            <p className="text-on-surface text-sm leading-relaxed">
-              &ldquo;{recado.texto}&rdquo;
-            </p>
-            <div className="flex items-center justify-between pt-1 border-t border-outline-variant/30">
-              <span className="text-sm font-bold text-primary">
-                {recado.autor}
-              </span>
+          <Card className="flex flex-col gap-3 p-5">
+            <p className="text-sm leading-relaxed text-on-surface">&ldquo;{recado.texto}&rdquo;</p>
+            <div className="flex items-center justify-between border-t border-outline-variant/30 pt-1">
+              <span className="text-sm font-bold text-primary">{recado.autor}</span>
               <span className="text-xs text-on-surface-variant">
                 {formatarDataCurta(recado.criadoEm)}
               </span>

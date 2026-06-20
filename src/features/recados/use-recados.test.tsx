@@ -17,15 +17,13 @@ test("posta um recado e ele aparece na lista (MSW round-trip)", async () => {
     <QueryClientProvider client={client}>
       <RecadoForm eventoId="evento-1" />
       <RecadoList eventoId="evento-1" />
-    </QueryClientProvider>,
+    </QueryClientProvider>
   );
 
   await userEvent.type(screen.getByLabelText(/Seu nome/i), "Maria");
   await userEvent.type(screen.getByLabelText(/Mensagem/i), "Feliz aniversário!");
   await userEvent.click(screen.getByRole("button", { name: /Enviar Recado/i }));
 
-  await waitFor(() =>
-    expect(screen.getByText(/Feliz aniversário!/)).toBeInTheDocument(),
-  );
+  await waitFor(() => expect(screen.getByText(/Feliz aniversário!/)).toBeInTheDocument());
   expect(screen.getByText("Maria")).toBeInTheDocument();
 });

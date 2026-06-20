@@ -7,7 +7,7 @@ export function Nav() {
   const { signInWithGoogle } = useAuth();
 
   return (
-    <nav className="fixed left-0 top-0 z-50 flex h-16 w-full items-center justify-between bg-surface px-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
+    <nav className="fixed top-0 left-0 z-50 flex h-16 w-full items-center justify-between bg-surface px-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
       <div className="flex items-center gap-2">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-container">
           <span className="text-lg font-extrabold text-white">B</span>

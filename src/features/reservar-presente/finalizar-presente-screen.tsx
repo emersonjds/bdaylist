@@ -15,14 +15,15 @@ interface FinalizarPresenteScreenProps {
   giftId: string;
 }
 
-export function FinalizarPresenteScreen({
-  token,
-  giftId,
-}: FinalizarPresenteScreenProps) {
+export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScreenProps) {
   const router = useRouter();
   const [succeeded, setSucceeded] = useState(false);
 
-  const { data: lista, isLoading, isError } = useQuery({
+  const {
+    data: lista,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["lista", token],
     queryFn: () => getLista(token),
   });
@@ -39,30 +40,28 @@ export function FinalizarPresenteScreen({
 
   return (
     <div className="min-h-screen bg-surface-soft">
-      <header className="fixed top-0 left-0 w-full z-50 flex items-center gap-4 px-6 h-16 bg-surface border-b border-outline-variant/50 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
+      <header className="fixed top-0 left-0 z-50 flex h-16 w-full items-center gap-4 border-b border-outline-variant/50 bg-surface px-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
         <button
           type="button"
           onClick={handleVoltar}
-          className="hover:scale-105 transition-transform text-primary"
+          className="text-primary transition-transform hover:scale-105"
           aria-label="Voltar à lista"
         >
-          <ArrowLeft className="w-6 h-6" />
+          <ArrowLeft className="h-6 w-6" />
         </button>
-        <span className="text-xl font-extrabold text-primary tracking-tight">
-          BdayList
-        </span>
+        <span className="text-xl font-extrabold tracking-tight text-primary">BdayList</span>
       </header>
 
-      <main className="pt-24 pb-32 max-w-[1200px] mx-auto px-6">
+      <main className="mx-auto max-w-[1200px] px-6 pt-24 pb-32">
         {isLoading && (
           <div className="flex items-center justify-center py-24">
-            <Gift className="w-12 h-12 text-primary-container animate-pulse" />
+            <Gift className="h-12 w-12 animate-pulse text-primary-container" />
           </div>
         )}
 
         {isError && (
           <div className="flex items-center justify-center py-24">
-            <p className="text-on-surface-variant text-lg">
+            <p className="text-lg text-on-surface-variant">
               Não foi possível carregar o presente. Tente novamente.
             </p>
           </div>
@@ -70,87 +69,73 @@ export function FinalizarPresenteScreen({
 
         {lista && !presente && (
           <div className="flex items-center justify-center py-24">
-            <p className="text-on-surface-variant text-lg">
-              Presente não encontrado.
-            </p>
+            <p className="text-lg text-on-surface-variant">Presente não encontrado.</p>
           </div>
         )}
 
         {presente && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
             {/* Left: Gift Summary */}
-            <section className="lg:col-span-5 space-y-6">
-              <div className="p-6 bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
-                <h2 className="text-xl font-bold text-primary mb-6">
-                  Resumo do Presente
-                </h2>
+            <section className="space-y-6 lg:col-span-5">
+              <div className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
+                <h2 className="mb-6 text-xl font-bold text-primary">Resumo do Presente</h2>
 
-                <div className="flex gap-4 mb-6 p-4 bg-surface-container-low rounded-lg">
+                <div className="mb-6 flex gap-4 rounded-lg bg-surface-container-low p-4">
                   {presente.imagemUrl ? (
                     <img
                       src={presente.imagemUrl}
                       alt={presente.nome}
-                      className="w-24 h-24 rounded-lg object-cover flex-shrink-0"
+                      className="h-24 w-24 flex-shrink-0 rounded-lg object-cover"
                     />
                   ) : (
-                    <div className="w-24 h-24 rounded-lg bg-surface-container flex items-center justify-center flex-shrink-0">
-                      <Gift className="w-10 h-10 text-outline-variant" />
+                    <div className="flex h-24 w-24 flex-shrink-0 items-center justify-center rounded-lg bg-surface-container">
+                      <Gift className="h-10 w-10 text-outline-variant" />
                     </div>
                   )}
 
                   <div className="flex flex-col justify-center gap-1">
                     <h3 className="font-bold text-on-surface">{presente.nome}</h3>
-                    <p className="text-primary font-bold text-lg">
+                    <p className="text-lg font-bold text-primary">
                       {formatPreco(presente.precoReferencia)}
                     </p>
                     <span className="inline-flex items-center gap-1 text-xs text-on-surface-variant">
-                      <Gift className="w-3.5 h-3.5" />
+                      <Gift className="h-3.5 w-3.5" />
                       {presente.emGrupo ? "Presente em Grupo" : "Presente Inteiro"}
                     </span>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
-                  {presente.maisDesejado && (
-                    <Badge tone="tertiary">Mais Desejado</Badge>
-                  )}
-                  {presente.emGrupo && (
-                    <Badge tone="primary">Presente em Grupo</Badge>
-                  )}
+                  {presente.maisDesejado && <Badge tone="tertiary">Mais Desejado</Badge>}
+                  {presente.emGrupo && <Badge tone="primary">Presente em Grupo</Badge>}
                 </div>
               </div>
             </section>
 
             {/* Right: Reservation Form */}
             <section className="lg:col-span-7">
-              <div className="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0px_10px_30px_rgba(255,90,112,0.08)] p-6">
-                <h2 className="text-xl font-bold text-on-surface mb-6">
-                  Dados para Reserva
-                </h2>
-                <ReservaForm
-                  gift={presente}
-                  token={token}
-                  onSuccess={() => setSucceeded(true)}
-                />
+              <div className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
+                <h2 className="mb-6 text-xl font-bold text-on-surface">Dados para Reserva</h2>
+                <ReservaForm gift={presente} token={token} onSuccess={() => setSucceeded(true)} />
               </div>
             </section>
           </div>
         )}
       </main>
 
-      <footer className="w-full flex flex-col items-center gap-4 px-6 pb-8 pt-12 bg-surface-container border-t border-outline-variant/30">
+      <footer className="flex w-full flex-col items-center gap-4 border-t border-outline-variant/30 bg-surface-container px-6 pt-12 pb-8">
         <div className="flex items-center gap-2">
-          <PartyPopper className="w-5 h-5 text-primary" />
+          <PartyPopper className="h-5 w-5 text-primary" />
           <span className="text-xl font-bold text-primary">BdayList</span>
         </div>
-        <div className="flex gap-6 text-on-surface-variant text-xs font-semibold">
-          <a href="#" className="hover:text-primary transition-colors">
+        <div className="flex gap-6 text-xs font-semibold text-on-surface-variant">
+          <a href="#" className="transition-colors hover:text-primary">
             Termos de Uso
           </a>
-          <a href="#" className="hover:text-primary transition-colors">
+          <a href="#" className="transition-colors hover:text-primary">
             Privacidade
           </a>
-          <a href="#" className="hover:text-primary transition-colors">
+          <a href="#" className="transition-colors hover:text-primary">
             Contato
           </a>
         </div>

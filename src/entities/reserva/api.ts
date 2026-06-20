@@ -9,10 +9,10 @@ interface CriarReservaBody {
 
 export async function criarReserva(
   presenteId: string,
-  body: CriarReservaBody,
+  body: CriarReservaBody
 ): Promise<{ reserva: Reserva }> {
-  return apiSend<{ reserva: Reserva }>(
-    `/api/presentes/${presenteId}/reserva`,
-    { method: "POST", body },
-  );
+  return apiSend<{ reserva: Reserva }>(`/api/presentes/${presenteId}/reserva`, {
+    method: "POST",
+    body,
+  });
 }

@@ -82,9 +82,11 @@ focused defensive audit guide, never an attack tool.
    array inside `./.bluespec/hooks/skills.mjs`. Add an entry
    `{ name: "<name>", tags: ["<tag>", ...] }` to that array, matching the
    existing formatting. Then confirm it lists:
+
    ```bash
    node ./.bluespec/hooks/skills.mjs
    ```
+
    The new name must appear with its tags.
 
 4. **Record it in the manifest.** Add `.bluespec/skills/<name>.md` to the

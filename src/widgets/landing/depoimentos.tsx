@@ -48,12 +48,10 @@ export function Depoimentos() {
     >
       <div className="relative z-10 mx-auto max-w-[1200px]">
         <div className="mb-16 text-center">
-          <h2 className="mb-4 text-3xl font-bold text-on-surface">
-            Quem usou, amou!
-          </h2>
+          <h2 className="mb-4 text-3xl font-bold text-on-surface">Quem usou, amou!</h2>
           <p className="mx-auto max-w-2xl text-on-surface-variant">
-            Milhares de aniversariantes já transformaram suas festas com a
-            BdayList. Confira alguns relatos:
+            Milhares de aniversariantes já transformaram suas festas com a BdayList. Confira alguns
+            relatos:
           </p>
         </div>
 
@@ -64,7 +62,7 @@ export function Depoimentos() {
               className="flex h-full flex-col rounded-[32px] border border-outline-variant/30 bg-white p-8 shadow-sm"
             >
               <Stars />
-              <p className="mb-8 flex-1 text-base italic text-on-surface">
+              <p className="mb-8 flex-1 text-base text-on-surface italic">
                 &ldquo;{dep.texto}&rdquo;
               </p>
               <div className="mt-auto flex items-center gap-4">
@@ -74,12 +72,8 @@ export function Depoimentos() {
                   {dep.avatarEmoji}
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-on-surface">
-                    {dep.autor}
-                  </p>
-                  <p className="text-xs text-on-surface-variant">
-                    {dep.detalhe}
-                  </p>
+                  <p className="text-sm font-bold text-on-surface">{dep.autor}</p>
+                  <p className="text-xs text-on-surface-variant">{dep.detalhe}</p>
                 </div>
               </div>
             </div>

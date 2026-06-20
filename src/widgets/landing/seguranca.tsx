@@ -30,8 +30,8 @@ export function Seguranca() {
             Feito para ser simples e seguro
           </h2>
           <p className="mx-auto max-w-xl text-base text-on-surface-variant">
-            Cada detalhe foi pensado para que você e seus convidados tenham a
-            melhor experiência possível.
+            Cada detalhe foi pensado para que você e seus convidados tenham a melhor experiência
+            possível.
           </p>
           <div className="mx-auto mt-6 h-1.5 w-24 rounded-full bg-secondary" />
         </div>
@@ -47,12 +47,8 @@ export function Seguranca() {
                 <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-secondary-fixed">
                   <Icon className="h-8 w-8 text-secondary" />
                 </div>
-                <h3 className="mb-3 text-xl font-bold text-on-surface">
-                  {item.titulo}
-                </h3>
-                <p className="text-base text-on-surface-variant">
-                  {item.descricao}
-                </p>
+                <h3 className="mb-3 text-xl font-bold text-on-surface">{item.titulo}</h3>
+                <p className="text-base text-on-surface-variant">{item.descricao}</p>
               </div>
             );
           })}

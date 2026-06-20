@@ -13,17 +13,12 @@ interface ConvidadosRecentesProps {
 
 const MAX_VISIBLE = 5;
 
-export function ConvidadosRecentes({
-  convidados,
-  confirmados,
-}: ConvidadosRecentesProps) {
+export function ConvidadosRecentes({ convidados, confirmados }: ConvidadosRecentesProps) {
   if (confirmados === 0) {
     return (
       <div className="flex flex-col items-center justify-center gap-3 py-8 text-center">
         <Users className="h-10 w-10 text-outline-variant" />
-        <p className="text-sm text-on-surface-variant">
-          Nenhum convidado confirmado ainda.
-        </p>
+        <p className="text-sm text-on-surface-variant">Nenhum convidado confirmado ainda.</p>
       </div>
     );
   }
@@ -49,9 +44,7 @@ export function ConvidadosRecentes({
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-container text-xs font-bold text-primary">
               {iniciais}
             </div>
-            <span className="text-sm font-semibold text-on-surface">
-              {convidado.nome}
-            </span>
+            <span className="text-sm font-semibold text-on-surface">{convidado.nome}</span>
           </div>
         );
       })}
