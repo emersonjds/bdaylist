@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Gift, PartyPopper } from "lucide-react";
+import { ArrowLeft, CreditCard, Gift, PartyPopper, QrCode, ShieldCheck } from "lucide-react";
 import { getLista } from "@/entities/lista/api";
 import { formatPreco } from "@/entities/presente/format-preco";
 import { Badge } from "@/shared/ui/badge";
@@ -110,13 +110,128 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
                   {presente.emGrupo && <Badge tone="primary">Presente em Grupo</Badge>}
                 </div>
               </div>
+
+              {/* Security badge */}
+              <div className="flex items-center gap-4 rounded-xl border border-secondary/20 bg-secondary-container/20 p-4">
+                <ShieldCheck className="h-8 w-8 shrink-0 text-secondary" />
+                <div>
+                  <p className="text-sm font-bold text-secondary">Transação 100% Segura</p>
+                  <p className="text-xs text-on-secondary-container">
+                    Seus dados estão protegidos por criptografia de ponta a ponta.
+                  </p>
+                </div>
+              </div>
             </section>
 
-            {/* Right: Reservation Form */}
-            <section className="lg:col-span-7">
+            {/* Right: Reservation Form + Decorative Payment Block */}
+            <section className="space-y-6 lg:col-span-7">
               <div className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
                 <h2 className="mb-6 text-xl font-bold text-on-surface">Dados para Reserva</h2>
                 <ReservaForm gift={presente} token={token} onSuccess={() => setSucceeded(true)} />
+              </div>
+
+              {/* Decorative payment block — purely visual, all inputs disabled */}
+              <div className="overflow-hidden rounded-xl border border-outline-variant/30 bg-surface-container-lowest shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
+                <div className="border-b border-outline-variant/30 p-6">
+                  <h2 className="text-xl font-bold text-on-surface">Escolha como pagar</h2>
+                  {/* Pagamento desabilitado — o presente é combinado fora do app */}
+                  <p className="mt-1 text-xs text-on-surface-variant">
+                    Pagamento indisponível — o presente é combinado fora do app.
+                  </p>
+                </div>
+
+                <div className="space-y-4 p-6">
+                  {/* PIX option (disabled) */}
+                  <div className="flex items-center rounded-xl border-2 border-outline-variant/50 p-4 opacity-50">
+                    <div className="flex w-full items-center gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white shadow-sm">
+                        <QrCode className="h-6 w-6 text-secondary" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-on-surface">PIX</p>
+                        <p className="text-xs text-on-surface-variant">Aprovação instantânea</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Credit card option (disabled) */}
+                  <div className="flex items-center rounded-xl border-2 border-outline-variant/50 p-4 opacity-50">
+                    <div className="flex w-full items-center gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white shadow-sm">
+                        <CreditCard className="h-6 w-6 text-on-surface-variant" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-on-surface">Cartão de Crédito</p>
+                        <p className="text-xs text-on-surface-variant">Até 12x no cartão</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Disabled card fields — purely decorative, hidden from assistive tech */}
+                  <div
+                    aria-hidden="true"
+                    className="space-y-4 border-t border-dashed border-outline-variant pt-4 opacity-50"
+                  >
+                    <div>
+                      <p className="mb-1 text-xs font-bold text-on-surface-variant">
+                        Nome no Cartão
+                      </p>
+                      <input
+                        disabled
+                        tabIndex={-1}
+                        placeholder="Como escrito no cartão"
+                        className="w-full rounded-lg border border-outline-variant p-3 text-sm"
+                      />
+                    </div>
+                    <div>
+                      <p className="mb-1 text-xs font-bold text-on-surface-variant">
+                        Número do Cartão
+                      </p>
+                      <input
+                        disabled
+                        tabIndex={-1}
+                        placeholder="0000 0000 0000 0000"
+                        className="w-full rounded-lg border border-outline-variant p-3 text-sm"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="mb-1 text-xs font-bold text-on-surface-variant">Validade</p>
+                        <input
+                          disabled
+                          tabIndex={-1}
+                          placeholder="MM/AA"
+                          className="w-full rounded-lg border border-outline-variant p-3 text-sm"
+                        />
+                      </div>
+                      <div>
+                        <p className="mb-1 text-xs font-bold text-on-surface-variant">CVV</p>
+                        <input
+                          disabled
+                          tabIndex={-1}
+                          placeholder="123"
+                          className="w-full rounded-lg border border-outline-variant p-3 text-sm"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Subtotal / Total */}
+                <div className="flex flex-col gap-2 bg-surface-container-low p-6">
+                  <div className="flex justify-between px-2">
+                    <span className="text-sm text-on-surface">Subtotal:</span>
+                    <span className="text-sm font-bold text-on-surface">
+                      {formatPreco(presente.precoReferencia)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between px-2 text-primary">
+                    <span className="text-lg font-bold">Total:</span>
+                    <span className="text-lg font-bold">
+                      {formatPreco(presente.precoReferencia)}
+                    </span>
+                  </div>
+                </div>
               </div>
             </section>
           </div>

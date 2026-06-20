@@ -37,15 +37,15 @@ test("reserva um presente disponível, confirma sucesso e verifica bloqueio de s
   await page.getByLabel("Seu nome").fill("Ana Teste");
   await page.getByLabel("Mensagem Carinhosa").fill("Parabéns, Rodrigo! Muitas felicidades!");
 
-  // 5. Finaliza a reserva
-  await page.getByRole("button", { name: /Finalizar Presente/ }).click();
+  // 5. Confirma a reserva
+  await page.getByRole("button", { name: /Confirmar Reserva/ }).click();
 
-  // 6. Confirma o overlay de sucesso "Presente Enviado!"
-  await expect(page.getByText("Presente Enviado!")).toBeVisible({
+  // 6. Confirma o overlay de sucesso "Presente Reservado!"
+  await expect(page.getByText("Presente Reservado!")).toBeVisible({
     timeout: 15_000,
   });
 
-  await page.screenshot({ path: `${DIR}/${proj}-02-presente-enviado.png` });
+  await page.screenshot({ path: `${DIR}/${proj}-02-presente-reservado.png` });
 
   // 7. Volta à lista
   await page.getByRole("button", { name: /Voltar à lista/ }).click();

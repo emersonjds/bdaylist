@@ -36,6 +36,6 @@ test("envia a reserva e chama onSuccess", async () => {
   );
   await userEvent.type(screen.getByLabelText(/Seu nome/i), "Ana");
   await userEvent.type(screen.getByLabelText(/Mensagem Carinhosa/i), "Feliz aniversário!");
-  await userEvent.click(screen.getByRole("button", { name: /Finalizar Presente/i }));
+  await userEvent.click(screen.getByRole("button", { name: /Confirmar Reserva/i }));
   await waitFor(() => expect(onSuccess).toHaveBeenCalled());
 });

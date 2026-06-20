@@ -95,7 +95,7 @@ export function ReservaForm({ gift, token, onSuccess }: ReservaFormProps) {
         disabled={isSubmitting || mutation.isPending}
       >
         <PartyPopper className="h-5 w-5" />
-        Finalizar Presente
+        Confirmar Reserva
       </Button>
     </form>
   );

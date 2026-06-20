@@ -25,11 +25,11 @@ export function SuccessOverlay({ onVoltar }: SuccessOverlayProps) {
         </div>
 
         <h1 className="mb-4 text-4xl font-extrabold text-on-primary-container">
-          Presente Enviado!
+          Presente Reservado!
         </h1>
 
         <p className="mb-8 text-lg text-on-primary-container/80">
-          Você acabou de tornar o dia de alguém muito mais feliz!
+          Sua reserva foi confirmada! O presente é combinado diretamente com o aniversariante.
         </p>
 
         <Button onClick={onVoltar} size="lg" className="w-full">
