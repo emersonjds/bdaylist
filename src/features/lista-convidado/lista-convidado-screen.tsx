@@ -99,11 +99,11 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
         {lista && (
           <>
             <HostHeader
-              titulo={lista.evento.titulo}
-              mensagem={lista.evento.mensagem}
-              dataAniversario={lista.evento.dataAniversario}
-              capaUrl={lista.evento.capaUrl}
-              hostNome={lista.host.nome}
+              title={lista.evento.title}
+              message={lista.evento.message}
+              birthDate={lista.evento.birthDate}
+              coverUrl={lista.evento.coverUrl}
+              hostName={lista.host.nome}
               onRsvp={() => setRsvpOpen(true)}
             />
 

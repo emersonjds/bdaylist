@@ -10,7 +10,7 @@ export function Nav() {
 
   async function handleSignIn() {
     await signInWithGoogle();
-    router.push("/painel");
+    router.push("/dashboard");
   }
 
   return (

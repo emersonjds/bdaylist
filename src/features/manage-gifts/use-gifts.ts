@@ -2,10 +2,10 @@
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/features/auth";
-import { getPainel } from "@/entities/evento";
+import { getDashboard } from "@/entities/event";
 import { createGift, updateGift, deleteGift } from "@/entities/gift";
 
-export const PAINEL_QUERY_KEY = ["painel"] as const;
+export const DASHBOARD_QUERY_KEY = ["dashboard"] as const;
 
 interface UpdateArgs {
   id: string;
@@ -24,28 +24,28 @@ export function useGifts() {
   const authToken = user?.id ?? "";
 
   const query = useQuery({
-    queryKey: PAINEL_QUERY_KEY,
-    queryFn: () => getPainel(authToken),
+    queryKey: DASHBOARD_QUERY_KEY,
+    queryFn: () => getDashboard(authToken),
     enabled: !!user,
   });
 
   const createMutation = useMutation({
     mutationFn: createGift,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: PAINEL_QUERY_KEY }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEY }),
   });
 
   const updateMutation = useMutation({
     mutationFn: ({ id, ...body }: UpdateArgs) => updateGift(id, body),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: PAINEL_QUERY_KEY }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEY }),
   });
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => deleteGift(id),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: PAINEL_QUERY_KEY }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: DASHBOARD_QUERY_KEY }),
   });
 
   return {
-    painel: query.data,
+    dashboard: query.data,
     isLoading: query.isLoading,
     isError: query.isError,
     create: createMutation.mutateAsync,

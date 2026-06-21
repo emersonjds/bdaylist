@@ -18,14 +18,14 @@ function createTestClient() {
 }
 
 function TestComponent() {
-  const { painel, isLoading, create } = useGifts();
+  const { dashboard, isLoading, create } = useGifts();
 
   if (isLoading) return <div>Carregando...</div>;
-  if (!painel) return <div>Sem dados</div>;
+  if (!dashboard) return <div>Sem dados</div>;
 
   return (
     <div>
-      <span data-testid="count">{painel.gifts.length}</span>
+      <span data-testid="count">{dashboard.gifts.length}</span>
       <button type="button" onClick={() => create({ name: "Novo Presente" })}>
         Adicionar
       </button>

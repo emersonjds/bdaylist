@@ -3,14 +3,14 @@ import { z } from "zod";
 // Types are defined inline here (not imported from sibling entity slices)
 // to respect the FSD rule that forbids lateral imports within the same layer.
 
-const EventoEmListaSchema = z.object({
+const EventInListaSchema = z.object({
   id: z.string(),
   hostId: z.string(),
-  titulo: z.string(),
-  dataAniversario: z.string(),
-  tema: z.string(),
-  mensagem: z.string(),
-  capaUrl: z.string(),
+  title: z.string(),
+  birthDate: z.string(),
+  theme: z.string(),
+  message: z.string(),
+  coverUrl: z.string(),
   listToken: z.string(),
 });
 
@@ -28,7 +28,7 @@ const GiftInRegistrySchema = z.object({
 });
 
 export const ListaSchema = z.object({
-  evento: EventoEmListaSchema,
+  evento: EventInListaSchema,
   host: z.object({ id: z.string(), nome: z.string() }),
   gifts: z.array(GiftInRegistrySchema),
 });

@@ -12,7 +12,7 @@ export function Inspiracao() {
     if (!user) {
       await signInWithGoogle();
     }
-    router.push("/painel");
+    router.push("/dashboard");
   }
 
   return (

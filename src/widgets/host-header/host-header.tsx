@@ -1,21 +1,21 @@
 import { Cake } from "lucide-react";
-import { CountdownBadge } from "@/entities/evento/countdown-badge";
+import { CountdownBadge } from "@/entities/event/countdown-badge";
 
 interface HostHeaderProps {
-  titulo: string;
-  mensagem: string;
-  dataAniversario: string;
-  capaUrl: string;
-  hostNome: string;
+  title: string;
+  message: string;
+  birthDate: string;
+  coverUrl: string;
+  hostName: string;
   onRsvp?: () => void;
 }
 
 export function HostHeader({
-  titulo,
-  mensagem,
-  dataAniversario,
-  capaUrl,
-  hostNome,
+  title,
+  message,
+  birthDate,
+  coverUrl,
+  hostName,
   onRsvp,
 }: HostHeaderProps) {
   return (
@@ -23,13 +23,13 @@ export function HostHeader({
       {/* Avatar / Cover with cake badge */}
       <div className="relative mb-6 inline-block">
         <div className="mx-auto h-32 w-32 overflow-hidden rounded-full border-4 border-primary bg-surface p-1 shadow-xl md:h-40 md:w-40">
-          {capaUrl ? (
+          {coverUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={capaUrl} alt={hostNome} className="h-full w-full rounded-full object-cover" />
+            <img src={coverUrl} alt={hostName} className="h-full w-full rounded-full object-cover" />
           ) : (
             <div className="flex h-full w-full items-center justify-center rounded-full bg-primary-container">
               <span className="text-4xl font-extrabold text-primary">
-                {hostNome.charAt(0).toUpperCase()}
+                {hostName.charAt(0).toUpperCase()}
               </span>
             </div>
           )}
@@ -39,13 +39,13 @@ export function HostHeader({
         </div>
       </div>
 
-      <h1 className="mb-4 text-3xl font-extrabold text-primary md:text-4xl">{titulo}</h1>
+      <h1 className="mb-4 text-3xl font-extrabold text-primary md:text-4xl">{title}</h1>
 
       <div className="mb-6">
-        <CountdownBadge dataAniversario={dataAniversario} />
+        <CountdownBadge birthDate={birthDate} />
       </div>
 
-      <p className="mx-auto max-w-2xl text-lg text-on-surface-variant">{mensagem}</p>
+      <p className="mx-auto max-w-2xl text-lg text-on-surface-variant">{message}</p>
 
       {/* Mobile-only RSVP button */}
       {onRsvp && (

@@ -27,14 +27,14 @@ test("adiciona, edita e remove um presente no painel do aniversariante", async (
   const proj = testInfo.project.name;
 
   // 1. Navega para o painel já autenticado
-  await page.goto("/painel");
+  await page.goto("/dashboard");
 
   // Aguarda o MSW inicializar e o painel carregar com a saudação
   await expect(page.getByText(/Olá, Rodrigo/)).toBeVisible({
     timeout: 20_000,
   });
 
-  // Aguarda os presentes do seed aparecerem (confirma que GET /api/painel carregou)
+  // Aguarda os presentes do seed aparecerem (confirma que GET /api/dashboard carregou)
   await expect(page.getByText("Fone Bluetooth Premium")).toBeVisible({
     timeout: 15_000,
   });

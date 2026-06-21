@@ -1,7 +1,7 @@
 import { apiGet } from "@/shared/lib/http";
-import type { Evento } from "./model";
+import type { Event } from "./model";
 
-// Inline shapes for the cross-entity fields to avoid lateral entity imports (FSD rule).
+// Inline shapes for cross-entity fields to avoid lateral entity imports (FSD rule).
 type GiftBasic = {
   id: string;
   eventId: string;
@@ -15,22 +15,22 @@ type GiftBasic = {
   status: "available" | "reserved";
 };
 
-type ConvidadoBasico = {
+type GuestBasic = {
   id: string;
   eventoId: string;
   nome: string;
   email: string;
 };
 
-export type PainelResponse = {
-  evento: Evento;
+export type DashboardResponse = {
+  event: Event;
   gifts: GiftBasic[];
-  convidados: ConvidadoBasico[];
-  metrics: { confirmados: number };
+  convidados: GuestBasic[];
+  metrics: { confirmed: number };
 };
 
-export async function getPainel(authToken: string): Promise<PainelResponse> {
-  return apiGet<PainelResponse>("/api/painel", {
+export async function getDashboard(authToken: string): Promise<DashboardResponse> {
+  return apiGet<DashboardResponse>("/api/dashboard", {
     headers: { Authorization: `Bearer ${authToken}` },
   });
 }

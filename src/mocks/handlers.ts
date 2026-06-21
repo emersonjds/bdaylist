@@ -42,45 +42,45 @@ interface RecadoBody {
 export const handlers = [
   http.get("/api/lista/:token", ({ params }) => {
     const token = params.token as string;
-    const evento = db.eventos.find((e) => e.listToken === token);
-    if (!evento) {
+    const event = db.events.find((e) => e.listToken === token);
+    if (!event) {
       return HttpResponse.json({ message: "Lista não encontrada" }, { status: 404 });
     }
-    const gifts = db.gifts.filter((g) => g.eventId === evento.id);
-    const host = { nome: "Rodrigo", id: evento.hostId };
-    return HttpResponse.json({ evento, host, gifts });
+    const gifts = db.gifts.filter((g) => g.eventId === event.id);
+    const host = { nome: "Rodrigo", id: event.hostId };
+    return HttpResponse.json({ evento: event, host, gifts });
   }),
 
-  http.get("/api/painel", ({ request }) => {
+  http.get("/api/dashboard", ({ request }) => {
     if (!request.headers.get("Authorization")) {
       return HttpResponse.json({ message: "Não autorizado" }, { status: 401 });
     }
-    const evento = db.eventos[0];
-    if (!evento) {
+    const event = db.events[0];
+    if (!event) {
       return HttpResponse.json({ message: "Evento não encontrado" }, { status: 404 });
     }
-    const gifts = db.gifts.filter((g) => g.eventId === evento.id);
-    const convidados = db.convidados.filter((c) => c.eventoId === evento.id);
-    const confirmados = db.rsvps.filter(
-      (r) => r.eventoId === evento.id && r.status === "confirmado"
+    const gifts = db.gifts.filter((g) => g.eventId === event.id);
+    const convidados = db.convidados.filter((c) => c.eventoId === event.id);
+    const confirmed = db.rsvps.filter(
+      (r) => r.eventoId === event.id && r.status === "confirmado"
     ).length;
     return HttpResponse.json({
-      evento,
+      event,
       gifts,
       convidados,
-      metrics: { confirmados },
+      metrics: { confirmed },
     });
   }),
 
   http.post("/api/gifts", async ({ request }) => {
     const body = (await request.json()) as unknown as CreateGiftBody;
-    const evento = db.eventos[0];
-    if (!evento) {
+    const event = db.events[0];
+    if (!event) {
       return HttpResponse.json({ message: "Evento não encontrado" }, { status: 404 });
     }
     const gift = {
       id: `new-${nextId()}`,
-      eventId: evento.id,
+      eventId: event.id,
       name: body.name,
       description: body.description ?? "",
       imageUrl: body.imageUrl ?? "",
@@ -124,7 +124,7 @@ export const handlers = [
 
     const body = (await request.json()) as unknown as ReservaBody;
 
-    // Atomic check: look up existing reservation by presenteId as source of truth
+    // Atomic check: server is source of truth for reservations
     const existingReserva = db.reservas.find((r) => r.presenteId === id);
 
     if (existingReserva) {

@@ -7,13 +7,13 @@ test.beforeAll(() => {
   mkdirSync(DIR, { recursive: true });
 });
 
-test("exibe CTA de login ao acessar /painel sem sessão e entra com Google", async ({
+test("exibe CTA de login ao acessar /dashboard sem sessão e entra com Google", async ({
   page,
 }, testInfo) => {
   const proj = testInfo.project.name;
 
-  // 1. Visita /painel sem sessão autenticada
-  await page.goto("/painel");
+  // 1. Visita /dashboard sem sessão autenticada
+  await page.goto("/dashboard");
 
   // Aguarda o MSW inicializar e o LoginCTA aparecer
   await expect(page.getByRole("button", { name: "Entrar com Google" })).toBeVisible({

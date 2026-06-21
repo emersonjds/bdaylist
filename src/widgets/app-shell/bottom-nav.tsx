@@ -6,10 +6,10 @@ import { Home, Gift, Users, User } from "lucide-react";
 import { cn } from "@/shared/lib/cn";
 
 const NAV_ITEMS = [
-  { href: "/painel", rotulo: "Início", icone: Home },
-  { href: "/painel", rotulo: "Presentes", icone: Gift },
-  { href: "/painel", rotulo: "Convidados", icone: Users },
-  { href: "/painel", rotulo: "Perfil", icone: User },
+  { href: "/dashboard", rotulo: "Início", icone: Home },
+  { href: "/dashboard", rotulo: "Presentes", icone: Gift },
+  { href: "/dashboard", rotulo: "Convidados", icone: Users },
+  { href: "/dashboard", rotulo: "Perfil", icone: User },
 ] as const;
 
 export function BottomNav() {
@@ -18,7 +18,7 @@ export function BottomNav() {
   return (
     <nav className="fixed bottom-0 left-0 z-50 flex h-16 w-full items-center justify-around rounded-t-xl border-t border-outline-variant bg-surface-container-lowest px-4 shadow-[0px_-4px_20px_rgba(0,0,0,0.05)]">
       {NAV_ITEMS.map(({ href, rotulo, icone: Icone }) => {
-        const ativa = href === "/painel" ? pathname === "/painel" : pathname.startsWith(href);
+        const ativa = href === "/dashboard" ? pathname === "/dashboard" : pathname.startsWith(href);
 
         return (
           <Link

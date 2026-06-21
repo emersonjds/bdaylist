@@ -1,4 +1,4 @@
-import type { Evento } from "@/entities/evento/model";
+import type { Event } from "@/entities/event/model";
 import type { Gift } from "@/entities/gift/model";
 import type { Convidado } from "@/entities/convidado/model";
 import type { Reserva } from "@/entities/reserva/model";
@@ -13,7 +13,7 @@ export function nextId(): string {
 }
 
 export const db = {
-  eventos: [] as Evento[],
+  events: [] as Event[],
   gifts: [] as Gift[],
   convidados: [] as Convidado[],
   reservas: [] as Reserva[],
@@ -23,17 +23,17 @@ export const db = {
   reset() {
     idCounter = 0;
 
-    this.eventos = [
+    this.events = [
       {
         id: "evento-1",
         hostId: "host-1",
-        titulo: "Meus 25 Anos!",
-        dataAniversario: "2026-07-02",
-        tema: "Vibrant Celebration",
-        mensagem: "Venha celebrar comigo esse dia especial!",
-        capaUrl: "",
+        title: "Meus 25 Anos!",
+        birthDate: "2026-07-02",
+        theme: "Vibrant Celebration",
+        message: "Venha celebrar comigo esse dia especial!",
+        coverUrl: "",
         listToken: "festa-rodrigo-25",
-        meta: { alvo: 5000, atingido: 2450 },
+        goal: { target: 5000, reached: 2450 },
       },
     ];
 

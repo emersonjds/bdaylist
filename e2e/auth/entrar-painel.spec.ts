@@ -8,7 +8,7 @@ test("clicar em Entrar leva ao painel logado", async ({ page }, testInfo) => {
     ? page.getByRole("button", { name: "Abrir menu" })
     : page.getByRole("button", { name: "Entrar" }).first();
   await entrar.click();
-  await page.waitForURL("**/painel");
+  await page.waitForURL("**/dashboard");
   await expect(page.getByText(/Olá,/)).toBeVisible();
   await expect(page.getByRole("heading", { name: "Meus Presentes" })).toBeVisible();
   await page.screenshot({

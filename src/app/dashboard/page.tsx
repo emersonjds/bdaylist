@@ -8,26 +8,26 @@ import { GiftForm } from "@/features/manage-gifts/gift-form";
 import type { GiftFormValues } from "@/features/manage-gifts/gift-form";
 import { HostGiftCard } from "@/features/manage-gifts/host-gift-card";
 import { AppShell } from "@/widgets/app-shell/app-shell";
-import { ResumoCard } from "@/widgets/painel/resumo-card";
-import { MetaCard } from "@/widgets/painel/meta-card";
-import { ConvidadosRecentes } from "@/widgets/painel/convidados-recentes";
-import { diasRestantes, rotuloContagem } from "@/entities/evento";
+import { SummaryCard } from "@/widgets/dashboard/summary-card";
+import { MetaCard } from "@/widgets/dashboard/meta-card";
+import { RecentGuests } from "@/widgets/dashboard/recent-guests";
+import { daysRemaining, countdownLabel } from "@/entities/event";
 import type { Gift } from "@/entities/gift";
 import { Card } from "@/shared/ui";
 
-export default function PainelPage() {
+export default function DashboardPage() {
   return (
     <RequireAuth>
       <AppShell>
-        <PainelContent />
+        <DashboardContent />
       </AppShell>
     </RequireAuth>
   );
 }
 
-function PainelContent() {
+function DashboardContent() {
   const { user } = useAuth();
-  const { painel, isLoading, isError, create, update, remove } = useGifts();
+  const { dashboard, isLoading, isError, create, update, remove } = useGifts();
 
   const [formOpen, setFormOpen] = useState(false);
   const [editingGift, setEditingGift] = useState<Gift | undefined>(undefined);
@@ -66,7 +66,7 @@ function PainelContent() {
     );
   }
 
-  if (isError || !painel) {
+  if (isError || !dashboard) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
         <p className="text-on-surface-variant">
@@ -76,9 +76,9 @@ function PainelContent() {
     );
   }
 
-  const { evento, gifts, convidados, metrics } = painel;
-  const dias = diasRestantes(evento.dataAniversario);
-  const rotulo = rotuloContagem(dias);
+  const { event, gifts, convidados, metrics } = dashboard;
+  const days = daysRemaining(event.birthDate);
+  const label = countdownLabel(days);
   const reservedCount = gifts.filter((g) => g.status === "reserved").length;
   const availableCount = gifts.length - reservedCount;
 
@@ -92,17 +92,17 @@ function PainelContent() {
         </h1>
         <div className="inline-flex items-center gap-2 rounded-full bg-primary-container px-4 py-2 text-sm font-bold text-on-surface">
           <Calendar className="h-4 w-4" />
-          {rotulo} para sua festa
+          {label} para sua festa
         </div>
       </section>
 
       {/* Métricas */}
       <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-3">
         <div className="md:col-span-2">
-          {evento.meta ? (
-            <MetaCard meta={evento.meta} />
+          {event.goal ? (
+            <MetaCard meta={event.goal} />
           ) : (
-            <ResumoCard total={gifts.length} reservados={reservedCount} disponiveis={availableCount} />
+            <SummaryCard total={gifts.length} reserved={reservedCount} available={availableCount} />
           )}
         </div>
 
@@ -111,7 +111,7 @@ function PainelContent() {
           <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-secondary-container">
             <Users className="h-7 w-7 text-on-secondary-container" />
           </div>
-          <p className="text-4xl font-extrabold text-primary">{metrics.confirmados}</p>
+          <p className="text-4xl font-extrabold text-primary">{metrics.confirmed}</p>
           <p className="mt-1 text-xs font-bold tracking-wider text-on-surface-variant uppercase">
             Convidados Confirmados
           </p>
@@ -190,7 +190,7 @@ function PainelContent() {
           <button
             type="button"
             onClick={() => {
-              const url = `${window.location.origin}/l/${evento.listToken}`;
+              const url = `${window.location.origin}/l/${event.listToken}`;
               void navigator.clipboard.writeText(url);
             }}
             className="inline-flex shrink-0 items-center gap-2 rounded-full border-2 border-primary px-6 py-2.5 text-sm font-bold text-primary transition-all hover:bg-primary/5 active:scale-95"
@@ -205,17 +205,17 @@ function PainelContent() {
       <section className="mb-6">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-extrabold text-on-surface">Confirmados Recentemente</h2>
-          {metrics.confirmados > 0 && (
+          {metrics.confirmed > 0 && (
             <button
               type="button"
               className="text-sm font-bold text-secondary transition-all hover:underline"
             >
-              Ver Todos ({metrics.confirmados})
+              Ver Todos ({metrics.confirmed})
             </button>
           )}
         </div>
 
-        <ConvidadosRecentes convidados={convidados} confirmados={metrics.confirmados} />
+        <RecentGuests convidados={convidados} confirmed={metrics.confirmed} />
       </section>
 
       {/* Formulário (Dialog) */}
