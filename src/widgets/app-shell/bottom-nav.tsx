@@ -22,7 +22,7 @@ export function BottomNav() {
 
         return (
           <Link
-            key={href}
+            key={rotulo}
             href={href}
             aria-current={ativa ? "page" : undefined}
             className={cn(
