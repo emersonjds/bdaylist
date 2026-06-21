@@ -33,7 +33,7 @@ export function GuestListScreen({ token }: GuestListScreenProps) {
   } = useRegistry(token);
 
   function handlePresentear(giftId: string) {
-    router.push(`/l/${token}/presentear/${giftId}`);
+    router.push(`/l/${token}/gift/${giftId}`);
   }
 
   return (

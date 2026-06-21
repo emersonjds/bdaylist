@@ -2,23 +2,23 @@
 
 import { useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { criarReserva } from "@/entities/reserva/api";
+import { reserveGift } from "@/entities/reservation/api";
 
-interface ReservarVars {
-  convidadoNome: string;
-  recado: string;
+interface ReserveGiftVars {
+  guestName: string;
+  message: string;
 }
 
-export function useReservar(presenteId: string, token?: string) {
+export function useReserveGift(giftId: string, token?: string) {
   const queryClient = useQueryClient();
   // One idempotency key per form mount — prevents double-submission
   const idempotencyKey = useRef(crypto.randomUUID());
 
   return useMutation({
-    mutationFn: (vars: ReservarVars) =>
-      criarReserva(presenteId, {
-        convidadoNome: vars.convidadoNome,
-        recado: vars.recado,
+    mutationFn: (vars: ReserveGiftVars) =>
+      reserveGift(giftId, {
+        guestName: vars.guestName,
+        message: vars.message,
         idempotencyKey: idempotencyKey.current,
       }),
     onSuccess: () => {

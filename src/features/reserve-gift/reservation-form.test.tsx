@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReservaForm } from "./reserva-form";
+import { ReservationForm } from "./reservation-form";
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: vi.fn(), back: vi.fn(), replace: vi.fn() }),
@@ -26,12 +26,12 @@ const gift = {
   status: "available" as const,
 };
 
-test("envia a reserva e chama onSuccess", async () => {
+test("submits reservation and calls onSuccess", async () => {
   const onSuccess = vi.fn();
   const client = createTestClient();
   render(
     <QueryClientProvider client={client}>
-      <ReservaForm gift={gift} onSuccess={onSuccess} />
+      <ReservationForm gift={gift} onSuccess={onSuccess} />
     </QueryClientProvider>
   );
   await userEvent.type(screen.getByLabelText(/Seu nome/i), "Ana");

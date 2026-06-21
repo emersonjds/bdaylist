@@ -10,27 +10,27 @@ import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Textarea } from "@/shared/ui/textarea";
 import { HttpError } from "@/shared/lib/http";
-import { useReservar } from "./use-reservar";
+import { useReserveGift } from "./use-reserve-gift";
 import type { Registry } from "@/entities/registry/model";
 
 type GiftItem = Registry["gifts"][number];
 
 const schema = z.object({
-  convidadoNome: z.string().min(1, "Informe seu nome"),
-  recado: z.string().max(500, "Máximo de 500 caracteres"),
+  guestName: z.string().min(1, "Informe seu nome"),
+  message: z.string().max(500, "Máximo de 500 caracteres"),
 });
 
 type FormValues = z.infer<typeof schema>;
 
-interface ReservaFormProps {
+interface ReservationFormProps {
   gift: GiftItem;
   token?: string;
   onSuccess: () => void;
 }
 
-export function ReservaForm({ gift, token, onSuccess }: ReservaFormProps) {
+export function ReservationForm({ gift, token, onSuccess }: ReservationFormProps) {
   const router = useRouter();
-  const mutation = useReservar(gift.id, token);
+  const mutation = useReserveGift(gift.id, token);
 
   const {
     register,
@@ -38,7 +38,7 @@ export function ReservaForm({ gift, token, onSuccess }: ReservaFormProps) {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { convidadoNome: "", recado: "" },
+    defaultValues: { guestName: "", message: "" },
   });
 
   async function onSubmit(values: FormValues) {
@@ -59,31 +59,31 @@ export function ReservaForm({ gift, token, onSuccess }: ReservaFormProps) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
       <div className="space-y-1">
         <Input
-          id="convidadoNome"
+          id="guestName"
           label="Seu nome"
           placeholder="Como você quer ser chamado(a)?"
-          aria-invalid={!!errors.convidadoNome}
-          {...register("convidadoNome")}
+          aria-invalid={!!errors.guestName}
+          {...register("guestName")}
         />
-        {errors.convidadoNome && (
+        {errors.guestName && (
           <p className="mt-1 text-xs text-error" role="alert">
-            {errors.convidadoNome.message}
+            {errors.guestName.message}
           </p>
         )}
       </div>
 
       <div className="space-y-1">
         <Textarea
-          id="recado"
+          id="message"
           label="Mensagem Carinhosa"
           placeholder="Escreva algo especial para o aniversariante..."
           className="h-32 resize-none"
-          aria-invalid={!!errors.recado}
-          {...register("recado")}
+          aria-invalid={!!errors.message}
+          {...register("message")}
         />
-        {errors.recado && (
+        {errors.message && (
           <p className="mt-1 text-xs text-error" role="alert">
-            {errors.recado.message}
+            {errors.message.message}
           </p>
         )}
       </div>

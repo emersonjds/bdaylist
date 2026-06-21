@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { SuccessOverlay } from "./success-overlay";
 
 describe("SuccessOverlay", () => {
-  it("comunica reserva (sem pagamento)", () => {
+  it("shows reservation success (no payment)", () => {
     render(<SuccessOverlay onVoltar={vi.fn()} />);
     expect(screen.getByRole("heading", { name: "Presente Reservado!" })).toBeVisible();
   });

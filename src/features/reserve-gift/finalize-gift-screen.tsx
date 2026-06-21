@@ -7,15 +7,15 @@ import { ArrowLeft, CreditCard, Gift, PartyPopper, QrCode, ShieldCheck } from "l
 import { getRegistry } from "@/entities/registry/api";
 import { formatPrice } from "@/entities/gift/format-price";
 import { Badge } from "@/shared/ui/badge";
-import { ReservaForm } from "./reserva-form";
+import { ReservationForm } from "./reservation-form";
 import { SuccessOverlay } from "./success-overlay";
 
-interface FinalizarPresenteScreenProps {
+interface FinalizeGiftScreenProps {
   token: string;
   giftId: string;
 }
 
-export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScreenProps) {
+export function FinalizeGiftScreen({ token, giftId }: FinalizeGiftScreenProps) {
   const router = useRouter();
   const [succeeded, setSucceeded] = useState(false);
 
@@ -30,12 +30,12 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
 
   const gift = registry?.gifts.find((g) => g.id === giftId);
 
-  function handleVoltar() {
+  function handleBack() {
     router.push(`/l/${token}`);
   }
 
   if (succeeded) {
-    return <SuccessOverlay onVoltar={handleVoltar} />;
+    return <SuccessOverlay onVoltar={handleBack} />;
   }
 
   return (
@@ -43,7 +43,7 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
       <header className="fixed top-0 left-0 z-50 flex h-16 w-full items-center gap-4 border-b border-outline-variant/50 bg-surface px-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
         <button
           type="button"
-          onClick={handleVoltar}
+          onClick={handleBack}
           className="text-primary transition-transform hover:scale-105"
           aria-label="Voltar à lista"
         >
@@ -126,7 +126,7 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
             <section className="space-y-6 lg:col-span-7">
               <div className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
                 <h2 className="mb-6 text-xl font-bold text-on-surface">Dados para Reserva</h2>
-                <ReservaForm gift={gift} token={token} onSuccess={() => setSucceeded(true)} />
+                <ReservationForm gift={gift} token={token} onSuccess={() => setSucceeded(true)} />
               </div>
 
               {/* Decorative payment block — purely visual, all inputs disabled */}

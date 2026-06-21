@@ -1,4 +1,4 @@
-import { FinalizarPresenteScreen } from "@/features/reservar-presente/finalizar-presente-screen";
+import { FinalizeGiftScreen } from "@/features/reserve-gift/finalize-gift-screen";
 
 // Static params for all seeded gift × token combinations
 export function generateStaticParams() {
@@ -12,5 +12,5 @@ interface PageProps {
 
 export default async function Page({ params }: PageProps) {
   const { token, giftId } = await params;
-  return <FinalizarPresenteScreen token={token} giftId={giftId} />;
+  return <FinalizeGiftScreen token={token} giftId={giftId} />;
 }

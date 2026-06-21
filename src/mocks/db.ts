@@ -1,7 +1,7 @@
 import type { Event } from "@/entities/event/model";
 import type { Gift } from "@/entities/gift/model";
 import type { Convidado } from "@/entities/convidado/model";
-import type { Reserva } from "@/entities/reserva/model";
+import type { Reservation } from "@/entities/reservation/model";
 import type { Rsvp } from "@/entities/rsvp/model";
 import type { Recado } from "@/entities/recado/model";
 
@@ -16,7 +16,7 @@ export const db = {
   events: [] as Event[],
   gifts: [] as Gift[],
   convidados: [] as Convidado[],
-  reservas: [] as Reserva[],
+  reservations: [] as Reservation[],
   rsvps: [] as Rsvp[],
   recados: [] as Recado[],
 
@@ -102,7 +102,7 @@ export const db = {
     ];
 
     this.convidados = [];
-    this.reservas = [];
+    this.reservations = [];
     this.rsvps = [];
     this.recados = [];
   },

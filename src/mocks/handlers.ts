@@ -21,9 +21,9 @@ interface UpdateGiftBody {
   isGroup?: boolean;
 }
 
-interface ReservaBody {
-  convidadoNome: string;
-  recado: string;
+interface ReservationBody {
+  guestName: string;
+  message: string;
   idempotencyKey: string;
 }
 
@@ -122,15 +122,15 @@ export const handlers = [
       return HttpResponse.json({ message: "Presente não encontrado" }, { status: 404 });
     }
 
-    const body = (await request.json()) as unknown as ReservaBody;
+    const body = (await request.json()) as unknown as ReservationBody;
 
     // Atomic check: server is source of truth for reservations
-    const existingReserva = db.reservas.find((r) => r.presenteId === id);
+    const existingReservation = db.reservations.find((r) => r.giftId === id);
 
-    if (existingReserva) {
-      if (existingReserva.idempotencyKey === body.idempotencyKey) {
+    if (existingReservation) {
+      if (existingReservation.idempotencyKey === body.idempotencyKey) {
         // Same caller retrying: idempotent replay — return the original record
-        return HttpResponse.json({ reserva: existingReserva }, { status: 200 });
+        return HttpResponse.json({ reservation: existingReservation }, { status: 200 });
       }
       // Different caller: conflict
       return HttpResponse.json(
@@ -140,20 +140,20 @@ export const handlers = [
     }
 
     // Gift is available: create reservation and flip status server-side
-    const reserva = {
+    const reservation = {
       id: nextId(),
-      presenteId: id,
-      convidadoNome: body.convidadoNome,
-      recado: body.recado,
+      giftId: id,
+      guestName: body.guestName,
+      message: body.message,
       idempotencyKey: body.idempotencyKey,
-      criadaEm: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
     };
-    db.reservas.push(reserva);
+    db.reservations.push(reservation);
 
     const giftIndex = db.gifts.findIndex((g) => g.id === id);
     db.gifts[giftIndex]!.status = "reserved";
 
-    return HttpResponse.json({ reserva }, { status: 201 });
+    return HttpResponse.json({ reservation }, { status: 201 });
   }),
 
   http.post("/api/rsvp", async ({ request }) => {
