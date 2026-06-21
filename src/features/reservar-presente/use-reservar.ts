@@ -23,7 +23,7 @@ export function useReservar(presenteId: string, token?: string) {
       }),
     onSuccess: () => {
       if (token) {
-        void queryClient.invalidateQueries({ queryKey: ["lista", token] });
+        void queryClient.invalidateQueries({ queryKey: ["registry", token] });
       }
     },
   });

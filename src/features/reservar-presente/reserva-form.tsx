@@ -11,9 +11,9 @@ import { Input } from "@/shared/ui/input";
 import { Textarea } from "@/shared/ui/textarea";
 import { HttpError } from "@/shared/lib/http";
 import { useReservar } from "./use-reservar";
-import type { Lista } from "@/entities/lista/model";
+import type { Registry } from "@/entities/registry/model";
 
-type GiftItem = Lista["gifts"][number];
+type GiftItem = Registry["gifts"][number];
 
 const schema = z.object({
   convidadoNome: z.string().min(1, "Informe seu nome"),

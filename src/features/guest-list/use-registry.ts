@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getLista } from "@/entities/lista";
-import type { Lista } from "@/entities/lista";
+import { getRegistry } from "@/entities/registry";
+import type { Registry } from "@/entities/registry";
 import type { PriceFaixa } from "./price-filter";
 
-type GiftItem = Lista["gifts"][number];
+type GiftItem = Registry["gifts"][number];
 
-interface UseListaResult {
-  lista: Lista | undefined;
+interface UseRegistryResult {
+  registry: Registry | undefined;
   isLoading: boolean;
   isError: boolean;
   search: string;
@@ -32,13 +32,13 @@ function matchesPriceFaixa(price: number, faixa: PriceFaixa): boolean {
   }
 }
 
-export function useLista(token: string): UseListaResult {
+export function useRegistry(token: string): UseRegistryResult {
   const [search, setSearch] = useState("");
   const [priceFaixa, setPriceFaixa] = useState<PriceFaixa>("todos");
 
   const query = useQuery({
-    queryKey: ["lista", token],
-    queryFn: () => getLista(token),
+    queryKey: ["registry", token],
+    queryFn: () => getRegistry(token),
   });
 
   const gifts = query.data?.gifts ?? [];
@@ -51,7 +51,7 @@ export function useLista(token: string): UseListaResult {
   });
 
   return {
-    lista: query.data,
+    registry: query.data,
     isLoading: query.isLoading,
     isError: query.isError,
     search,

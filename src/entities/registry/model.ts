@@ -3,7 +3,7 @@ import { z } from "zod";
 // Types are defined inline here (not imported from sibling entity slices)
 // to respect the FSD rule that forbids lateral imports within the same layer.
 
-const EventInListaSchema = z.object({
+const EventInRegistrySchema = z.object({
   id: z.string(),
   hostId: z.string(),
   title: z.string(),
@@ -27,10 +27,10 @@ const GiftInRegistrySchema = z.object({
   status: z.enum(["available", "reserved"]),
 });
 
-export const ListaSchema = z.object({
-  evento: EventInListaSchema,
-  host: z.object({ id: z.string(), nome: z.string() }),
+export const RegistrySchema = z.object({
+  event: EventInRegistrySchema,
+  host: z.object({ id: z.string(), name: z.string() }),
   gifts: z.array(GiftInRegistrySchema),
 });
 
-export type Lista = z.infer<typeof ListaSchema>;
+export type Registry = z.infer<typeof RegistrySchema>;

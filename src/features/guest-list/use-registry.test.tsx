@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useLista } from "./use-lista";
+import { useRegistry } from "./use-registry";
 
 function createTestClient() {
   return new QueryClient({ defaultOptions: { queries: { retry: false } } });
@@ -12,7 +12,7 @@ interface TestComponentProps {
 }
 
 function TestComponent({ token }: TestComponentProps) {
-  const { filteredGifts, setPriceFaixa, isLoading } = useLista(token);
+  const { filteredGifts, setPriceFaixa, isLoading } = useRegistry(token);
 
   if (isLoading) return <div>Carregando...</div>;
 
@@ -30,7 +30,7 @@ function TestComponent({ token }: TestComponentProps) {
   );
 }
 
-test("carrega 5 presentes do token", async () => {
+test("loads 5 gifts for the token", async () => {
   const client = createTestClient();
   render(
     <QueryClientProvider client={client}>

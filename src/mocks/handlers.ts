@@ -40,15 +40,15 @@ interface RecadoBody {
 }
 
 export const handlers = [
-  http.get("/api/lista/:token", ({ params }) => {
+  http.get("/api/registry/:token", ({ params }) => {
     const token = params.token as string;
     const event = db.events.find((e) => e.listToken === token);
     if (!event) {
       return HttpResponse.json({ message: "Lista não encontrada" }, { status: 404 });
     }
     const gifts = db.gifts.filter((g) => g.eventId === event.id);
-    const host = { nome: "Rodrigo", id: event.hostId };
-    return HttpResponse.json({ evento: event, host, gifts });
+    const host = { name: "Rodrigo", id: event.hostId };
+    return HttpResponse.json({ event, host, gifts });
   }),
 
   http.get("/api/dashboard", ({ request }) => {

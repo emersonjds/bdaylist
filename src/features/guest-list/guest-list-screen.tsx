@@ -11,18 +11,18 @@ import { RecadoList } from "@/features/recados/recado-list";
 import { GiftCard } from "./gift-card";
 import { PriceFilter } from "./price-filter";
 import { SearchBox } from "./search-box";
-import { useLista } from "./use-lista";
+import { useRegistry } from "./use-registry";
 
-interface ListaConvidadoScreenProps {
+interface GuestListScreenProps {
   token: string;
 }
 
-export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
+export function GuestListScreen({ token }: GuestListScreenProps) {
   const router = useRouter();
   const [rsvpOpen, setRsvpOpen] = useState(false);
 
   const {
-    lista,
+    registry,
     isLoading,
     isError,
     search,
@@ -30,7 +30,7 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
     priceFaixa,
     setPriceFaixa,
     filteredGifts,
-  } = useLista(token);
+  } = useRegistry(token);
 
   function handlePresentear(giftId: string) {
     router.push(`/l/${token}/presentear/${giftId}`);
@@ -96,14 +96,14 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
           </div>
         )}
 
-        {lista && (
+        {registry && (
           <>
             <HostHeader
-              title={lista.evento.title}
-              message={lista.evento.message}
-              birthDate={lista.evento.birthDate}
-              coverUrl={lista.evento.coverUrl}
-              hostName={lista.host.nome}
+              title={registry.event.title}
+              message={registry.event.message}
+              birthDate={registry.event.birthDate}
+              coverUrl={registry.event.coverUrl}
+              hostName={registry.host.name}
               onRsvp={() => setRsvpOpen(true)}
             />
 
@@ -154,11 +154,11 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                 <div className="shadow-card rounded-2xl border border-outline-variant/30 bg-surface-container-lowest p-6 lg:col-span-1">
                   <h3 className="mb-4 text-base font-bold text-on-surface">Deixe seu recado</h3>
-                  <RecadoForm eventoId={lista.evento.id} />
+                  <RecadoForm eventoId={registry.event.id} />
                 </div>
 
                 <div className="lg:col-span-2">
-                  <RecadoList eventoId={lista.evento.id} />
+                  <RecadoList eventoId={registry.event.id} />
                 </div>
               </div>
             </section>
@@ -166,8 +166,8 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
         )}
       </main>
 
-      {lista && (
-        <RsvpModal open={rsvpOpen} onClose={() => setRsvpOpen(false)} eventoId={lista.evento.id} />
+      {registry && (
+        <RsvpModal open={rsvpOpen} onClose={() => setRsvpOpen(false)} eventoId={registry.event.id} />
       )}
 
       {/* Footer */}

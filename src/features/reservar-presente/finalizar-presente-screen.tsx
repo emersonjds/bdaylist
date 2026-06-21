@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, CreditCard, Gift, PartyPopper, QrCode, ShieldCheck } from "lucide-react";
-import { getLista } from "@/entities/lista/api";
+import { getRegistry } from "@/entities/registry/api";
 import { formatPrice } from "@/entities/gift/format-price";
 import { Badge } from "@/shared/ui/badge";
 import { ReservaForm } from "./reserva-form";
@@ -20,15 +20,15 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
   const [succeeded, setSucceeded] = useState(false);
 
   const {
-    data: lista,
+    data: registry,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["lista", token],
-    queryFn: () => getLista(token),
+    queryKey: ["registry", token],
+    queryFn: () => getRegistry(token),
   });
 
-  const gift = lista?.gifts.find((g) => g.id === giftId);
+  const gift = registry?.gifts.find((g) => g.id === giftId);
 
   function handleVoltar() {
     router.push(`/l/${token}`);
@@ -67,7 +67,7 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
           </div>
         )}
 
-        {lista && !gift && (
+        {registry && !gift && (
           <div className="flex items-center justify-center py-24">
             <p className="text-lg text-on-surface-variant">Presente não encontrado.</p>
           </div>
