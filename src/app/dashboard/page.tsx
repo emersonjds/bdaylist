@@ -1,59 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { Calendar, Plus, Users, Share2 } from "lucide-react";
-import { RequireAuth, useAuth } from "@/features/auth";
+import Link from "next/link";
+import { Calendar, Users, Share2, Gift } from "lucide-react";
+import { useAuth } from "@/features/auth";
 import { useGifts } from "@/features/manage-gifts/use-gifts";
-import { GiftForm } from "@/features/manage-gifts/gift-form";
-import type { GiftFormValues } from "@/features/manage-gifts/gift-form";
-import { HostGiftCard } from "@/features/manage-gifts/host-gift-card";
-import { AppShell } from "@/widgets/app-shell/app-shell";
 import { SummaryCard } from "@/widgets/dashboard/summary-card";
 import { MetaCard } from "@/widgets/dashboard/meta-card";
 import { RecentGuests } from "@/widgets/dashboard/recent-guests";
 import { daysRemaining, countdownLabel } from "@/entities/event";
-import type { Gift } from "@/entities/gift";
 import { Card } from "@/shared/ui";
 
 export default function DashboardPage() {
-  return (
-    <RequireAuth>
-      <AppShell>
-        <DashboardContent />
-      </AppShell>
-    </RequireAuth>
-  );
-}
-
-function DashboardContent() {
   const { user } = useAuth();
-  const { dashboard, isLoading, isError, create, update, remove } = useGifts();
-
-  const [formOpen, setFormOpen] = useState(false);
-  const [editingGift, setEditingGift] = useState<Gift | undefined>(undefined);
-
-  function openCreate() {
-    setEditingGift(undefined);
-    setFormOpen(true);
-  }
-
-  function openEdit(gift: Gift) {
-    setEditingGift(gift);
-    setFormOpen(true);
-  }
-
-  function closeForm() {
-    setFormOpen(false);
-    setEditingGift(undefined);
-  }
-
-  async function handleSubmit(data: GiftFormValues) {
-    if (editingGift) {
-      await update({ id: editingGift.id, ...data });
-    } else {
-      await create(data);
-    }
-  }
+  const { dashboard, isLoading, isError } = useGifts();
 
   if (isLoading) {
     return (
@@ -79,35 +38,37 @@ function DashboardContent() {
   const { event, gifts, guests, metrics } = dashboard;
   const days = daysRemaining(event.birthDate);
   const label = countdownLabel(days);
-  const reservedCount = gifts.filter((g) => g.status === "reserved").length;
+  const reservedCount = gifts.filter((gift) => gift.status === "reserved").length;
   const availableCount = gifts.length - reservedCount;
 
   return (
     <>
-      {/* Greeting */}
       <section className="animate-in fade-in slide-in-from-bottom-4 mb-8 duration-700">
         <h1 className="mb-3 text-2xl font-extrabold tracking-tight text-on-surface md:text-3xl">
           Olá, {user?.name ?? "Aniversariante"}!{" "}
           <span className="inline-block animate-bounce">🎈</span>
         </h1>
-        <div className="inline-flex items-center gap-2 rounded-full bg-primary-container px-4 py-2 text-sm font-bold text-on-surface">
+        <div className="inline-flex items-center gap-2 rounded-full bg-primary-container px-4 py-2 text-sm font-bold text-on-primary-container">
           <Calendar className="h-4 w-4" />
           {label} para sua festa
         </div>
       </section>
 
-      {/* Metrics */}
       <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-        <div className="md:col-span-2">
+        <div className="h-full md:col-span-2">
           {event.goal ? (
-            <MetaCard meta={event.goal} />
+            <MetaCard
+              meta={event.goal}
+              total={gifts.length}
+              reserved={reservedCount}
+              available={availableCount}
+            />
           ) : (
             <SummaryCard total={gifts.length} reserved={reservedCount} available={availableCount} />
           )}
         </div>
 
-        {/* Confirmed Guests */}
-        <Card className="flex flex-col items-center justify-center p-6 text-center">
+        <Card className="flex h-full flex-col items-center justify-center p-6 text-center">
           <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-secondary-container">
             <Users className="h-7 w-7 text-on-secondary-container" />
           </div>
@@ -115,76 +76,44 @@ function DashboardContent() {
           <p className="mt-1 text-xs font-bold tracking-wider text-on-surface-variant uppercase">
             Convidados Confirmados
           </p>
-          <button
-            type="button"
+
+          <div className="my-4 h-px w-12 bg-outline-variant/40" />
+
+          <p className="text-3xl font-extrabold text-secondary">{guests.length}</p>
+          <p className="mt-1 text-xs font-bold tracking-wider text-on-surface-variant uppercase">
+            Convidados no Total
+          </p>
+
+          <Link
+            href="/dashboard/guests"
             className="mt-4 text-sm font-bold text-secondary transition-all hover:underline"
           >
             Ver lista completa
-          </button>
+          </Link>
         </Card>
       </div>
 
-      {/* Manage Gifts */}
-      <section className="mb-14">
-        <div className="mb-6 flex items-end justify-between">
+      <section className="mb-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <Link
+          href="/dashboard/gifts"
+          className="group flex items-center gap-4 rounded-lg border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)] transition-all hover:-translate-y-1 hover:shadow-[0px_10px_30px_rgba(255,90,112,0.15)]"
+        >
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary-container text-primary transition-transform group-hover:scale-110">
+            <Gift className="h-7 w-7" />
+          </div>
           <div>
-            <h2 className="text-2xl font-extrabold text-on-surface">Meus Presentes</h2>
+            <h3 className="text-base font-bold text-on-surface">Meus Presentes</h3>
             <p className="mt-1 text-sm text-on-surface-variant">
-              Gerencie os itens da sua lista de desejos
+              {gifts.length} {gifts.length === 1 ? "item na lista" : "itens na lista"} · gerenciar
             </p>
           </div>
-          <button
-            type="button"
-            onClick={openCreate}
-            className="shadow-card hidden items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-white transition-all hover:scale-105 active:scale-95 md:flex"
-          >
-            <Plus className="h-4 w-4" />
-            Adicionar Presente
-          </button>
-        </div>
+        </Link>
 
-        {/* Mobile button */}
-        <button
-          type="button"
-          onClick={openCreate}
-          className="shadow-card mb-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-sm font-bold text-white active:scale-95 md:hidden"
-        >
-          <Plus className="h-4 w-4" />
-          Adicionar Novo Presente
-        </button>
-
-        {/* Gifts grid */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {gifts.map((gift) => (
-            <HostGiftCard
-              key={gift.id}
-              gift={gift}
-              onEdit={() => openEdit(gift)}
-              onDelete={() => remove(gift.id)}
-            />
-          ))}
-
-          {/* Dashed tile — Add New */}
-          <button
-            type="button"
-            onClick={openCreate}
-            className="group flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-outline-variant p-8 transition-all hover:bg-surface-container active:scale-95"
-          >
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-container text-primary transition-transform group-hover:scale-110">
-              <Plus className="h-7 w-7" />
-            </div>
-            <span className="text-sm font-bold text-on-surface-variant">Adicionar Novo</span>
-          </button>
-        </div>
-      </section>
-
-      {/* Share list */}
-      <section className="mb-10">
-        <Card className="flex flex-col items-center gap-4 p-6 text-center md:flex-row md:justify-between md:text-left">
+        <Card className="flex flex-col justify-center gap-4 p-6 md:flex-row md:items-center md:justify-between">
           <div>
-            <h3 className="text-lg font-bold text-on-surface">Compartilhe sua lista</h3>
+            <h3 className="text-base font-bold text-on-surface">Compartilhe sua lista</h3>
             <p className="mt-1 text-sm text-on-surface-variant">
-              Envie o link para seus convidados escolherem um presente
+              Envie o link para seus convidados
             </p>
           </div>
           <button
@@ -201,30 +130,21 @@ function DashboardContent() {
         </Card>
       </section>
 
-      {/* Recent Guests */}
       <section className="mb-6">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-extrabold text-on-surface">Confirmados Recentemente</h2>
           {metrics.confirmed > 0 && (
-            <button
-              type="button"
+            <Link
+              href="/dashboard/guests"
               className="text-sm font-bold text-secondary transition-all hover:underline"
             >
               Ver Todos ({metrics.confirmed})
-            </button>
+            </Link>
           )}
         </div>
 
-        <RecentGuests guests={guests} confirmed={metrics.confirmed} />
+        <RecentGuests guests={guests.filter((guest) => guest.confirmed)} confirmed={metrics.confirmed} />
       </section>
-
-      {/* Form (Dialog) */}
-      <GiftForm
-        open={formOpen}
-        onClose={closeForm}
-        gift={editingGift}
-        onSubmit={handleSubmit}
-      />
     </>
   );
 }

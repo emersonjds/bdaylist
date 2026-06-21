@@ -25,7 +25,7 @@ colors:
   on-secondary: "#ffffff"
   secondary-container: "#5ce9fe"
   on-secondary-container: "#006773"
-  tertiary: "#735c00"
+  tertiary: "#cda721" # amarelo festivo (decisão de marca; substitui o #735c00 do Material default)
   on-tertiary: "#ffffff"
   tertiary-container: "#cda721"
   on-tertiary-container: "#4e3d00"

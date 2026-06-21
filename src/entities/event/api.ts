@@ -20,6 +20,7 @@ type GuestBasic = {
   eventId: string;
   name: string;
   email: string;
+  confirmed: boolean;
 };
 
 export type DashboardResponse = {

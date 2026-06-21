@@ -4,8 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/features/auth";
 import { getDashboard } from "@/entities/event";
 import { createGift, updateGift, deleteGift } from "@/entities/gift";
-
-export const DASHBOARD_QUERY_KEY = ["dashboard"] as const;
+import { DASHBOARD_QUERY_KEY } from "@/shared/lib/query-keys";
 
 interface UpdateArgs {
   id: string;

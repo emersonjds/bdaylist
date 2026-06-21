@@ -9,7 +9,7 @@ interface SummaryCardProps {
 
 export function SummaryCard({ total, reserved, available }: SummaryCardProps) {
   return (
-    <Card className="p-6">
+    <Card className="h-full p-6">
       <h2 className="mb-5 text-xl font-bold text-on-surface">Resumo da Lista</h2>
       <div className="grid grid-cols-3 divide-x divide-outline-variant/30">
         <div className="flex flex-col items-center gap-1 px-2 text-center">

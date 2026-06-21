@@ -26,11 +26,11 @@ test("adds, edits, and removes a gift in the host dashboard", async ({
 }, testInfo) => {
   const proj = testInfo.project.name;
 
-  // 1. Navigate to the dashboard already authenticated
-  await page.goto("/dashboard");
+  // 1. Navigate to the gifts management page already authenticated
+  await page.goto("/dashboard/gifts");
 
-  // Wait for MSW to initialize and the dashboard to load with the greeting
-  await expect(page.getByText(/Olá, Rodrigo/)).toBeVisible({
+  // Wait for MSW to initialize and the gifts page heading to render
+  await expect(page.getByRole("heading", { name: "Meus Presentes", level: 1 })).toBeVisible({
     timeout: 20_000,
   });
 

@@ -10,6 +10,7 @@ const badgeVariants = cva(
         primary: "bg-primary text-on-primary",
         secondary: "bg-secondary text-on-secondary",
         tertiary: "bg-tertiary-fixed text-on-tertiary-fixed",
+        neutral: "bg-surface-container text-on-surface-variant",
       },
     },
     defaultVariants: {

@@ -41,7 +41,7 @@ export function RecentGuests({ guests, confirmed }: RecentGuestsProps) {
             key={guest.id}
             className="flex items-center gap-3 rounded-full border border-outline-variant/20 bg-surface-container-low px-4 py-2.5 shadow-sm transition-colors hover:bg-surface-container"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-container text-xs font-bold text-primary">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-container text-xs font-bold text-on-primary-container">
               {initials}
             </div>
             <span className="text-sm font-semibold text-on-surface">{guest.name}</span>
