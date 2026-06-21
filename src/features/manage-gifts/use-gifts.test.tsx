@@ -6,7 +6,7 @@ import { useGifts } from "./use-gifts";
 
 const mockUser = {
   id: "host-1",
-  nome: "Rodrigo",
+  name: "Rodrigo",
   email: "rodrigo@example.com",
   avatarUrl: "",
 };

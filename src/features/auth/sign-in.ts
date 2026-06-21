@@ -3,18 +3,18 @@ import type { AuthUser } from "./auth-context";
 
 const DEMO_USER: AuthUser = {
   id: "host-1",
-  nome: "Rodrigo",
+  name: "Rodrigo",
   email: "rodrigo@example.com",
   avatarUrl: "",
 };
 
 /**
- * Entrypoint de autenticação com Google.
- * Hoje chama o endpoint mock; no futuro, substitua o corpo por:
- * `supabase.auth.signInWithOAuth({ provider: "google" })`
+ * Google sign-in entrypoint.
+ * Currently calls the mock endpoint; replace the body with:
+ * `supabase.auth.signInWithOAuth({ provider: "google" })` when ready.
  *
- * Ainda não há login Google/backend real: se a chamada falhar, entra com um
- * usuário de demonstração para não bloquear o teste da ferramenta.
+ * If the call fails (no real backend yet), falls back to a demo user
+ * so the tool can still be exercised end-to-end.
  */
 export async function signInWithGoogle(): Promise<AuthUser> {
   try {

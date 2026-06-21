@@ -30,21 +30,21 @@ const grupo: Gift = {
   groupGoal: { target: 1500, collected: 600 },
 };
 
-test("mostra nome, preço formatado e botão presentear", () => {
-  render(<GiftCard gift={base} onPresentear={() => {}} />);
+test("shows gift name, formatted price, and action button", () => {
+  render(<GiftCard gift={base} onGiftClick={() => {}} />);
   expect(screen.getByText("Câmera Instantânea")).toBeInTheDocument();
   expect(screen.getByText("R$ 450,00")).toBeInTheDocument();
   expect(screen.getByRole("button", { name: /Presentear/ })).toBeEnabled();
 });
 
-test("desabilita quando reservado", () => {
-  render(<GiftCard gift={{ ...base, status: "reserved" }} onPresentear={() => {}} />);
+test("disables when reserved", () => {
+  render(<GiftCard gift={{ ...base, status: "reserved" }} onGiftClick={() => {}} />);
   expect(screen.getByRole("button", { name: /Reservado|Presentear/ })).toBeDisabled();
 });
 
 describe("GiftCard — group gift", () => {
-  it("mostra barra de progresso e botão Contribuir", () => {
-    render(<GiftCard gift={grupo} onPresentear={vi.fn()} />);
+  it("shows progress bar and Contribuir button", () => {
+    render(<GiftCard gift={grupo} onGiftClick={vi.fn()} />);
     expect(screen.getByRole("progressbar")).toHaveAttribute("aria-valuenow", "40");
     expect(screen.getByRole("button", { name: /Contribuir/ })).toBeVisible();
   });

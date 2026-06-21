@@ -1,9 +1,9 @@
 import type { Event } from "@/entities/event/model";
 import type { Gift } from "@/entities/gift/model";
-import type { Convidado } from "@/entities/convidado/model";
+import type { Guest } from "@/entities/guest/model";
 import type { Reservation } from "@/entities/reservation/model";
 import type { Rsvp } from "@/entities/rsvp/model";
-import type { Recado } from "@/entities/recado/model";
+import type { Message } from "@/entities/message/model";
 
 let idCounter = 0;
 
@@ -15,10 +15,10 @@ export function nextId(): string {
 export const db = {
   events: [] as Event[],
   gifts: [] as Gift[],
-  convidados: [] as Convidado[],
+  guests: [] as Guest[],
   reservations: [] as Reservation[],
   rsvps: [] as Rsvp[],
-  recados: [] as Recado[],
+  messages: [] as Message[],
 
   reset() {
     idCounter = 0;
@@ -101,10 +101,10 @@ export const db = {
       },
     ];
 
-    this.convidados = [];
+    this.guests = [];
     this.reservations = [];
     this.rsvps = [];
-    this.recados = [];
+    this.messages = [];
   },
 };
 

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getRegistry } from "@/entities/registry";
 import type { Registry } from "@/entities/registry";
-import type { PriceFaixa } from "./price-filter";
+import type { PriceRange } from "./price-filter";
 
 type GiftItem = Registry["gifts"][number];
 
@@ -14,13 +14,13 @@ interface UseRegistryResult {
   isError: boolean;
   search: string;
   setSearch: (value: string) => void;
-  priceFaixa: PriceFaixa;
-  setPriceFaixa: (value: PriceFaixa) => void;
+  priceRange: PriceRange;
+  setPriceRange: (value: PriceRange) => void;
   filteredGifts: GiftItem[];
 }
 
-function matchesPriceFaixa(price: number, faixa: PriceFaixa): boolean {
-  switch (faixa) {
+function matchesPriceRange(price: number, range: PriceRange): boolean {
+  switch (range) {
     case "ate100":
       return price <= 100;
     case "100a300":
@@ -34,7 +34,7 @@ function matchesPriceFaixa(price: number, faixa: PriceFaixa): boolean {
 
 export function useRegistry(token: string): UseRegistryResult {
   const [search, setSearch] = useState("");
-  const [priceFaixa, setPriceFaixa] = useState<PriceFaixa>("todos");
+  const [priceRange, setPriceRange] = useState<PriceRange>("todos");
 
   const query = useQuery({
     queryKey: ["registry", token],
@@ -46,7 +46,7 @@ export function useRegistry(token: string): UseRegistryResult {
   const filteredGifts = gifts.filter((gift) => {
     const matchesSearch =
       search.trim() === "" || gift.name.toLowerCase().includes(search.toLowerCase());
-    const matchesPrice = matchesPriceFaixa(gift.referencePrice, priceFaixa);
+    const matchesPrice = matchesPriceRange(gift.referencePrice, priceRange);
     return matchesSearch && matchesPrice;
   });
 
@@ -56,8 +56,8 @@ export function useRegistry(token: string): UseRegistryResult {
     isError: query.isError,
     search,
     setSearch,
-    priceFaixa,
-    setPriceFaixa,
+    priceRange,
+    setPriceRange,
     filteredGifts,
   };
 }

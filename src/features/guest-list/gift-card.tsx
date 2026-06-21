@@ -8,17 +8,17 @@ import type { Gift as GiftType } from "@/entities/gift";
 
 interface GiftCardProps {
   gift: GiftType;
-  onPresentear: () => void;
+  onGiftClick: () => void;
 }
 
-export function GiftCard({ gift, onPresentear }: GiftCardProps) {
+export function GiftCard({ gift, onGiftClick }: GiftCardProps) {
   const reserved = gift.status === "reserved";
   const [showConfetti, setShowConfetti] = useState(false);
   const isGroupGift = gift.isGroup && gift.groupGoal !== undefined;
 
   function handleClick() {
     setShowConfetti(true);
-    onPresentear();
+    onGiftClick();
     setTimeout(() => setShowConfetti(false), 3500);
   }
 

@@ -9,13 +9,13 @@ function createTestClient() {
   });
 }
 
-test("submete o nome e exibe confirmação de presença", async () => {
+test("submits name and shows attendance confirmation", async () => {
   const onClose = vi.fn();
   const client = createTestClient();
 
   render(
     <QueryClientProvider client={client}>
-      <RsvpModal open eventoId="1" onClose={onClose} />
+      <RsvpModal open eventId="1" onClose={onClose} />
     </QueryClientProvider>
   );
 

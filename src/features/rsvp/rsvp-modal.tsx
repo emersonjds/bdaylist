@@ -10,19 +10,19 @@ import { useRsvp } from "./use-rsvp";
 interface RsvpModalProps {
   open: boolean;
   onClose: () => void;
-  eventoId: string;
+  eventId: string;
 }
 
-export function RsvpModal({ open, onClose, eventoId }: RsvpModalProps) {
-  const [nome, setNome] = useState("");
+export function RsvpModal({ open, onClose, eventId }: RsvpModalProps) {
+  const [name, setName] = useState("");
   const [confirmed, setConfirmed] = useState(false);
 
-  const mutation = useRsvp(eventoId, {
+  const mutation = useRsvp(eventId, {
     onSuccess: () => setConfirmed(true),
   });
 
   function handleClose() {
-    setNome("");
+    setName("");
     setConfirmed(false);
     mutation.reset();
     onClose();
@@ -30,8 +30,8 @@ export function RsvpModal({ open, onClose, eventoId }: RsvpModalProps) {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (nome.trim()) {
-      mutation.mutate(nome.trim());
+    if (name.trim()) {
+      mutation.mutate(name.trim());
     }
   }
 
@@ -58,8 +58,8 @@ export function RsvpModal({ open, onClose, eventoId }: RsvpModalProps) {
               id="rsvp-nome"
               label="Seu nome"
               placeholder="Digite seu nome"
-              value={nome}
-              onChange={(event) => setNome(event.target.value)}
+              value={name}
+              onChange={(event) => setName(event.target.value)}
               required
               maxLength={100}
             />
@@ -67,7 +67,7 @@ export function RsvpModal({ open, onClose, eventoId }: RsvpModalProps) {
               type="submit"
               size="lg"
               className="w-full"
-              disabled={mutation.isPending || !nome.trim()}
+              disabled={mutation.isPending || !name.trim()}
             >
               {mutation.isPending ? "Confirmando..." : "Confirmar Presença"}
             </Button>

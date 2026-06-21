@@ -5,7 +5,7 @@ import { RequireAuth } from "./require-auth";
 const SESSION_KEY = "bday.session";
 const fakeUser = {
   id: "u1",
-  nome: "Rodrigo",
+  name: "Rodrigo",
   email: "rodrigo@teste.com",
   avatarUrl: "",
 };
@@ -14,7 +14,7 @@ afterEach(() => {
   localStorage.removeItem(SESSION_KEY);
 });
 
-test("sem sessão renderiza o LoginCTA", async () => {
+test("without session renders the LoginCTA", async () => {
   render(
     <AuthProvider>
       <RequireAuth>
@@ -27,7 +27,7 @@ test("sem sessão renderiza o LoginCTA", async () => {
   expect(screen.queryByText("Conteúdo protegido")).not.toBeInTheDocument();
 });
 
-test("com sessão no localStorage renderiza children", async () => {
+test("with session in localStorage renders children", async () => {
   localStorage.setItem(SESSION_KEY, JSON.stringify(fakeUser));
 
   render(

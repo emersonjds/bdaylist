@@ -17,15 +17,15 @@ type GiftBasic = {
 
 type GuestBasic = {
   id: string;
-  eventoId: string;
-  nome: string;
+  eventId: string;
+  name: string;
   email: string;
 };
 
 export type DashboardResponse = {
   event: Event;
   gifts: GiftBasic[];
-  convidados: GuestBasic[];
+  guests: GuestBasic[];
   metrics: { confirmed: number };
 };
 

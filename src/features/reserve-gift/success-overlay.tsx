@@ -5,10 +5,10 @@ import { Button } from "@/shared/ui/button";
 import { ConfettiBurst } from "@/shared/ui/confetti-burst";
 
 interface SuccessOverlayProps {
-  onVoltar: () => void;
+  onBack: () => void;
 }
 
-export function SuccessOverlay({ onVoltar }: SuccessOverlayProps) {
+export function SuccessOverlay({ onBack }: SuccessOverlayProps) {
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-primary-container/95 p-6"
@@ -32,7 +32,7 @@ export function SuccessOverlay({ onVoltar }: SuccessOverlayProps) {
           Sua reserva foi confirmada! O presente é combinado diretamente com o aniversariante.
         </p>
 
-        <Button onClick={onVoltar} size="lg" className="w-full">
+        <Button onClick={onBack} size="lg" className="w-full">
           Voltar à lista
         </Button>
       </div>

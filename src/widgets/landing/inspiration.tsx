@@ -4,11 +4,11 @@ import { ArrowRight, PartyPopper, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/features/auth";
 
-export function Inspiracao() {
+export function Inspiration() {
   const { user, signInWithGoogle } = useAuth();
   const router = useRouter();
 
-  async function handleCriarLista() {
+  async function handleCreateRegistry() {
     if (!user) {
       await signInWithGoogle();
     }
@@ -81,7 +81,7 @@ export function Inspiracao() {
             </div>
             <button
               className="z-10 mt-6 w-full rounded-2xl bg-white py-4 text-sm font-bold text-primary transition-colors hover:bg-surface-container"
-              onClick={handleCriarLista}
+              onClick={handleCreateRegistry}
             >
               Criar minha lista
             </button>

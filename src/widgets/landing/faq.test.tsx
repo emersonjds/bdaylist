@@ -5,17 +5,17 @@ import { Faq } from "./faq";
 const items = [
   {
     id: "1",
-    pergunta: "Como funciona a reserva de presentes?",
-    resposta: "O convidado escolhe um presente e o reserva pelo link.",
+    question: "Como funciona a reserva de presentes?",
+    answer: "O convidado escolhe um presente e o reserva pelo link.",
   },
   {
     id: "2",
-    pergunta: "Criar minha lista é gratuito?",
-    resposta: "Sim, 100% gratuito para você e seus convidados.",
+    question: "Criar minha lista é gratuito?",
+    answer: "Sim, 100% gratuito para você e seus convidados.",
   },
 ];
 
-test("clicando na pergunta revela a resposta", async () => {
+test("clicking a question reveals the answer", async () => {
   render(<Faq items={items} />);
   expect(
     screen.queryByText("O convidado escolhe um presente e o reserva pelo link.")
@@ -26,7 +26,7 @@ test("clicando na pergunta revela a resposta", async () => {
   ).toBeInTheDocument();
 });
 
-test("clicar em outra pergunta fecha a primeira (apenas uma aberta por vez)", async () => {
+test("clicking another question closes the first (only one open at a time)", async () => {
   render(<Faq items={items} />);
   await userEvent.click(screen.getByText("Como funciona a reserva de presentes?"));
   expect(

@@ -33,7 +33,7 @@ const steps = [
   },
 ];
 
-export function ComoFunciona() {
+export function HowItWorks() {
   return (
     <section className="bg-surface px-6 py-20 md:py-[80px]" id="how-it-works">
       <div className="mx-auto max-w-[1200px]">

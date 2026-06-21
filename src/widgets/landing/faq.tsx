@@ -6,8 +6,8 @@ import { cn } from "@/shared/lib/cn";
 
 export interface FaqItem {
   id: string;
-  pergunta: string;
-  resposta: string;
+  question: string;
+  answer: string;
 }
 
 interface FaqProps {
@@ -31,7 +31,7 @@ export function Faq({ items }: FaqProps) {
               className="flex w-full items-center justify-between p-6 text-left text-sm font-bold text-on-surface"
               onClick={() => setOpenId(isOpen ? null : item.id)}
             >
-              <span>{item.pergunta}</span>
+              <span>{item.question}</span>
               <ChevronDown
                 className={cn(
                   "h-5 w-5 shrink-0 transition-transform duration-200",
@@ -40,7 +40,7 @@ export function Faq({ items }: FaqProps) {
               />
             </button>
             {isOpen && (
-              <div className="px-6 pb-6 text-base text-on-surface-variant">{item.resposta}</div>
+              <div className="px-6 pb-6 text-base text-on-surface-variant">{item.answer}</div>
             )}
           </div>
         );

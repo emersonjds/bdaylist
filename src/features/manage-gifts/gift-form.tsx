@@ -84,12 +84,12 @@ export function GiftForm({ open, onClose, gift, onSubmit }: GiftFormProps) {
     onClose();
   }
 
-  const titulo = gift ? "Editar Presente" : "Adicionar Presente";
+  const title = gift ? "Editar Presente" : "Adicionar Presente";
 
   return (
     <Dialog open={open} onClose={onClose}>
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-extrabold text-on-surface">{titulo}</h2>
+        <h2 className="text-xl font-extrabold text-on-surface">{title}</h2>
         <button
           type="button"
           onClick={onClose}

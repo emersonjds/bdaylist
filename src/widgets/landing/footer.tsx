@@ -31,7 +31,7 @@ export function Footer() {
   const router = useRouter();
   const [email, setEmail] = useState("");
 
-  async function handleCriarLista() {
+  async function handleCreateRegistry() {
     if (!user) {
       await signInWithGoogle();
     }
@@ -156,7 +156,7 @@ export function Footer() {
       <button
         aria-label="Criar Lista"
         className="group fixed right-6 bottom-24 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-2xl transition-all hover:scale-110 active:scale-95 md:bottom-10"
-        onClick={handleCriarLista}
+        onClick={handleCreateRegistry}
       >
         <Plus className="h-7 w-7" />
         <span className="pointer-events-none absolute right-full mr-4 rounded-lg bg-on-surface px-3 py-1.5 text-xs whitespace-nowrap text-white opacity-0 transition-opacity group-hover:opacity-100">

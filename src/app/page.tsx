@@ -1,29 +1,29 @@
 import { Nav } from "@/widgets/landing/nav";
 import { Hero } from "@/widgets/landing/hero";
-import { ComoFunciona } from "@/widgets/landing/como-funciona";
-import { Inspiracao } from "@/widgets/landing/inspiracao";
-import { Seguranca } from "@/widgets/landing/seguranca";
-import { Depoimentos } from "@/widgets/landing/depoimentos";
+import { HowItWorks } from "@/widgets/landing/how-it-works";
+import { Inspiration } from "@/widgets/landing/inspiration";
+import { Security } from "@/widgets/landing/security";
+import { Testimonials } from "@/widgets/landing/testimonials";
 import { Faq } from "@/widgets/landing/faq";
 import { Footer } from "@/widgets/landing/footer";
 
 const faqItems = [
   {
     id: "1",
-    pergunta: "Como funciona a reserva de presentes?",
-    resposta:
+    question: "Como funciona a reserva de presentes?",
+    answer:
       "O convidado acessa sua lista pelo link exclusivo, escolhe um presente e o reserva. Isso garante que você receba o que deseja, sem presentes repetidos.",
   },
   {
     id: "2",
-    pergunta: "Criar minha lista é gratuito?",
-    resposta:
+    question: "Criar minha lista é gratuito?",
+    answer:
       "Criar e compartilhar sua lista é 100% gratuito. Não há taxas ou cobranças de nenhum tipo para você ou seus convidados.",
   },
   {
     id: "3",
-    pergunta: "Meus convidados precisam criar uma conta?",
-    resposta:
+    question: "Meus convidados precisam criar uma conta?",
+    answer:
       "Não! Seus convidados acessam sua lista diretamente pelo link que você compartilha, sem precisar de cadastro ou senha.",
   },
 ];
@@ -34,10 +34,10 @@ export default function LandingPage() {
       <Nav />
       <main>
         <Hero />
-        <ComoFunciona />
-        <Inspiracao />
-        <Seguranca />
-        <Depoimentos />
+        <HowItWorks />
+        <Inspiration />
+        <Security />
+        <Testimonials />
         <section className="px-6 py-20 md:py-[80px]" id="faq">
           <div className="mx-auto max-w-3xl">
             <div className="mb-12 text-center">

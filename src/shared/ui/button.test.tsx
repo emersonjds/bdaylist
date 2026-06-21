@@ -1,12 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import { Button } from "./button";
 
-test("renderiza o botão primário com rótulo", () => {
+test("renders the primary button with a label", () => {
   render(<Button>Presentear</Button>);
   expect(screen.getByRole("button", { name: "Presentear" })).toBeInTheDocument();
 });
 
-test("aplica a variante ghost", () => {
+test("applies the ghost variant", () => {
   render(<Button variant="ghost">Entrar</Button>);
   expect(screen.getByRole("button", { name: "Entrar" }).className).toContain("border-primary");
 });

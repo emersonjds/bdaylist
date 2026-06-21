@@ -4,7 +4,7 @@ import { SuccessOverlay } from "./success-overlay";
 
 describe("SuccessOverlay", () => {
   it("shows reservation success (no payment)", () => {
-    render(<SuccessOverlay onVoltar={vi.fn()} />);
+    render(<SuccessOverlay onBack={vi.fn()} />);
     expect(screen.getByRole("heading", { name: "Presente Reservado!" })).toBeVisible();
   });
 });

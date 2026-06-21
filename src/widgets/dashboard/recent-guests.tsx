@@ -2,18 +2,18 @@ import { Users } from "lucide-react";
 
 interface GuestBasic {
   id: string;
-  nome: string;
+  name: string;
   email: string;
 }
 
 interface RecentGuestsProps {
-  convidados: GuestBasic[];
+  guests: GuestBasic[];
   confirmed: number;
 }
 
 const MAX_VISIBLE = 5;
 
-export function RecentGuests({ convidados, confirmed }: RecentGuestsProps) {
+export function RecentGuests({ guests, confirmed }: RecentGuestsProps) {
   if (confirmed === 0) {
     return (
       <div className="flex flex-col items-center justify-center gap-3 py-8 text-center">
@@ -23,13 +23,13 @@ export function RecentGuests({ convidados, confirmed }: RecentGuestsProps) {
     );
   }
 
-  const visible = convidados.slice(0, MAX_VISIBLE);
+  const visible = guests.slice(0, MAX_VISIBLE);
   const extras = Math.max(0, confirmed - MAX_VISIBLE);
 
   return (
     <div className="flex flex-wrap gap-3">
       {visible.map((guest) => {
-        const initials = guest.nome
+        const initials = guest.name
           .split(" ")
           .slice(0, 2)
           .map((n) => n[0])
@@ -44,7 +44,7 @@ export function RecentGuests({ convidados, confirmed }: RecentGuestsProps) {
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-container text-xs font-bold text-primary">
               {initials}
             </div>
-            <span className="text-sm font-semibold text-on-surface">{guest.nome}</span>
+            <span className="text-sm font-semibold text-on-surface">{guest.name}</span>
           </div>
         );
       })}

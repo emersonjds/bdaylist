@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { RecadoForm } from "./recado-form";
-import { RecadoList } from "./recado-list";
+import { MessageForm } from "./message-form";
+import { MessageList } from "./message-list";
 
 function createTestClient() {
   return new QueryClient({
@@ -10,13 +10,13 @@ function createTestClient() {
   });
 }
 
-test("posta um recado e ele aparece na lista (MSW round-trip)", async () => {
+test("posts a message and it appears in the list (MSW round-trip)", async () => {
   const client = createTestClient();
 
   render(
     <QueryClientProvider client={client}>
-      <RecadoForm eventoId="evento-1" />
-      <RecadoList eventoId="evento-1" />
+      <MessageForm eventId="evento-1" />
+      <MessageList eventId="evento-1" />
     </QueryClientProvider>
   );
 

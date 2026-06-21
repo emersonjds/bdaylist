@@ -1,30 +1,27 @@
 import { Star } from "lucide-react";
 
-const depoimentos = [
+const testimonials = [
   {
     id: "1",
-    texto:
-      "Nunca foi tão fácil organizar meus presentes. Pude focar na festa enquanto a BdayList cuidava de tudo. Cada convidado sabia exatamente o que presentear!",
-    autor: "Mariana Silva",
-    detalhe: "Comemorou 25 anos",
+    text: "Nunca foi tão fácil organizar meus presentes. Pude focar na festa enquanto a BdayList cuidava de tudo. Cada convidado sabia exatamente o que presentear!",
+    author: "Mariana Silva",
+    detail: "Comemorou 25 anos",
     avatarBg: "bg-primary-fixed",
     avatarEmoji: "😊",
   },
   {
     id: "2",
-    texto:
-      "Para a festa do meu filho foi perfeito. Os convidados elogiaram a praticidade de não precisar carregar caixas de presentes para o buffet.",
-    autor: "Ricardo Gomes",
-    detalhe: "Pai do Arthur (5 anos)",
+    text: "Para a festa do meu filho foi perfeito. Os convidados elogiaram a praticidade de não precisar carregar caixas de presentes para o buffet.",
+    author: "Ricardo Gomes",
+    detail: "Pai do Arthur (5 anos)",
     avatarBg: "bg-secondary-fixed",
     avatarEmoji: "👨",
   },
   {
     id: "3",
-    texto:
-      "A lista compartilhada é fantástica. Todos os amigos conseguiram coordenar os presentes e eu recebi exatamente o que queria na minha formatura!",
-    autor: "André Martins",
-    detalhe: "Formatura de Medicina",
+    text: "A lista compartilhada é fantástica. Todos os amigos conseguiram coordenar os presentes e eu recebi exatamente o que queria na minha formatura!",
+    author: "André Martins",
+    detail: "Formatura de Medicina",
     avatarBg: "bg-tertiary-fixed",
     avatarEmoji: "🎓",
   },
@@ -40,7 +37,7 @@ function Stars() {
   );
 }
 
-export function Depoimentos() {
+export function Testimonials() {
   return (
     <section
       className="relative overflow-hidden bg-surface-container-low px-6 py-20 md:py-[80px]"
@@ -56,24 +53,24 @@ export function Depoimentos() {
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
-          {depoimentos.map((dep) => (
+          {testimonials.map((testimonial) => (
             <div
-              key={dep.id}
+              key={testimonial.id}
               className="flex h-full flex-col rounded-[32px] border border-outline-variant/30 bg-white p-8 shadow-sm"
             >
               <Stars />
               <p className="mb-8 flex-1 text-base text-on-surface italic">
-                &ldquo;{dep.texto}&rdquo;
+                &ldquo;{testimonial.text}&rdquo;
               </p>
               <div className="mt-auto flex items-center gap-4">
                 <div
-                  className={`flex h-12 w-12 items-center justify-center rounded-full text-2xl ${dep.avatarBg}`}
+                  className={`flex h-12 w-12 items-center justify-center rounded-full text-2xl ${testimonial.avatarBg}`}
                 >
-                  {dep.avatarEmoji}
+                  {testimonial.avatarEmoji}
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-on-surface">{dep.autor}</p>
-                  <p className="text-xs text-on-surface-variant">{dep.detalhe}</p>
+                  <p className="text-sm font-bold text-on-surface">{testimonial.author}</p>
+                  <p className="text-xs text-on-surface-variant">{testimonial.detail}</p>
                 </div>
               </div>
             </div>

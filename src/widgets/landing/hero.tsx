@@ -8,7 +8,7 @@ export function Hero() {
   const { user, signInWithGoogle } = useAuth();
   const router = useRouter();
 
-  async function handleCriarLista() {
+  async function handleCreateRegistry() {
     if (!user) {
       await signInWithGoogle();
     }
@@ -38,7 +38,7 @@ export function Hero() {
           <div className="flex flex-col gap-4 sm:flex-row">
             <button
               className="rounded-full bg-primary px-8 py-4 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-primary-container active:scale-95"
-              onClick={handleCriarLista}
+              onClick={handleCreateRegistry}
             >
               Criar minha lista
             </button>

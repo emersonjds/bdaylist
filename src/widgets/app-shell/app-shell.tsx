@@ -14,7 +14,7 @@ export function AppShell({ children }: AppShellProps) {
 
   const avatarSrc =
     user?.avatarUrl ||
-    `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.nome ?? "U")}&background=FF5A70&color=fff&size=80`;
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name ?? "U")}&background=FF5A70&color=fff&size=80`;
 
   return (
     <>
@@ -35,7 +35,7 @@ export function AppShell({ children }: AppShellProps) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={avatarSrc}
-              alt={`Avatar de ${user.nome}`}
+              alt={`Avatar de ${user.name}`}
               className="h-full w-full object-cover"
             />
           </div>

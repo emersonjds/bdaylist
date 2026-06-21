@@ -5,10 +5,10 @@ import { useAuth } from "./use-auth";
 
 function Probe() {
   const { user, signInWithGoogle } = useAuth();
-  return <button onClick={() => signInWithGoogle()}>{user ? user.nome : "deslogado"}</button>;
+  return <button onClick={() => signInWithGoogle()}>{user ? user.name : "deslogado"}</button>;
 }
 
-test("entra com Google e expõe o usuário mock", async () => {
+test("signs in with Google and exposes the mock user", async () => {
   render(
     <AuthProvider>
       <Probe />

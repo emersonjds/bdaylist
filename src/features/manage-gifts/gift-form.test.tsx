@@ -5,7 +5,7 @@ import { GiftForm } from "./gift-form";
 
 const noopAsync = async () => {};
 
-test("exige nome ao submeter sem preenchimento", async () => {
+test("requires name when submitting without filling it", async () => {
   render(<GiftForm open onClose={noopAsync} onSubmit={noopAsync} />);
 
   await userEvent.click(screen.getByRole("button", { name: /salvar/i }));
@@ -15,7 +15,7 @@ test("exige nome ao submeter sem preenchimento", async () => {
   });
 });
 
-test("chama onSubmit com nome ao submeter formulário válido", async () => {
+test("calls onSubmit with name when submitting a valid form", async () => {
   const onSubmit = vi.fn().mockResolvedValue(undefined);
 
   render(<GiftForm open onClose={noopAsync} onSubmit={onSubmit} />);

@@ -13,22 +13,22 @@ describe("signInWithGoogle", () => {
     apiSendMock.mockReset();
   });
 
-  it("retorna o usuário do backend quando a chamada funciona", async () => {
+  it("returns the user from the backend when the call succeeds", async () => {
     apiSendMock.mockResolvedValue({
-      user: { id: "u9", nome: "Ana", email: "ana@example.com", avatarUrl: "" },
+      user: { id: "u9", name: "Ana", email: "ana@example.com", avatarUrl: "" },
     });
 
     const user = await signInWithGoogle();
 
-    expect(user.nome).toBe("Ana");
+    expect(user.name).toBe("Ana");
   });
 
-  it("entra com usuário de demonstração quando não há backend", async () => {
+  it("falls back to demo user when there is no backend", async () => {
     apiSendMock.mockRejectedValue(new Error("network down"));
 
     const user = await signInWithGoogle();
 
     expect(user.id).toBe("host-1");
-    expect(user.nome).toBe("Rodrigo");
+    expect(user.name).toBe("Rodrigo");
   });
 });

@@ -4,7 +4,7 @@ import { createContext } from "react";
 
 export interface AuthUser {
   id: string;
-  nome: string;
+  name: string;
   email: string;
   avatarUrl: string;
 }

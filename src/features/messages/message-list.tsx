@@ -2,29 +2,29 @@
 
 import { MessageCircleHeart } from "lucide-react";
 import { Card } from "@/shared/ui/card";
-import { useRecados } from "./use-recados";
+import { useMessages } from "./use-messages";
 
-interface RecadoListProps {
-  eventoId: string;
+interface MessageListProps {
+  eventId: string;
 }
 
-function formatarDataCurta(isoString: string): string {
-  const data = new Date(isoString);
-  const agora = new Date();
-  const diffMs = agora.getTime() - data.getTime();
+function formatShortDate(isoString: string): string {
+  const date = new Date(isoString);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
   const diffMin = Math.floor(diffMs / 60_000);
 
   if (diffMin < 1) return "agora mesmo";
   if (diffMin < 60) return `há ${diffMin} min`;
 
-  const diffHoras = Math.floor(diffMin / 60);
-  if (diffHoras < 24) return `há ${diffHoras}h`;
+  const diffHours = Math.floor(diffMin / 60);
+  if (diffHours < 24) return `há ${diffHours}h`;
 
-  return data.toLocaleDateString("pt-BR", { day: "numeric", month: "short" });
+  return date.toLocaleDateString("pt-BR", { day: "numeric", month: "short" });
 }
 
-export function RecadoList({ eventoId }: RecadoListProps) {
-  const { recados, isLoading } = useRecados(eventoId);
+export function MessageList({ eventId }: MessageListProps) {
+  const { messages, isLoading } = useMessages(eventId);
 
   if (isLoading) {
     return (
@@ -32,7 +32,7 @@ export function RecadoList({ eventoId }: RecadoListProps) {
     );
   }
 
-  if (recados.length === 0) {
+  if (messages.length === 0) {
     return (
       <div className="flex flex-col items-center gap-3 py-10 text-on-surface-variant">
         <MessageCircleHeart className="h-10 w-10 opacity-40" />
@@ -43,14 +43,14 @@ export function RecadoList({ eventoId }: RecadoListProps) {
 
   return (
     <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {recados.map((recado) => (
-        <li key={recado.id}>
+      {messages.map((message) => (
+        <li key={message.id}>
           <Card className="flex flex-col gap-3 p-5">
-            <p className="text-sm leading-relaxed text-on-surface">&ldquo;{recado.texto}&rdquo;</p>
+            <p className="text-sm leading-relaxed text-on-surface">&ldquo;{message.text}&rdquo;</p>
             <div className="flex items-center justify-between border-t border-outline-variant/30 pt-1">
-              <span className="text-sm font-bold text-primary">{recado.autor}</span>
+              <span className="text-sm font-bold text-primary">{message.author}</span>
               <span className="text-xs text-on-surface-variant">
-                {formatarDataCurta(recado.criadoEm)}
+                {formatShortDate(message.createdAt)}
               </span>
             </div>
           </Card>

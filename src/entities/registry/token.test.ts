@@ -1,8 +1,8 @@
-import { gerarListToken } from "./token";
+import { generateListToken } from "./token";
 
-test("gera token único e não sequencial", () => {
-  const a = gerarListToken();
-  const b = gerarListToken();
+test("generates a unique non-sequential token", () => {
+  const a = generateListToken();
+  const b = generateListToken();
   expect(a).not.toBe(b);
   expect(a.length).toBeGreaterThanOrEqual(16);
 });

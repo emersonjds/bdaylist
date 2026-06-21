@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import { enviarRsvp } from "@/entities/rsvp";
+import { submitRsvp } from "@/entities/rsvp";
 
 interface UseRsvpOptions {
   onSuccess?: () => void;
 }
 
-export function useRsvp(eventoId: string, options?: UseRsvpOptions) {
+export function useRsvp(eventId: string, options?: UseRsvpOptions) {
   return useMutation({
-    mutationFn: (nome: string) => enviarRsvp({ eventoId, nome }),
+    mutationFn: (name: string) => submitRsvp({ eventId, name }),
     onSuccess: options?.onSuccess,
   });
 }

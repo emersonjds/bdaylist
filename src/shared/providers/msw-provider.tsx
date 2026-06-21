@@ -7,8 +7,8 @@ interface MswProviderProps {
 }
 
 export function MswProvider({ children }: MswProviderProps) {
-  // Sem backend real (Supabase) ainda: o mock é a fonte de dados para testar a
-  // ferramenta. Liga por padrão em dev; em produção só quando explicitamente pedido.
+  // No real backend (Supabase) yet: the mock is the data source for testing the
+  // tool. Enabled by default in dev; in production only when explicitly requested.
   const mockingEnabled =
     process.env.NEXT_PUBLIC_API_MOCKING !== "disabled" &&
     (process.env.NEXT_PUBLIC_API_MOCKING === "enabled" ||

@@ -2,9 +2,9 @@
 
 import { cn } from "@/shared/lib/cn";
 
-export type PriceFaixa = "todos" | "ate100" | "100a300" | "acima300";
+export type PriceRange = "todos" | "ate100" | "100a300" | "acima300";
 
-const FAIXAS: { value: PriceFaixa; label: string }[] = [
+const PRICE_RANGES: { value: PriceRange; label: string }[] = [
   { value: "todos", label: "Todos" },
   { value: "ate100", label: "Até R$ 100" },
   { value: "100a300", label: "R$ 100 - R$ 300" },
@@ -12,8 +12,8 @@ const FAIXAS: { value: PriceFaixa; label: string }[] = [
 ];
 
 interface PriceFilterProps {
-  value: PriceFaixa;
-  onChange: (value: PriceFaixa) => void;
+  value: PriceRange;
+  onChange: (value: PriceRange) => void;
 }
 
 export function PriceFilter({ value, onChange }: PriceFilterProps) {
@@ -21,19 +21,19 @@ export function PriceFilter({ value, onChange }: PriceFilterProps) {
     <div className="flex flex-col gap-2" role="group" aria-label="Filtrar por faixa de preço">
       <span className="px-1 text-sm font-bold text-primary">Filtrar por Preço</span>
       <div className="flex flex-wrap gap-2">
-        {FAIXAS.map((faixa) => (
+        {PRICE_RANGES.map((range) => (
           <button
-            key={faixa.value}
+            key={range.value}
             type="button"
-            onClick={() => onChange(faixa.value)}
+            onClick={() => onChange(range.value)}
             className={cn(
               "rounded-full border-2 px-4 py-2 text-sm font-bold transition-all",
-              value === faixa.value
+              value === range.value
                 ? "border-primary bg-primary text-on-primary"
                 : "border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary"
             )}
           >
-            {faixa.label}
+            {range.label}
           </button>
         ))}
       </div>

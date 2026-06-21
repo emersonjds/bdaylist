@@ -1,12 +1,12 @@
 import { apiSend } from "@/shared/lib/http";
 import type { Rsvp } from "./model";
 
-interface EnviarRsvpBody {
-  eventoId: string;
-  nome: string;
-  status?: "confirmado" | "recusado";
+interface SubmitRsvpBody {
+  eventId: string;
+  name: string;
+  status?: "confirmed" | "declined";
 }
 
-export async function enviarRsvp(body: EnviarRsvpBody): Promise<{ rsvp: Rsvp }> {
+export async function submitRsvp(body: SubmitRsvpBody): Promise<{ rsvp: Rsvp }> {
   return apiSend<{ rsvp: Rsvp }>("/api/rsvp", { method: "POST", body });
 }

@@ -12,13 +12,13 @@ interface TestComponentProps {
 }
 
 function TestComponent({ token }: TestComponentProps) {
-  const { filteredGifts, setPriceFaixa, isLoading } = useRegistry(token);
+  const { filteredGifts, setPriceRange, isLoading } = useRegistry(token);
 
   if (isLoading) return <div>Carregando...</div>;
 
   return (
     <div>
-      <button type="button" onClick={() => setPriceFaixa("ate100")}>
+      <button type="button" onClick={() => setPriceRange("ate100")}>
         filtrar-ate100
       </button>
       <ul>
@@ -41,7 +41,7 @@ test("loads 5 gifts for the token", async () => {
   expect(screen.getAllByRole("listitem")).toHaveLength(5);
 });
 
-test("filtro ate100 retorna apenas presentes até R$ 100", async () => {
+test("ate100 filter returns only gifts up to R$ 100", async () => {
   const client = createTestClient();
   render(
     <QueryClientProvider client={client}>

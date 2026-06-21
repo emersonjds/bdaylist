@@ -35,7 +35,7 @@ export function FinalizeGiftScreen({ token, giftId }: FinalizeGiftScreenProps) {
   }
 
   if (succeeded) {
-    return <SuccessOverlay onVoltar={handleBack} />;
+    return <SuccessOverlay onBack={handleBack} />;
   }
 
   return (

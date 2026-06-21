@@ -76,7 +76,7 @@ function DashboardContent() {
     );
   }
 
-  const { event, gifts, convidados, metrics } = dashboard;
+  const { event, gifts, guests, metrics } = dashboard;
   const days = daysRemaining(event.birthDate);
   const label = countdownLabel(days);
   const reservedCount = gifts.filter((g) => g.status === "reserved").length;
@@ -84,10 +84,10 @@ function DashboardContent() {
 
   return (
     <>
-      {/* Saudação */}
+      {/* Greeting */}
       <section className="animate-in fade-in slide-in-from-bottom-4 mb-8 duration-700">
         <h1 className="mb-3 text-2xl font-extrabold tracking-tight text-on-surface md:text-3xl">
-          Olá, {user?.nome ?? "Aniversariante"}!{" "}
+          Olá, {user?.name ?? "Aniversariante"}!{" "}
           <span className="inline-block animate-bounce">🎈</span>
         </h1>
         <div className="inline-flex items-center gap-2 rounded-full bg-primary-container px-4 py-2 text-sm font-bold text-on-surface">
@@ -96,7 +96,7 @@ function DashboardContent() {
         </div>
       </section>
 
-      {/* Métricas */}
+      {/* Metrics */}
       <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-3">
         <div className="md:col-span-2">
           {event.goal ? (
@@ -106,7 +106,7 @@ function DashboardContent() {
           )}
         </div>
 
-        {/* Convidados Confirmados */}
+        {/* Confirmed Guests */}
         <Card className="flex flex-col items-center justify-center p-6 text-center">
           <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-secondary-container">
             <Users className="h-7 w-7 text-on-secondary-container" />
@@ -124,7 +124,7 @@ function DashboardContent() {
         </Card>
       </div>
 
-      {/* Gerenciar Presentes */}
+      {/* Manage Gifts */}
       <section className="mb-14">
         <div className="mb-6 flex items-end justify-between">
           <div>
@@ -143,7 +143,7 @@ function DashboardContent() {
           </button>
         </div>
 
-        {/* Botão mobile */}
+        {/* Mobile button */}
         <button
           type="button"
           onClick={openCreate}
@@ -153,7 +153,7 @@ function DashboardContent() {
           Adicionar Novo Presente
         </button>
 
-        {/* Grid de presentes */}
+        {/* Gifts grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {gifts.map((gift) => (
             <HostGiftCard
@@ -164,7 +164,7 @@ function DashboardContent() {
             />
           ))}
 
-          {/* Tile dashed — Adicionar Novo */}
+          {/* Dashed tile — Add New */}
           <button
             type="button"
             onClick={openCreate}
@@ -178,7 +178,7 @@ function DashboardContent() {
         </div>
       </section>
 
-      {/* Compartilhar lista */}
+      {/* Share list */}
       <section className="mb-10">
         <Card className="flex flex-col items-center gap-4 p-6 text-center md:flex-row md:justify-between md:text-left">
           <div>
@@ -201,7 +201,7 @@ function DashboardContent() {
         </Card>
       </section>
 
-      {/* Convidados Recentes */}
+      {/* Recent Guests */}
       <section className="mb-6">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-extrabold text-on-surface">Confirmados Recentemente</h2>
@@ -215,10 +215,10 @@ function DashboardContent() {
           )}
         </div>
 
-        <RecentGuests convidados={convidados} confirmed={metrics.confirmed} />
+        <RecentGuests guests={guests} confirmed={metrics.confirmed} />
       </section>
 
-      {/* Formulário (Dialog) */}
+      {/* Form (Dialog) */}
       <GiftForm
         open={formOpen}
         onClose={closeForm}

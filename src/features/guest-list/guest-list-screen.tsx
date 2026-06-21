@@ -6,8 +6,8 @@ import { PartyPopper, CalendarCheck, Gift, MessageCircleHeart } from "lucide-rea
 import { HostHeader } from "@/widgets/host-header/host-header";
 import { GiftGrid } from "@/widgets/gift-grid/gift-grid";
 import { RsvpModal } from "@/features/rsvp/rsvp-modal";
-import { RecadoForm } from "@/features/recados/recado-form";
-import { RecadoList } from "@/features/recados/recado-list";
+import { MessageForm } from "@/features/messages/message-form";
+import { MessageList } from "@/features/messages/message-list";
 import { GiftCard } from "./gift-card";
 import { PriceFilter } from "./price-filter";
 import { SearchBox } from "./search-box";
@@ -27,12 +27,12 @@ export function GuestListScreen({ token }: GuestListScreenProps) {
     isError,
     search,
     setSearch,
-    priceFaixa,
-    setPriceFaixa,
+    priceRange,
+    setPriceRange,
     filteredGifts,
   } = useRegistry(token);
 
-  function handlePresentear(giftId: string) {
+  function handleGiftClick(giftId: string) {
     router.push(`/l/${token}/gift/${giftId}`);
   }
 
@@ -108,7 +108,7 @@ export function GuestListScreen({ token }: GuestListScreenProps) {
             />
 
             <section className="mb-10 flex flex-col items-start justify-between gap-6 rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 shadow-sm md:flex-row md:items-center">
-              <PriceFilter value={priceFaixa} onChange={setPriceFaixa} />
+              <PriceFilter value={priceRange} onChange={setPriceRange} />
               <SearchBox value={search} onChange={setSearch} />
             </section>
 
@@ -128,14 +128,14 @@ export function GuestListScreen({ token }: GuestListScreenProps) {
                   >
                     <GiftCard
                       gift={gift}
-                      onPresentear={() => handlePresentear(gift.id)}
+                      onGiftClick={() => handleGiftClick(gift.id)}
                     />
                   </div>
                 ))}
               </GiftGrid>
             )}
 
-            {/* Mural de Recados */}
+            {/* Message Wall */}
             <section className="mt-16">
               <div className="mb-8 flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-container/20">
@@ -154,11 +154,11 @@ export function GuestListScreen({ token }: GuestListScreenProps) {
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                 <div className="shadow-card rounded-2xl border border-outline-variant/30 bg-surface-container-lowest p-6 lg:col-span-1">
                   <h3 className="mb-4 text-base font-bold text-on-surface">Deixe seu recado</h3>
-                  <RecadoForm eventoId={registry.event.id} />
+                  <MessageForm eventId={registry.event.id} />
                 </div>
 
                 <div className="lg:col-span-2">
-                  <RecadoList eventoId={registry.event.id} />
+                  <MessageList eventId={registry.event.id} />
                 </div>
               </div>
             </section>
@@ -167,7 +167,7 @@ export function GuestListScreen({ token }: GuestListScreenProps) {
       </main>
 
       {registry && (
-        <RsvpModal open={rsvpOpen} onClose={() => setRsvpOpen(false)} eventoId={registry.event.id} />
+        <RsvpModal open={rsvpOpen} onClose={() => setRsvpOpen(false)} eventId={registry.event.id} />
       )}
 
       {/* Footer */}

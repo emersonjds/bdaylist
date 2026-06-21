@@ -28,15 +28,15 @@ interface ReservationBody {
 }
 
 interface RsvpBody {
-  eventoId: string;
-  nome: string;
-  status?: "confirmado" | "recusado";
+  eventId: string;
+  name: string;
+  status?: "confirmed" | "declined";
 }
 
-interface RecadoBody {
-  eventoId: string;
-  autor: string;
-  texto: string;
+interface MessageBody {
+  eventId: string;
+  author: string;
+  text: string;
 }
 
 export const handlers = [
@@ -60,14 +60,14 @@ export const handlers = [
       return HttpResponse.json({ message: "Evento não encontrado" }, { status: 404 });
     }
     const gifts = db.gifts.filter((g) => g.eventId === event.id);
-    const convidados = db.convidados.filter((c) => c.eventoId === event.id);
+    const guests = db.guests.filter((g) => g.eventId === event.id);
     const confirmed = db.rsvps.filter(
-      (r) => r.eventoId === event.id && r.status === "confirmado"
+      (r) => r.eventId === event.id && r.status === "confirmed"
     ).length;
     return HttpResponse.json({
       event,
       gifts,
-      convidados,
+      guests,
       metrics: { confirmed },
     });
   }),
@@ -160,38 +160,38 @@ export const handlers = [
     const body = (await request.json()) as unknown as RsvpBody;
     const rsvp = {
       id: nextId(),
-      eventoId: body.eventoId,
-      nome: body.nome,
-      status: body.status ?? ("confirmado" as const),
+      eventId: body.eventId,
+      name: body.name,
+      status: body.status ?? ("confirmed" as const),
     };
     db.rsvps.push(rsvp);
     return HttpResponse.json({ rsvp }, { status: 201 });
   }),
 
-  http.get("/api/recados/:eventoId", ({ params }) => {
-    const eventoId = params.eventoId as string;
-    const recados = db.recados.filter((r) => r.eventoId === eventoId);
-    return HttpResponse.json({ recados });
+  http.get("/api/messages/:eventId", ({ params }) => {
+    const eventId = params.eventId as string;
+    const messages = db.messages.filter((m) => m.eventId === eventId);
+    return HttpResponse.json({ messages });
   }),
 
-  http.post("/api/recados", async ({ request }) => {
-    const body = (await request.json()) as unknown as RecadoBody;
-    const recado = {
+  http.post("/api/messages", async ({ request }) => {
+    const body = (await request.json()) as unknown as MessageBody;
+    const message = {
       id: nextId(),
-      eventoId: body.eventoId,
-      autor: body.autor,
-      texto: body.texto,
-      criadoEm: new Date().toISOString(),
+      eventId: body.eventId,
+      author: body.author,
+      text: body.text,
+      createdAt: new Date().toISOString(),
     };
-    db.recados.push(recado);
-    return HttpResponse.json({ recado }, { status: 201 });
+    db.messages.push(message);
+    return HttpResponse.json({ message }, { status: 201 });
   }),
 
   http.post("/api/auth/google", () => {
     return HttpResponse.json({
       user: {
         id: "host-1",
-        nome: "Rodrigo",
+        name: "Rodrigo",
         email: "rodrigo@example.com",
         avatarUrl: "",
       },
