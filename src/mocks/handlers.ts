@@ -39,6 +39,11 @@ interface MessageBody {
   text: string;
 }
 
+interface GuestBody {
+  name: string;
+  email: string;
+}
+
 export const handlers = [
   http.get("/api/registry/:token", ({ params }) => {
     const token = params.token as string;
@@ -60,15 +65,19 @@ export const handlers = [
       return HttpResponse.json({ message: "Evento não encontrado" }, { status: 404 });
     }
     const gifts = db.gifts.filter((g) => g.eventId === event.id);
-    const guests = db.guests.filter((g) => g.eventId === event.id);
-    const confirmed = db.rsvps.filter(
-      (r) => r.eventId === event.id && r.status === "confirmed"
-    ).length;
+    const confirmedNames = new Set(
+      db.rsvps
+        .filter((r) => r.eventId === event.id && r.status === "confirmed")
+        .map((r) => r.name)
+    );
+    const guests = db.guests
+      .filter((g) => g.eventId === event.id)
+      .map((g) => ({ ...g, confirmed: confirmedNames.has(g.name) }));
     return HttpResponse.json({
       event,
       gifts,
       guests,
-      metrics: { confirmed },
+      metrics: { confirmed: confirmedNames.size },
     });
   }),
 
@@ -154,6 +163,22 @@ export const handlers = [
     db.gifts[giftIndex]!.status = "reserved";
 
     return HttpResponse.json({ reservation }, { status: 201 });
+  }),
+
+  http.post("/api/guests", async ({ request }) => {
+    const body = (await request.json()) as unknown as GuestBody;
+    const event = db.events[0];
+    if (!event) {
+      return HttpResponse.json({ message: "Evento não encontrado" }, { status: 404 });
+    }
+    const guest = {
+      id: `guest-${nextId()}`,
+      eventId: event.id,
+      name: body.name,
+      email: body.email,
+    };
+    db.guests.push(guest);
+    return HttpResponse.json({ guest }, { status: 201 });
   }),
 
   http.post("/api/rsvp", async ({ request }) => {
