@@ -7,7 +7,12 @@ interface MswProviderProps {
 }
 
 export function MswProvider({ children }: MswProviderProps) {
-  const mockingEnabled = process.env.NEXT_PUBLIC_API_MOCKING === "enabled";
+  // Sem backend real (Supabase) ainda: o mock é a fonte de dados para testar a
+  // ferramenta. Liga por padrão em dev; em produção só quando explicitamente pedido.
+  const mockingEnabled =
+    process.env.NEXT_PUBLIC_API_MOCKING !== "disabled" &&
+    (process.env.NEXT_PUBLIC_API_MOCKING === "enabled" ||
+      process.env.NODE_ENV === "development");
 
   const [ready, setReady] = useState(!mockingEnabled);
 
