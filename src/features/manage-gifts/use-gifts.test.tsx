@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "@/features/auth";
-import { usePresentes } from "./use-presentes";
+import { useGifts } from "./use-gifts";
 
 const mockUser = {
   id: "host-1",
@@ -18,15 +18,15 @@ function createTestClient() {
 }
 
 function TestComponent() {
-  const { painel, isLoading, criar } = usePresentes();
+  const { painel, isLoading, create } = useGifts();
 
   if (isLoading) return <div>Carregando...</div>;
   if (!painel) return <div>Sem dados</div>;
 
   return (
     <div>
-      <span data-testid="count">{painel.presentes.length}</span>
-      <button type="button" onClick={() => criar({ nome: "Novo Presente" })}>
+      <span data-testid="count">{painel.gifts.length}</span>
+      <button type="button" onClick={() => create({ name: "Novo Presente" })}>
         Adicionar
       </button>
     </div>
@@ -51,7 +51,7 @@ afterEach(() => {
   localStorage.clear();
 });
 
-test("carrega presentes do painel autenticado", async () => {
+test("loads gifts from authenticated dashboard", async () => {
   const client = createTestClient();
   render(<Wrapper client={client} />);
 
@@ -62,7 +62,7 @@ test("carrega presentes do painel autenticado", async () => {
   expect(screen.getByTestId("count")).toHaveTextContent("5");
 });
 
-test("criar adiciona um presente à lista do painel", async () => {
+test("create adds a gift to the dashboard list", async () => {
   const client = createTestClient();
   render(<Wrapper client={client} />);
 

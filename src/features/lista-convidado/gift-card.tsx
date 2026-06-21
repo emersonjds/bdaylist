@@ -3,18 +3,18 @@
 import { useState } from "react";
 import { Gift, Star, Users, PlusCircle } from "lucide-react";
 import { Badge, Button, ProgressBar, ConfettiBurst } from "@/shared/ui";
-import { formatPreco, percentualGrupo } from "@/entities/presente";
-import type { Presente } from "@/entities/presente";
+import { formatPrice, groupGoalPercent } from "@/entities/gift";
+import type { Gift as GiftType } from "@/entities/gift";
 
 interface GiftCardProps {
-  presente: Presente;
+  gift: GiftType;
   onPresentear: () => void;
 }
 
-export function GiftCard({ presente, onPresentear }: GiftCardProps) {
-  const reservado = presente.status === "reservado";
+export function GiftCard({ gift, onPresentear }: GiftCardProps) {
+  const reserved = gift.status === "reserved";
   const [showConfetti, setShowConfetti] = useState(false);
-  const isGrupo = presente.emGrupo && presente.metaGrupo !== undefined;
+  const isGroupGift = gift.isGroup && gift.groupGoal !== undefined;
 
   function handleClick() {
     setShowConfetti(true);
@@ -28,11 +28,11 @@ export function GiftCard({ presente, onPresentear }: GiftCardProps) {
 
       {/* Image */}
       <div className="relative h-56">
-        {presente.imagemUrl ? (
+        {gift.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={presente.imagemUrl}
-            alt={presente.nome}
+            src={gift.imageUrl}
+            alt={gift.name}
             className="h-full w-full object-cover"
           />
         ) : (
@@ -43,19 +43,19 @@ export function GiftCard({ presente, onPresentear }: GiftCardProps) {
 
         {/* Badges overlaid on image */}
         <div className="absolute top-4 left-4 flex flex-col gap-2">
-          {presente.maisDesejado && (
+          {gift.mostWanted && (
             <Badge tone="tertiary" className="flex items-center gap-1 shadow-md">
               <Star className="h-3 w-3 fill-current" />
               Mais Desejado
             </Badge>
           )}
-          {presente.emGrupo && (
+          {gift.isGroup && (
             <Badge tone="primary" className="flex items-center gap-1 shadow-md">
               <Users className="h-3 w-3" />
               Presente em Grupo
             </Badge>
           )}
-          {reservado && (
+          {reserved && (
             <Badge className="border border-outline-variant bg-surface-container text-on-surface-variant shadow-md">
               Reservado
             </Badge>
@@ -66,40 +66,40 @@ export function GiftCard({ presente, onPresentear }: GiftCardProps) {
       {/* Card body */}
       <div className="flex flex-grow flex-col justify-between p-6">
         <div>
-          <h3 className="mb-1 text-lg font-bold text-on-surface">{presente.nome}</h3>
-          <p className="mb-4 line-clamp-2 text-sm text-on-surface-variant">{presente.descricao}</p>
+          <h3 className="mb-1 text-lg font-bold text-on-surface">{gift.name}</h3>
+          <p className="mb-4 line-clamp-2 text-sm text-on-surface-variant">{gift.description}</p>
 
-          {isGrupo && presente.metaGrupo && (
+          {isGroupGift && gift.groupGoal && (
             <div className="mb-4">
               <div className="mb-1 flex justify-between text-xs font-bold">
                 <span className="text-secondary">
-                  R$ {presente.metaGrupo.arrecadado.toLocaleString("pt-BR")} arrecadados
+                  R$ {gift.groupGoal.collected.toLocaleString("pt-BR")} arrecadados
                 </span>
                 <span className="text-outline">
-                  R$ {presente.metaGrupo.alvo.toLocaleString("pt-BR")}
+                  R$ {gift.groupGoal.target.toLocaleString("pt-BR")}
                 </span>
               </div>
               <ProgressBar
-                value={percentualGrupo(presente.metaGrupo)}
-                label={`${percentualGrupo(presente.metaGrupo)}% arrecadado`}
+                value={groupGoalPercent(gift.groupGoal)}
+                label={`${groupGoalPercent(gift.groupGoal)}% arrecadado`}
               />
             </div>
           )}
         </div>
 
         <div>
-          {!isGrupo && (
+          {!isGroupGift && (
             <div className="mb-4 text-xl font-bold text-primary">
-              {formatPreco(presente.precoReferencia)}
+              {formatPrice(gift.referencePrice)}
             </div>
           )}
 
-          {isGrupo ? (
+          {isGroupGift ? (
             <Button
               variant="secondary"
               size="lg"
               className="w-full"
-              disabled={reservado}
+              disabled={reserved}
               onClick={handleClick}
             >
               <PlusCircle className="h-4 w-4" />
@@ -110,7 +110,7 @@ export function GiftCard({ presente, onPresentear }: GiftCardProps) {
               variant="primary"
               size="lg"
               className="w-full"
-              disabled={reservado}
+              disabled={reserved}
               onClick={handleClick}
             >
               <Gift className="h-4 w-4" />

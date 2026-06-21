@@ -15,15 +15,15 @@ function createTestClient() {
 
 const gift = {
   id: "p3",
-  eventoId: "1",
-  nome: "Kit Velas",
-  descricao: "",
-  imagemUrl: "",
-  precoReferencia: 120,
-  linkLoja: "",
-  maisDesejado: false,
-  emGrupo: false,
-  status: "disponivel" as const,
+  eventId: "1",
+  name: "Kit Velas",
+  description: "",
+  imageUrl: "",
+  referencePrice: 120,
+  storeLink: "",
+  mostWanted: false,
+  isGroup: false,
+  status: "available" as const,
 };
 
 test("envia a reserva e chama onSuccess", async () => {

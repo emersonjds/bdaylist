@@ -2,17 +2,17 @@ import { apiGet } from "@/shared/lib/http";
 import type { Evento } from "./model";
 
 // Inline shapes for the cross-entity fields to avoid lateral entity imports (FSD rule).
-type PresenteBasico = {
+type GiftBasic = {
   id: string;
-  eventoId: string;
-  nome: string;
-  descricao: string;
-  imagemUrl: string;
-  precoReferencia: number;
-  linkLoja: string;
-  maisDesejado: boolean;
-  emGrupo: boolean;
-  status: "disponivel" | "reservado";
+  eventId: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  referencePrice: number;
+  storeLink: string;
+  mostWanted: boolean;
+  isGroup: boolean;
+  status: "available" | "reserved";
 };
 
 type ConvidadoBasico = {
@@ -24,7 +24,7 @@ type ConvidadoBasico = {
 
 export type PainelResponse = {
   evento: Evento;
-  presentes: PresenteBasico[];
+  gifts: GiftBasic[];
   convidados: ConvidadoBasico[];
   metrics: { confirmados: number };
 };

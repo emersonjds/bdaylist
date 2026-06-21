@@ -3,6 +3,6 @@ const formatter = new Intl.NumberFormat("pt-BR", {
   currency: "BRL",
 });
 
-export function formatPreco(valor: number): string {
-  return formatter.format(valor);
+export function formatPrice(value: number): string {
+  return formatter.format(value);
 }

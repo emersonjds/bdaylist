@@ -3,22 +3,22 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/features/auth";
 import { getPainel } from "@/entities/evento";
-import { criarPresente, atualizarPresente, removerPresente } from "@/entities/presente";
+import { createGift, updateGift, deleteGift } from "@/entities/gift";
 
 export const PAINEL_QUERY_KEY = ["painel"] as const;
 
-interface AtualizarArgs {
+interface UpdateArgs {
   id: string;
-  nome?: string;
-  descricao?: string;
-  imagemUrl?: string;
-  precoReferencia?: number;
-  linkLoja?: string;
-  maisDesejado?: boolean;
-  emGrupo?: boolean;
+  name?: string;
+  description?: string;
+  imageUrl?: string;
+  referencePrice?: number;
+  storeLink?: string;
+  mostWanted?: boolean;
+  isGroup?: boolean;
 }
 
-export function usePresentes() {
+export function useGifts() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const authToken = user?.id ?? "";
@@ -29,18 +29,18 @@ export function usePresentes() {
     enabled: !!user,
   });
 
-  const criarMutation = useMutation({
-    mutationFn: criarPresente,
+  const createMutation = useMutation({
+    mutationFn: createGift,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: PAINEL_QUERY_KEY }),
   });
 
-  const atualizarMutation = useMutation({
-    mutationFn: ({ id, ...body }: AtualizarArgs) => atualizarPresente(id, body),
+  const updateMutation = useMutation({
+    mutationFn: ({ id, ...body }: UpdateArgs) => updateGift(id, body),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: PAINEL_QUERY_KEY }),
   });
 
-  const removerMutation = useMutation({
-    mutationFn: (id: string) => removerPresente(id),
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => deleteGift(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: PAINEL_QUERY_KEY }),
   });
 
@@ -48,11 +48,11 @@ export function usePresentes() {
     painel: query.data,
     isLoading: query.isLoading,
     isError: query.isError,
-    criar: criarMutation.mutateAsync,
-    atualizar: atualizarMutation.mutateAsync,
-    remover: removerMutation.mutateAsync,
-    isCriando: criarMutation.isPending,
-    isAtualizando: atualizarMutation.isPending,
-    isRemovendo: removerMutation.isPending,
+    create: createMutation.mutateAsync,
+    update: updateMutation.mutateAsync,
+    remove: deleteMutation.mutateAsync,
+    isCreating: createMutation.isPending,
+    isUpdating: updateMutation.isPending,
+    isRemoving: deleteMutation.isPending,
   };
 }

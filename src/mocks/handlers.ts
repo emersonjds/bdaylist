@@ -1,24 +1,24 @@
 import { http, HttpResponse } from "msw";
 import { db, nextId } from "./db";
 
-interface CriarPresenteBody {
-  nome: string;
-  descricao?: string;
-  imagemUrl?: string;
-  precoReferencia?: number;
-  linkLoja?: string;
-  maisDesejado?: boolean;
-  emGrupo?: boolean;
+interface CreateGiftBody {
+  name: string;
+  description?: string;
+  imageUrl?: string;
+  referencePrice?: number;
+  storeLink?: string;
+  mostWanted?: boolean;
+  isGroup?: boolean;
 }
 
-interface AtualizarPresenteBody {
-  nome?: string;
-  descricao?: string;
-  imagemUrl?: string;
-  precoReferencia?: number;
-  linkLoja?: string;
-  maisDesejado?: boolean;
-  emGrupo?: boolean;
+interface UpdateGiftBody {
+  name?: string;
+  description?: string;
+  imageUrl?: string;
+  referencePrice?: number;
+  storeLink?: string;
+  mostWanted?: boolean;
+  isGroup?: boolean;
 }
 
 interface ReservaBody {
@@ -46,9 +46,9 @@ export const handlers = [
     if (!evento) {
       return HttpResponse.json({ message: "Lista não encontrada" }, { status: 404 });
     }
-    const presentes = db.presentes.filter((p) => p.eventoId === evento.id);
+    const gifts = db.gifts.filter((g) => g.eventId === evento.id);
     const host = { nome: "Rodrigo", id: evento.hostId };
-    return HttpResponse.json({ evento, host, presentes });
+    return HttpResponse.json({ evento, host, gifts });
   }),
 
   http.get("/api/painel", ({ request }) => {
@@ -59,66 +59,66 @@ export const handlers = [
     if (!evento) {
       return HttpResponse.json({ message: "Evento não encontrado" }, { status: 404 });
     }
-    const presentes = db.presentes.filter((p) => p.eventoId === evento.id);
+    const gifts = db.gifts.filter((g) => g.eventId === evento.id);
     const convidados = db.convidados.filter((c) => c.eventoId === evento.id);
     const confirmados = db.rsvps.filter(
       (r) => r.eventoId === evento.id && r.status === "confirmado"
     ).length;
     return HttpResponse.json({
       evento,
-      presentes,
+      gifts,
       convidados,
       metrics: { confirmados },
     });
   }),
 
-  http.post("/api/presentes", async ({ request }) => {
-    const body = (await request.json()) as unknown as CriarPresenteBody;
+  http.post("/api/gifts", async ({ request }) => {
+    const body = (await request.json()) as unknown as CreateGiftBody;
     const evento = db.eventos[0];
     if (!evento) {
       return HttpResponse.json({ message: "Evento não encontrado" }, { status: 404 });
     }
-    const presente = {
+    const gift = {
       id: `new-${nextId()}`,
-      eventoId: evento.id,
-      nome: body.nome,
-      descricao: body.descricao ?? "",
-      imagemUrl: body.imagemUrl ?? "",
-      precoReferencia: body.precoReferencia ?? 0,
-      linkLoja: body.linkLoja ?? "",
-      maisDesejado: body.maisDesejado ?? false,
-      emGrupo: body.emGrupo ?? false,
-      status: "disponivel" as const,
+      eventId: evento.id,
+      name: body.name,
+      description: body.description ?? "",
+      imageUrl: body.imageUrl ?? "",
+      referencePrice: body.referencePrice ?? 0,
+      storeLink: body.storeLink ?? "",
+      mostWanted: body.mostWanted ?? false,
+      isGroup: body.isGroup ?? false,
+      status: "available" as const,
     };
-    db.presentes.push(presente);
-    return HttpResponse.json({ presente }, { status: 201 });
+    db.gifts.push(gift);
+    return HttpResponse.json({ gift }, { status: 201 });
   }),
 
-  http.patch("/api/presentes/:id", async ({ params, request }) => {
+  http.patch("/api/gifts/:id", async ({ params, request }) => {
     const id = params.id as string;
-    const index = db.presentes.findIndex((p) => p.id === id);
+    const index = db.gifts.findIndex((g) => g.id === id);
     if (index === -1) {
       return HttpResponse.json({ message: "Presente não encontrado" }, { status: 404 });
     }
-    const body = (await request.json()) as unknown as AtualizarPresenteBody;
-    db.presentes[index] = { ...db.presentes[index]!, ...body };
-    return HttpResponse.json({ presente: db.presentes[index] });
+    const body = (await request.json()) as unknown as UpdateGiftBody;
+    db.gifts[index] = { ...db.gifts[index]!, ...body };
+    return HttpResponse.json({ gift: db.gifts[index] });
   }),
 
-  http.delete("/api/presentes/:id", ({ params }) => {
+  http.delete("/api/gifts/:id", ({ params }) => {
     const id = params.id as string;
-    const index = db.presentes.findIndex((p) => p.id === id);
+    const index = db.gifts.findIndex((g) => g.id === id);
     if (index === -1) {
       return HttpResponse.json({ message: "Presente não encontrado" }, { status: 404 });
     }
-    db.presentes.splice(index, 1);
+    db.gifts.splice(index, 1);
     return HttpResponse.json({ success: true });
   }),
 
-  http.post("/api/presentes/:id/reserva", async ({ params, request }) => {
+  http.post("/api/gifts/:id/reservation", async ({ params, request }) => {
     const id = params.id as string;
-    const presente = db.presentes.find((p) => p.id === id);
-    if (!presente) {
+    const gift = db.gifts.find((g) => g.id === id);
+    if (!gift) {
       return HttpResponse.json({ message: "Presente não encontrado" }, { status: 404 });
     }
 
@@ -150,8 +150,8 @@ export const handlers = [
     };
     db.reservas.push(reserva);
 
-    const presenteIndex = db.presentes.findIndex((p) => p.id === id);
-    db.presentes[presenteIndex]!.status = "reservado";
+    const giftIndex = db.gifts.findIndex((g) => g.id === id);
+    db.gifts[giftIndex]!.status = "reserved";
 
     return HttpResponse.json({ reserva }, { status: 201 });
   }),

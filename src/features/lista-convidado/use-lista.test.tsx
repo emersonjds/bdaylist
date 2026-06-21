@@ -12,7 +12,7 @@ interface TestComponentProps {
 }
 
 function TestComponent({ token }: TestComponentProps) {
-  const { presentesFiltrados, setPriceFaixa, isLoading } = useLista(token);
+  const { filteredGifts, setPriceFaixa, isLoading } = useLista(token);
 
   if (isLoading) return <div>Carregando...</div>;
 
@@ -22,8 +22,8 @@ function TestComponent({ token }: TestComponentProps) {
         filtrar-ate100
       </button>
       <ul>
-        {presentesFiltrados.map((p) => (
-          <li key={p.id}>{p.nome}</li>
+        {filteredGifts.map((g) => (
+          <li key={g.id}>{g.name}</li>
         ))}
       </ul>
     </div>

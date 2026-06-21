@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, CreditCard, Gift, PartyPopper, QrCode, ShieldCheck } from "lucide-react";
 import { getLista } from "@/entities/lista/api";
-import { formatPreco } from "@/entities/presente/format-preco";
+import { formatPrice } from "@/entities/gift/format-price";
 import { Badge } from "@/shared/ui/badge";
 import { ReservaForm } from "./reserva-form";
 import { SuccessOverlay } from "./success-overlay";
@@ -28,7 +28,7 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
     queryFn: () => getLista(token),
   });
 
-  const presente = lista?.presentes.find((p) => p.id === giftId);
+  const gift = lista?.gifts.find((g) => g.id === giftId);
 
   function handleVoltar() {
     router.push(`/l/${token}`);
@@ -67,13 +67,13 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
           </div>
         )}
 
-        {lista && !presente && (
+        {lista && !gift && (
           <div className="flex items-center justify-center py-24">
             <p className="text-lg text-on-surface-variant">Presente não encontrado.</p>
           </div>
         )}
 
-        {presente && (
+        {gift && (
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
             {/* Left: Gift Summary */}
             <section className="space-y-6 lg:col-span-5">
@@ -81,10 +81,10 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
                 <h2 className="mb-6 text-xl font-bold text-primary">Resumo do Presente</h2>
 
                 <div className="mb-6 flex gap-4 rounded-lg bg-surface-container-low p-4">
-                  {presente.imagemUrl ? (
+                  {gift.imageUrl ? (
                     <img
-                      src={presente.imagemUrl}
-                      alt={presente.nome}
+                      src={gift.imageUrl}
+                      alt={gift.name}
                       className="h-24 w-24 flex-shrink-0 rounded-lg object-cover"
                     />
                   ) : (
@@ -94,20 +94,20 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
                   )}
 
                   <div className="flex flex-col justify-center gap-1">
-                    <h3 className="font-bold text-on-surface">{presente.nome}</h3>
+                    <h3 className="font-bold text-on-surface">{gift.name}</h3>
                     <p className="text-lg font-bold text-primary">
-                      {formatPreco(presente.precoReferencia)}
+                      {formatPrice(gift.referencePrice)}
                     </p>
                     <span className="inline-flex items-center gap-1 text-xs text-on-surface-variant">
                       <Gift className="h-3.5 w-3.5" />
-                      {presente.emGrupo ? "Presente em Grupo" : "Presente Inteiro"}
+                      {gift.isGroup ? "Presente em Grupo" : "Presente Inteiro"}
                     </span>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
-                  {presente.maisDesejado && <Badge tone="tertiary">Mais Desejado</Badge>}
-                  {presente.emGrupo && <Badge tone="primary">Presente em Grupo</Badge>}
+                  {gift.mostWanted && <Badge tone="tertiary">Mais Desejado</Badge>}
+                  {gift.isGroup && <Badge tone="primary">Presente em Grupo</Badge>}
                 </div>
               </div>
 
@@ -126,14 +126,14 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
             <section className="space-y-6 lg:col-span-7">
               <div className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
                 <h2 className="mb-6 text-xl font-bold text-on-surface">Dados para Reserva</h2>
-                <ReservaForm gift={presente} token={token} onSuccess={() => setSucceeded(true)} />
+                <ReservaForm gift={gift} token={token} onSuccess={() => setSucceeded(true)} />
               </div>
 
               {/* Decorative payment block — purely visual, all inputs disabled */}
               <div className="overflow-hidden rounded-xl border border-outline-variant/30 bg-surface-container-lowest shadow-[0px_10px_30px_rgba(255,90,112,0.08)]">
                 <div className="border-b border-outline-variant/30 p-6">
                   <h2 className="text-xl font-bold text-on-surface">Escolha como pagar</h2>
-                  {/* Pagamento desabilitado — o presente é combinado fora do app */}
+                  {/* Payment disabled — the gift is arranged outside the app */}
                   <p className="mt-1 text-xs text-on-surface-variant">
                     Pagamento indisponível — o presente é combinado fora do app.
                   </p>
@@ -218,13 +218,13 @@ export function FinalizarPresenteScreen({ token, giftId }: FinalizarPresenteScre
                   <div className="flex justify-between px-2">
                     <span className="text-sm text-on-surface">Subtotal:</span>
                     <span className="text-sm font-bold text-on-surface">
-                      {formatPreco(presente.precoReferencia)}
+                      {formatPrice(gift.referencePrice)}
                     </span>
                   </div>
                   <div className="flex justify-between px-2 text-primary">
                     <span className="text-lg font-bold">Total:</span>
                     <span className="text-lg font-bold">
-                      {formatPreco(presente.precoReferencia)}
+                      {formatPrice(gift.referencePrice)}
                     </span>
                   </div>
                 </div>

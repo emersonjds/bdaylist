@@ -1,50 +1,50 @@
 import { describe, it, expect, vi, test } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { GiftCard } from "./gift-card";
-import type { Presente } from "@/entities/presente";
+import type { Gift } from "@/entities/gift";
 
-const base: Presente = {
+const base: Gift = {
   id: "1",
-  eventoId: "1",
-  nome: "Câmera Instantânea",
-  descricao: "x",
-  imagemUrl: "",
-  precoReferencia: 450,
-  linkLoja: "",
-  maisDesejado: false,
-  emGrupo: false,
-  status: "disponivel",
+  eventId: "1",
+  name: "Câmera Instantânea",
+  description: "x",
+  imageUrl: "",
+  referencePrice: 450,
+  storeLink: "",
+  mostWanted: false,
+  isGroup: false,
+  status: "available",
 };
 
-const grupo: Presente = {
+const grupo: Gift = {
   id: "p4",
-  eventoId: "e1",
-  nome: "Cafeteira",
-  descricao: "Meta nova casa",
-  imagemUrl: "",
-  precoReferencia: 1500,
-  linkLoja: "",
-  maisDesejado: false,
-  emGrupo: true,
-  status: "disponivel",
-  metaGrupo: { alvo: 1500, arrecadado: 600 },
+  eventId: "e1",
+  name: "Cafeteira",
+  description: "Meta nova casa",
+  imageUrl: "",
+  referencePrice: 1500,
+  storeLink: "",
+  mostWanted: false,
+  isGroup: true,
+  status: "available",
+  groupGoal: { target: 1500, collected: 600 },
 };
 
 test("mostra nome, preço formatado e botão presentear", () => {
-  render(<GiftCard presente={base} onPresentear={() => {}} />);
+  render(<GiftCard gift={base} onPresentear={() => {}} />);
   expect(screen.getByText("Câmera Instantânea")).toBeInTheDocument();
   expect(screen.getByText("R$ 450,00")).toBeInTheDocument();
   expect(screen.getByRole("button", { name: /Presentear/ })).toBeEnabled();
 });
 
 test("desabilita quando reservado", () => {
-  render(<GiftCard presente={{ ...base, status: "reservado" }} onPresentear={() => {}} />);
+  render(<GiftCard gift={{ ...base, status: "reserved" }} onPresentear={() => {}} />);
   expect(screen.getByRole("button", { name: /Reservado|Presentear/ })).toBeDisabled();
 });
 
-describe("GiftCard — presente em grupo", () => {
+describe("GiftCard — group gift", () => {
   it("mostra barra de progresso e botão Contribuir", () => {
-    render(<GiftCard presente={grupo} onPresentear={vi.fn()} />);
+    render(<GiftCard gift={grupo} onPresentear={vi.fn()} />);
     expect(screen.getByRole("progressbar")).toHaveAttribute("aria-valuenow", "40");
     expect(screen.getByRole("button", { name: /Contribuir/ })).toBeVisible();
   });

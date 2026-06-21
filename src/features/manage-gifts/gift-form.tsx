@@ -5,17 +5,24 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { X } from "lucide-react";
-import type { Presente } from "@/entities/presente";
+import type { Gift } from "@/entities/gift";
 import { Dialog, Input, Textarea, Button } from "@/shared/ui";
 
+const safeUrl = z
+  .string()
+  .refine(
+    (value) => value === "" || /^https?:\/\//i.test(value),
+    "URL deve começar com http:// ou https://"
+  );
+
 const giftFormSchema = z.object({
-  nome: z.string().min(1, "Nome é obrigatório"),
-  descricao: z.string(),
-  imagemUrl: z.string(),
-  precoReferencia: z.number().min(0, "Preço deve ser positivo"),
-  linkLoja: z.string(),
-  maisDesejado: z.boolean(),
-  emGrupo: z.boolean(),
+  name: z.string().min(1, "Nome é obrigatório"),
+  description: z.string(),
+  imageUrl: safeUrl,
+  referencePrice: z.number().min(0, "Preço deve ser positivo"),
+  storeLink: safeUrl,
+  mostWanted: z.boolean(),
+  isGroup: z.boolean(),
 });
 
 export type GiftFormValues = z.infer<typeof giftFormSchema>;
@@ -23,11 +30,11 @@ export type GiftFormValues = z.infer<typeof giftFormSchema>;
 interface GiftFormProps {
   open: boolean;
   onClose: () => void;
-  presente?: Presente;
+  gift?: Gift;
   onSubmit: (data: GiftFormValues) => Promise<void>;
 }
 
-export function GiftForm({ open, onClose, presente, onSubmit }: GiftFormProps) {
+export function GiftForm({ open, onClose, gift, onSubmit }: GiftFormProps) {
   const {
     register,
     handleSubmit,
@@ -36,48 +43,48 @@ export function GiftForm({ open, onClose, presente, onSubmit }: GiftFormProps) {
   } = useForm<GiftFormValues>({
     resolver: zodResolver(giftFormSchema),
     defaultValues: {
-      nome: "",
-      descricao: "",
-      imagemUrl: "",
-      precoReferencia: 0,
-      linkLoja: "",
-      maisDesejado: false,
-      emGrupo: false,
+      name: "",
+      description: "",
+      imageUrl: "",
+      referencePrice: 0,
+      storeLink: "",
+      mostWanted: false,
+      isGroup: false,
     },
   });
 
   useEffect(() => {
     if (open) {
       reset(
-        presente
+        gift
           ? {
-              nome: presente.nome,
-              descricao: presente.descricao,
-              imagemUrl: presente.imagemUrl,
-              precoReferencia: presente.precoReferencia,
-              linkLoja: presente.linkLoja,
-              maisDesejado: presente.maisDesejado,
-              emGrupo: presente.emGrupo,
+              name: gift.name,
+              description: gift.description,
+              imageUrl: gift.imageUrl,
+              referencePrice: gift.referencePrice,
+              storeLink: gift.storeLink,
+              mostWanted: gift.mostWanted,
+              isGroup: gift.isGroup,
             }
           : {
-              nome: "",
-              descricao: "",
-              imagemUrl: "",
-              precoReferencia: 0,
-              linkLoja: "",
-              maisDesejado: false,
-              emGrupo: false,
+              name: "",
+              description: "",
+              imageUrl: "",
+              referencePrice: 0,
+              storeLink: "",
+              mostWanted: false,
+              isGroup: false,
             }
       );
     }
-  }, [open, presente, reset]);
+  }, [open, gift, reset]);
 
   async function handleFormSubmit(data: GiftFormValues) {
     await onSubmit(data);
     onClose();
   }
 
-  const titulo = presente ? "Editar Presente" : "Adicionar Presente";
+  const titulo = gift ? "Editar Presente" : "Adicionar Presente";
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -96,51 +103,51 @@ export function GiftForm({ open, onClose, presente, onSubmit }: GiftFormProps) {
       <form onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col gap-4" noValidate>
         <div>
           <Input
-            id="nome"
+            id="name"
             label="Nome do Presente"
             placeholder="Ex: Fone Bluetooth"
-            {...register("nome")}
+            {...register("name")}
           />
-          {errors.nome && <p className="mt-1 text-xs text-error">{errors.nome.message}</p>}
+          {errors.name && <p className="mt-1 text-xs text-error">{errors.name.message}</p>}
         </div>
 
         <Textarea
-          id="descricao"
+          id="description"
           label="Descrição"
           placeholder="Descreva o presente..."
           rows={3}
-          {...register("descricao")}
+          {...register("description")}
         />
 
         <div>
           <Input
-            id="precoReferencia"
+            id="referencePrice"
             label="Preço de Referência (R$)"
             type="number"
             min={0}
             step={0.01}
             placeholder="0,00"
-            {...register("precoReferencia", { valueAsNumber: true })}
+            {...register("referencePrice", { valueAsNumber: true })}
           />
-          {errors.precoReferencia && (
-            <p className="mt-1 text-xs text-error">{errors.precoReferencia.message}</p>
+          {errors.referencePrice && (
+            <p className="mt-1 text-xs text-error">{errors.referencePrice.message}</p>
           )}
         </div>
 
         <Input
-          id="linkLoja"
+          id="storeLink"
           label="Link da Loja"
           type="url"
           placeholder="https://..."
-          {...register("linkLoja")}
+          {...register("storeLink")}
         />
 
         <Input
-          id="imagemUrl"
+          id="imageUrl"
           label="URL da Imagem"
           type="url"
           placeholder="https://..."
-          {...register("imagemUrl")}
+          {...register("imageUrl")}
         />
 
         <div className="flex gap-6">
@@ -148,7 +155,7 @@ export function GiftForm({ open, onClose, presente, onSubmit }: GiftFormProps) {
             <input
               type="checkbox"
               className="h-4 w-4 rounded accent-primary"
-              {...register("maisDesejado")}
+              {...register("mostWanted")}
             />
             <span className="text-sm font-semibold text-on-surface">Mais Desejado</span>
           </label>
@@ -157,7 +164,7 @@ export function GiftForm({ open, onClose, presente, onSubmit }: GiftFormProps) {
             <input
               type="checkbox"
               className="h-4 w-4 rounded accent-primary"
-              {...register("emGrupo")}
+              {...register("isGroup")}
             />
             <span className="text-sm font-semibold text-on-surface">Presente em Grupo</span>
           </label>

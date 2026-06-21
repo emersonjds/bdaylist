@@ -13,7 +13,7 @@ import { HttpError } from "@/shared/lib/http";
 import { useReservar } from "./use-reservar";
 import type { Lista } from "@/entities/lista/model";
 
-type PresenteItem = Lista["presentes"][number];
+type GiftItem = Lista["gifts"][number];
 
 const schema = z.object({
   convidadoNome: z.string().min(1, "Informe seu nome"),
@@ -23,7 +23,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 interface ReservaFormProps {
-  gift: PresenteItem;
+  gift: GiftItem;
   token?: string;
   onSuccess: () => void;
 }

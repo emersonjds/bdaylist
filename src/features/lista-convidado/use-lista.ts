@@ -6,7 +6,7 @@ import { getLista } from "@/entities/lista";
 import type { Lista } from "@/entities/lista";
 import type { PriceFaixa } from "./price-filter";
 
-type PresenteItem = Lista["presentes"][number];
+type GiftItem = Lista["gifts"][number];
 
 interface UseListaResult {
   lista: Lista | undefined;
@@ -16,17 +16,17 @@ interface UseListaResult {
   setSearch: (value: string) => void;
   priceFaixa: PriceFaixa;
   setPriceFaixa: (value: PriceFaixa) => void;
-  presentesFiltrados: PresenteItem[];
+  filteredGifts: GiftItem[];
 }
 
-function matchesPriceFaixa(preco: number, faixa: PriceFaixa): boolean {
+function matchesPriceFaixa(price: number, faixa: PriceFaixa): boolean {
   switch (faixa) {
     case "ate100":
-      return preco <= 100;
+      return price <= 100;
     case "100a300":
-      return preco > 100 && preco <= 300;
+      return price > 100 && price <= 300;
     case "acima300":
-      return preco > 300;
+      return price > 300;
     default:
       return true;
   }
@@ -41,12 +41,12 @@ export function useLista(token: string): UseListaResult {
     queryFn: () => getLista(token),
   });
 
-  const presentes = query.data?.presentes ?? [];
+  const gifts = query.data?.gifts ?? [];
 
-  const presentesFiltrados = presentes.filter((presente) => {
+  const filteredGifts = gifts.filter((gift) => {
     const matchesSearch =
-      search.trim() === "" || presente.nome.toLowerCase().includes(search.toLowerCase());
-    const matchesPrice = matchesPriceFaixa(presente.precoReferencia, priceFaixa);
+      search.trim() === "" || gift.name.toLowerCase().includes(search.toLowerCase());
+    const matchesPrice = matchesPriceFaixa(gift.referencePrice, priceFaixa);
     return matchesSearch && matchesPrice;
   });
 
@@ -58,6 +58,6 @@ export function useLista(token: string): UseListaResult {
     setSearch,
     priceFaixa,
     setPriceFaixa,
-    presentesFiltrados,
+    filteredGifts,
   };
 }

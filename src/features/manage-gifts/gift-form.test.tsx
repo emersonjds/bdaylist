@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { z } from "zod";
 import { GiftForm } from "./gift-form";
 
 const noopAsync = async () => {};
@@ -23,6 +24,31 @@ test("chama onSubmit com nome ao submeter formulário válido", async () => {
   await userEvent.click(screen.getByRole("button", { name: /salvar/i }));
 
   await waitFor(() => {
-    expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({ nome: "Fone Bluetooth" }));
+    expect(onSubmit).toHaveBeenCalledWith(expect.objectContaining({ name: "Fone Bluetooth" }));
+  });
+});
+
+describe("store and image URL validation", () => {
+  const safeUrl = z
+    .string()
+    .refine(
+      (value) => value === "" || /^https?:\/\//i.test(value),
+      "URL deve começar com http:// ou https://"
+    );
+
+  test("rejects javascript: scheme", () => {
+    expect(safeUrl.safeParse("javascript:alert(1)").success).toBe(false);
+  });
+
+  test("rejects data: scheme", () => {
+    expect(safeUrl.safeParse("data:text/html,<h1>xss</h1>").success).toBe(false);
+  });
+
+  test("accepts valid https URL", () => {
+    expect(safeUrl.safeParse("https://amazon.com/x").success).toBe(true);
+  });
+
+  test("accepts empty string (optional field)", () => {
+    expect(safeUrl.safeParse("").success).toBe(true);
   });
 });

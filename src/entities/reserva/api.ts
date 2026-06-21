@@ -11,7 +11,7 @@ export async function criarReserva(
   presenteId: string,
   body: CriarReservaBody
 ): Promise<{ reserva: Reserva }> {
-  return apiSend<{ reserva: Reserva }>(`/api/presentes/${presenteId}/reserva`, {
+  return apiSend<{ reserva: Reserva }>(`/api/gifts/${presenteId}/reservation`, {
     method: "POST",
     body,
   });

@@ -29,11 +29,11 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
     setSearch,
     priceFaixa,
     setPriceFaixa,
-    presentesFiltrados,
+    filteredGifts,
   } = useLista(token);
 
-  function handlePresentear(presenteId: string) {
-    router.push(`/l/${token}/presentear/${presenteId}`);
+  function handlePresentear(giftId: string) {
+    router.push(`/l/${token}/presentear/${giftId}`);
   }
 
   return (
@@ -112,7 +112,7 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
               <SearchBox value={search} onChange={setSearch} />
             </section>
 
-            {presentesFiltrados.length === 0 ? (
+            {filteredGifts.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-4 py-16">
                 <Gift className="h-12 w-12 text-outline-variant" />
                 <p className="text-lg text-on-surface-variant">
@@ -121,14 +121,14 @@ export function ListaConvidadoScreen({ token }: ListaConvidadoScreenProps) {
               </div>
             ) : (
               <GiftGrid>
-                {presentesFiltrados.map((presente) => (
+                {filteredGifts.map((gift) => (
                   <div
-                    key={presente.id}
-                    className={presente.maisDesejado ? "lg:col-span-2" : undefined}
+                    key={gift.id}
+                    className={gift.mostWanted ? "lg:col-span-2" : undefined}
                   >
                     <GiftCard
-                      presente={presente}
-                      onPresentear={() => handlePresentear(presente.id)}
+                      gift={gift}
+                      onPresentear={() => handlePresentear(gift.id)}
                     />
                   </div>
                 ))}

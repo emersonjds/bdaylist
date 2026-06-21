@@ -14,23 +14,23 @@ const EventoEmListaSchema = z.object({
   listToken: z.string(),
 });
 
-const PresenteEmListaSchema = z.object({
+const GiftInRegistrySchema = z.object({
   id: z.string(),
-  eventoId: z.string(),
-  nome: z.string(),
-  descricao: z.string(),
-  imagemUrl: z.string(),
-  precoReferencia: z.number(),
-  linkLoja: z.string(),
-  maisDesejado: z.boolean(),
-  emGrupo: z.boolean(),
-  status: z.enum(["disponivel", "reservado"]),
+  eventId: z.string(),
+  name: z.string(),
+  description: z.string(),
+  imageUrl: z.string(),
+  referencePrice: z.number(),
+  storeLink: z.string(),
+  mostWanted: z.boolean(),
+  isGroup: z.boolean(),
+  status: z.enum(["available", "reserved"]),
 });
 
 export const ListaSchema = z.object({
   evento: EventoEmListaSchema,
   host: z.object({ id: z.string(), nome: z.string() }),
-  presentes: z.array(PresenteEmListaSchema),
+  gifts: z.array(GiftInRegistrySchema),
 });
 
 export type Lista = z.infer<typeof ListaSchema>;

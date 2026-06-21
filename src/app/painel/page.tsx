@@ -3,16 +3,16 @@
 import { useState } from "react";
 import { Calendar, Plus, Users, Share2 } from "lucide-react";
 import { RequireAuth, useAuth } from "@/features/auth";
-import { usePresentes } from "@/features/gerenciar-presentes/use-presentes";
-import { GiftForm } from "@/features/gerenciar-presentes/gift-form";
-import type { GiftFormValues } from "@/features/gerenciar-presentes/gift-form";
-import { HostGiftCard } from "@/features/gerenciar-presentes/host-gift-card";
+import { useGifts } from "@/features/manage-gifts/use-gifts";
+import { GiftForm } from "@/features/manage-gifts/gift-form";
+import type { GiftFormValues } from "@/features/manage-gifts/gift-form";
+import { HostGiftCard } from "@/features/manage-gifts/host-gift-card";
 import { AppShell } from "@/widgets/app-shell/app-shell";
 import { ResumoCard } from "@/widgets/painel/resumo-card";
 import { MetaCard } from "@/widgets/painel/meta-card";
 import { ConvidadosRecentes } from "@/widgets/painel/convidados-recentes";
 import { diasRestantes, rotuloContagem } from "@/entities/evento";
-import type { Presente } from "@/entities/presente";
+import type { Gift } from "@/entities/gift";
 import { Card } from "@/shared/ui";
 
 export default function PainelPage() {
@@ -27,31 +27,31 @@ export default function PainelPage() {
 
 function PainelContent() {
   const { user } = useAuth();
-  const { painel, isLoading, isError, criar, atualizar, remover } = usePresentes();
+  const { painel, isLoading, isError, create, update, remove } = useGifts();
 
   const [formOpen, setFormOpen] = useState(false);
-  const [editingPresente, setEditingPresente] = useState<Presente | undefined>(undefined);
+  const [editingGift, setEditingGift] = useState<Gift | undefined>(undefined);
 
-  function abrirCriar() {
-    setEditingPresente(undefined);
+  function openCreate() {
+    setEditingGift(undefined);
     setFormOpen(true);
   }
 
-  function abrirEditar(presente: Presente) {
-    setEditingPresente(presente);
+  function openEdit(gift: Gift) {
+    setEditingGift(gift);
     setFormOpen(true);
   }
 
-  function fecharForm() {
+  function closeForm() {
     setFormOpen(false);
-    setEditingPresente(undefined);
+    setEditingGift(undefined);
   }
 
   async function handleSubmit(data: GiftFormValues) {
-    if (editingPresente) {
-      await atualizar({ id: editingPresente.id, ...data });
+    if (editingGift) {
+      await update({ id: editingGift.id, ...data });
     } else {
-      await criar(data);
+      await create(data);
     }
   }
 
@@ -76,11 +76,11 @@ function PainelContent() {
     );
   }
 
-  const { evento, presentes, convidados, metrics } = painel;
+  const { evento, gifts, convidados, metrics } = painel;
   const dias = diasRestantes(evento.dataAniversario);
   const rotulo = rotuloContagem(dias);
-  const reservados = presentes.filter((p) => p.status === "reservado").length;
-  const disponiveis = presentes.length - reservados;
+  const reservedCount = gifts.filter((g) => g.status === "reserved").length;
+  const availableCount = gifts.length - reservedCount;
 
   return (
     <>
@@ -102,7 +102,7 @@ function PainelContent() {
           {evento.meta ? (
             <MetaCard meta={evento.meta} />
           ) : (
-            <ResumoCard total={presentes.length} reservados={reservados} disponiveis={disponiveis} />
+            <ResumoCard total={gifts.length} reservados={reservedCount} disponiveis={availableCount} />
           )}
         </div>
 
@@ -135,7 +135,7 @@ function PainelContent() {
           </div>
           <button
             type="button"
-            onClick={abrirCriar}
+            onClick={openCreate}
             className="shadow-card hidden items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-bold text-white transition-all hover:scale-105 active:scale-95 md:flex"
           >
             <Plus className="h-4 w-4" />
@@ -146,7 +146,7 @@ function PainelContent() {
         {/* Botão mobile */}
         <button
           type="button"
-          onClick={abrirCriar}
+          onClick={openCreate}
           className="shadow-card mb-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-sm font-bold text-white active:scale-95 md:hidden"
         >
           <Plus className="h-4 w-4" />
@@ -155,19 +155,19 @@ function PainelContent() {
 
         {/* Grid de presentes */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {presentes.map((presente) => (
+          {gifts.map((gift) => (
             <HostGiftCard
-              key={presente.id}
-              presente={presente}
-              onEdit={() => abrirEditar(presente)}
-              onDelete={() => remover(presente.id)}
+              key={gift.id}
+              gift={gift}
+              onEdit={() => openEdit(gift)}
+              onDelete={() => remove(gift.id)}
             />
           ))}
 
           {/* Tile dashed — Adicionar Novo */}
           <button
             type="button"
-            onClick={abrirCriar}
+            onClick={openCreate}
             className="group flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-outline-variant p-8 transition-all hover:bg-surface-container active:scale-95"
           >
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-container text-primary transition-transform group-hover:scale-110">
@@ -221,8 +221,8 @@ function PainelContent() {
       {/* Formulário (Dialog) */}
       <GiftForm
         open={formOpen}
-        onClose={fecharForm}
-        presente={editingPresente}
+        onClose={closeForm}
+        gift={editingGift}
         onSubmit={handleSubmit}
       />
     </>
