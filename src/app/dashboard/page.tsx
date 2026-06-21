@@ -48,22 +48,27 @@ export default function DashboardPage() {
           Olá, {user?.name ?? "Aniversariante"}!{" "}
           <span className="inline-block animate-bounce">🎈</span>
         </h1>
-        <div className="inline-flex items-center gap-2 rounded-full bg-primary-container px-4 py-2 text-sm font-bold text-on-surface">
+        <div className="inline-flex items-center gap-2 rounded-full bg-primary-container px-4 py-2 text-sm font-bold text-on-primary-container">
           <Calendar className="h-4 w-4" />
           {label} para sua festa
         </div>
       </section>
 
       <div className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-        <div className="md:col-span-2">
+        <div className="h-full md:col-span-2">
           {event.goal ? (
-            <MetaCard meta={event.goal} />
+            <MetaCard
+              meta={event.goal}
+              total={gifts.length}
+              reserved={reservedCount}
+              available={availableCount}
+            />
           ) : (
             <SummaryCard total={gifts.length} reserved={reservedCount} available={availableCount} />
           )}
         </div>
 
-        <Card className="flex flex-col items-center justify-center p-6 text-center">
+        <Card className="flex h-full flex-col items-center justify-center p-6 text-center">
           <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-secondary-container">
             <Users className="h-7 w-7 text-on-secondary-container" />
           </div>
@@ -71,6 +76,14 @@ export default function DashboardPage() {
           <p className="mt-1 text-xs font-bold tracking-wider text-on-surface-variant uppercase">
             Convidados Confirmados
           </p>
+
+          <div className="my-4 h-px w-12 bg-outline-variant/40" />
+
+          <p className="text-3xl font-extrabold text-secondary">{guests.length}</p>
+          <p className="mt-1 text-xs font-bold tracking-wider text-on-surface-variant uppercase">
+            Convidados no Total
+          </p>
+
           <Link
             href="/dashboard/guests"
             className="mt-4 text-sm font-bold text-secondary transition-all hover:underline"
@@ -83,7 +96,7 @@ export default function DashboardPage() {
       <section className="mb-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
         <Link
           href="/dashboard/gifts"
-          className="group flex items-center gap-4 rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-6 transition-all hover:-translate-y-1 hover:shadow-[0px_10px_30px_rgba(255,90,112,0.15)]"
+          className="group flex items-center gap-4 rounded-lg border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-[0px_10px_30px_rgba(255,90,112,0.08)] transition-all hover:-translate-y-1 hover:shadow-[0px_10px_30px_rgba(255,90,112,0.15)]"
         >
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary-container text-primary transition-transform group-hover:scale-110">
             <Gift className="h-7 w-7" />
@@ -130,7 +143,7 @@ export default function DashboardPage() {
           )}
         </div>
 
-        <RecentGuests guests={guests} confirmed={metrics.confirmed} />
+        <RecentGuests guests={guests.filter((guest) => guest.confirmed)} confirmed={metrics.confirmed} />
       </section>
     </>
   );

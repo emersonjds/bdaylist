@@ -3,7 +3,7 @@
 import { Calendar, Sparkles, MessageCircle, LogOut } from "lucide-react";
 import { useAuth } from "@/features/auth";
 import { useGifts } from "@/features/manage-gifts/use-gifts";
-import { Card } from "@/shared/ui";
+import { Card, Badge } from "@/shared/ui";
 
 function formatDate(iso: string): string {
   const [year, month, day] = iso.split("-");
@@ -55,7 +55,9 @@ export default function ProfilePage() {
               <Calendar className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
               <div>
                 <dt className="text-xs font-bold tracking-wider text-on-surface-variant uppercase">Data</dt>
-                <dd className="font-semibold text-on-surface">{formatDate(event.birthDate)}</dd>
+                <dd className="mt-1">
+                  <Badge tone="tertiary">{formatDate(event.birthDate)}</Badge>
+                </dd>
               </div>
             </div>
             <div className="flex items-start gap-3">
