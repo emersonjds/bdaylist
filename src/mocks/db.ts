@@ -25,7 +25,7 @@ export const db = {
 
     this.events = [
       {
-        id: "evento-1",
+        id: "event-1",
         hostId: "host-1",
         title: "Meus 25 Anos!",
         birthDate: "2026-07-02",
@@ -40,7 +40,7 @@ export const db = {
     this.gifts = [
       {
         id: "p1",
-        eventId: "evento-1",
+        eventId: "event-1",
         name: "Fone Bluetooth Premium",
         description: "Fone sem fio com cancelamento de ruído",
         imageUrl: "",
@@ -52,7 +52,7 @@ export const db = {
       },
       {
         id: "p2",
-        eventId: "evento-1",
+        eventId: "event-1",
         name: "Câmera Instantânea",
         description: "Câmera para fotos instantâneas e memórias únicas",
         imageUrl: "",
@@ -64,7 +64,7 @@ export const db = {
       },
       {
         id: "p3",
-        eventId: "evento-1",
+        eventId: "event-1",
         name: "Kit Velas Aromáticas",
         description: "Conjunto de velas aromáticas artesanais",
         imageUrl: "",
@@ -76,7 +76,7 @@ export const db = {
       },
       {
         id: "p4",
-        eventId: "evento-1",
+        eventId: "event-1",
         name: "Cafeteira Especial",
         description: "Cafeteira de alta qualidade para os amantes de café",
         imageUrl: "",
@@ -89,7 +89,7 @@ export const db = {
       },
       {
         id: "p5",
-        eventId: "evento-1",
+        eventId: "event-1",
         name: "Livro Edição Luxo",
         description: "Edição especial com capa dura e ilustrações exclusivas",
         imageUrl: "",

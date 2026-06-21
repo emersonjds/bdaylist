@@ -1,35 +1,35 @@
 import { test, expect } from "@playwright/test";
 import { mkdirSync } from "fs";
 
-const DIR = "e2e/auth/evidencias";
+const DIR = "e2e/auth/evidence";
 
 test.beforeAll(() => {
   mkdirSync(DIR, { recursive: true });
 });
 
-test("exibe CTA de login ao acessar /dashboard sem sessão e entra com Google", async ({
+test("shows login CTA when accessing /dashboard without a session and signs in with Google", async ({
   page,
 }, testInfo) => {
   const proj = testInfo.project.name;
 
-  // 1. Visita /dashboard sem sessão autenticada
+  // 1. Visit /dashboard without an authenticated session
   await page.goto("/dashboard");
 
-  // Aguarda o MSW inicializar e o LoginCTA aparecer
+  // Wait for MSW to initialize and the LoginCTA to appear
   await expect(page.getByRole("button", { name: "Entrar com Google" })).toBeVisible({
     timeout: 20_000,
   });
 
   await page.screenshot({ path: `${DIR}/${proj}-01-login-cta.png` });
 
-  // 2. Clica em "Entrar com Google"
+  // 2. Click "Entrar com Google"
   await page.getByRole("button", { name: "Entrar com Google" }).click();
 
-  // 3. Aguarda o painel carregar após autenticação mockada
-  // POST /api/auth/google é interceptado pelo MSW e retorna o usuário Rodrigo
+  // 3. Wait for the dashboard to load after mocked authentication
+  // POST /api/auth/google is intercepted by MSW and returns user Rodrigo
   await expect(page.getByText(/Olá, Rodrigo/)).toBeVisible({
     timeout: 20_000,
   });
 
-  await page.screenshot({ path: `${DIR}/${proj}-02-painel-autenticado.png` });
+  await page.screenshot({ path: `${DIR}/${proj}-02-dashboard-authenticated.png` });
 });

@@ -18,8 +18,8 @@ function TestComponent({ token }: TestComponentProps) {
 
   return (
     <div>
-      <button type="button" onClick={() => setPriceRange("ate100")}>
-        filtrar-ate100
+      <button type="button" onClick={() => setPriceRange("upTo100")}>
+        filter-upTo100
       </button>
       <ul>
         {filteredGifts.map((g) => (
@@ -41,7 +41,7 @@ test("loads 5 gifts for the token", async () => {
   expect(screen.getAllByRole("listitem")).toHaveLength(5);
 });
 
-test("ate100 filter returns only gifts up to R$ 100", async () => {
+test("upTo100 filter returns only gifts up to R$ 100", async () => {
   const client = createTestClient();
   render(
     <QueryClientProvider client={client}>
@@ -50,7 +50,7 @@ test("ate100 filter returns only gifts up to R$ 100", async () => {
   );
   await waitFor(() => expect(screen.queryByText("Carregando...")).not.toBeInTheDocument());
 
-  await userEvent.click(screen.getByRole("button", { name: "filtrar-ate100" }));
+  await userEvent.click(screen.getByRole("button", { name: "filter-upTo100" }));
 
   // Seed: only p5 "Livro Edição Luxo" (R$89,90) is ≤ R$100
   expect(screen.getAllByRole("listitem")).toHaveLength(1);

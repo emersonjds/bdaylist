@@ -15,8 +15,8 @@ test("posts a message and it appears in the list (MSW round-trip)", async () => 
 
   render(
     <QueryClientProvider client={client}>
-      <MessageForm eventId="evento-1" />
-      <MessageList eventId="evento-1" />
+      <MessageForm eventId="event-1" />
+      <MessageList eventId="event-1" />
     </QueryClientProvider>
   );
 

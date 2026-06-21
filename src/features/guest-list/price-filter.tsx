@@ -2,13 +2,13 @@
 
 import { cn } from "@/shared/lib/cn";
 
-export type PriceRange = "todos" | "ate100" | "100a300" | "acima300";
+export type PriceRange = "all" | "upTo100" | "100to300" | "above300";
 
 const PRICE_RANGES: { value: PriceRange; label: string }[] = [
-  { value: "todos", label: "Todos" },
-  { value: "ate100", label: "Até R$ 100" },
-  { value: "100a300", label: "R$ 100 - R$ 300" },
-  { value: "acima300", label: "R$ 300+" },
+  { value: "all", label: "Todos" },
+  { value: "upTo100", label: "Até R$ 100" },
+  { value: "100to300", label: "R$ 100 - R$ 300" },
+  { value: "above300", label: "R$ 300+" },
 ];
 
 interface PriceFilterProps {

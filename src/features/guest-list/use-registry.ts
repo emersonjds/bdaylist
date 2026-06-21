@@ -21,11 +21,11 @@ interface UseRegistryResult {
 
 function matchesPriceRange(price: number, range: PriceRange): boolean {
   switch (range) {
-    case "ate100":
+    case "upTo100":
       return price <= 100;
-    case "100a300":
+    case "100to300":
       return price > 100 && price <= 300;
-    case "acima300":
+    case "above300":
       return price > 300;
     default:
       return true;
@@ -34,7 +34,7 @@ function matchesPriceRange(price: number, range: PriceRange): boolean {
 
 export function useRegistry(token: string): UseRegistryResult {
   const [search, setSearch] = useState("");
-  const [priceRange, setPriceRange] = useState<PriceRange>("todos");
+  const [priceRange, setPriceRange] = useState<PriceRange>("all");
 
   const query = useQuery({
     queryKey: ["registry", token],

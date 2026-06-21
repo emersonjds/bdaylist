@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test";
 import { mkdirSync } from "fs";
 
-const DIR = "e2e/painel/evidencias";
+const DIR = "e2e/dashboard/evidence";
 
 const SESSION = {
   id: "host-1",
-  nome: "Rodrigo",
+  name: "Rodrigo",
   email: "rodrigo@example.com",
   avatarUrl: "",
 };
@@ -15,79 +15,79 @@ test.beforeAll(() => {
 });
 
 test.beforeEach(async ({ page }) => {
-  // Injeta a sessão autenticada antes de qualquer script da página ser executado
+  // Inject authenticated session before any page script runs
   await page.addInitScript((session) => {
     localStorage.setItem("bday.session", JSON.stringify(session));
   }, SESSION);
 });
 
-test("adiciona, edita e remove um presente no painel do aniversariante", async ({
+test("adds, edits, and removes a gift in the host dashboard", async ({
   page,
 }, testInfo) => {
   const proj = testInfo.project.name;
 
-  // 1. Navega para o painel já autenticado
+  // 1. Navigate to the dashboard already authenticated
   await page.goto("/dashboard");
 
-  // Aguarda o MSW inicializar e o painel carregar com a saudação
+  // Wait for MSW to initialize and the dashboard to load with the greeting
   await expect(page.getByText(/Olá, Rodrigo/)).toBeVisible({
     timeout: 20_000,
   });
 
-  // Aguarda os presentes do seed aparecerem (confirma que GET /api/dashboard carregou)
+  // Wait for seed gifts to appear (confirms GET /api/dashboard loaded)
   await expect(page.getByText("Fone Bluetooth Premium")).toBeVisible({
     timeout: 15_000,
   });
 
-  // 2. Clica no tile "Adicionar Novo" da grade (sempre visível em mobile e desktop)
+  // 2. Click the "Adicionar Novo" tile in the grid (always visible on mobile and desktop)
   await page.getByRole("button", { name: "Adicionar Novo", exact: true }).click();
 
-  // Aguarda o formulário "Adicionar Presente" abrir
+  // Wait for the "Adicionar Presente" form to open
   await expect(page.getByRole("heading", { name: "Adicionar Presente", level: 2 })).toBeVisible({
     timeout: 5_000,
   });
 
-  // 3. Preenche o nome do novo presente
+  // 3. Fill in the name of the new gift
   await page.getByLabel("Nome do Presente").fill("Presente E2E Test");
 
-  // Envia o formulário
+  // Submit the form
   await page.getByRole("button", { name: "Salvar" }).click();
 
-  // 4. Afirma que o novo presente aparece na grade
+  // 4. Assert that the new gift appears in the grid
   await expect(page.getByText("Presente E2E Test")).toBeVisible({
     timeout: 10_000,
   });
 
-  await page.screenshot({ path: `${DIR}/${proj}-01-presente-adicionado.png` });
+  await page.screenshot({ path: `${DIR}/${proj}-01-gift-added.png` });
 
-  // 5. Edita o presente recém-adicionado
+  // 5. Edit the newly added gift
   await page.getByLabel("Editar Presente E2E Test").click();
 
-  // Aguarda o formulário de edição abrir
+  // Wait for the edit form to open
   await expect(page.getByRole("heading", { name: "Editar Presente", level: 2 })).toBeVisible({
     timeout: 5_000,
   });
 
-  // Altera o nome
-  const nomeInput = page.getByLabel("Nome do Presente");
-  await nomeInput.clear();
-  await nomeInput.fill("Presente E2E Editado");
+  // Change the name
+  const nameInput = page.getByLabel("Nome do Presente");
+  await nameInput.clear();
+  await nameInput.fill("Presente E2E Editado");
   await page.getByRole("button", { name: "Salvar" }).click();
 
-  // 6. Afirma que o nome atualizado aparece na grade
+  // 6. Assert that the updated name appears in the grid
   await expect(page.getByText("Presente E2E Editado")).toBeVisible({
     timeout: 10_000,
   });
 
-  await page.screenshot({ path: `${DIR}/${proj}-02-presente-editado.png` });
+  await page.screenshot({ path: `${DIR}/${proj}-02-gift-edited.png` });
 
-  // 7. Remove o presente editado
+  // 7. Remove the edited gift
   await page.getByLabel("Remover Presente E2E Editado").click();
 
-  // 8. Afirma que o presente desapareceu da grade
+  // 8. Assert that the gift is gone from the grid
   await expect(page.getByText("Presente E2E Editado")).not.toBeVisible({
     timeout: 10_000,
   });
 
-  await page.screenshot({ path: `${DIR}/${proj}-03-presente-removido.png` });
+  await page.screenshot({ path: `${DIR}/${proj}-03-gift-removed.png` });
 });
