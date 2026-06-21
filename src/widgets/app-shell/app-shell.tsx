@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Menu } from "lucide-react";
 import { useAuth } from "@/features/auth";
 import { BottomNav } from "./bottom-nav";
+import { TopNav } from "./top-nav";
 
 interface AppShellProps {
   children: ReactNode;
@@ -23,26 +24,31 @@ export function AppShell({ children }: AppShellProps) {
           <button
             type="button"
             aria-label="Menu"
-            className="rounded-full p-2 transition-colors hover:bg-surface-container active:scale-95"
+            className="rounded-full p-2 transition-colors hover:bg-surface-container active:scale-95 md:hidden"
           >
             <Menu className="h-6 w-6 text-primary" />
           </button>
           <span className="text-2xl font-extrabold tracking-tight text-primary">BdayList</span>
         </div>
 
+        <TopNav />
+
         {user && (
-          <div className="h-10 w-10 cursor-pointer overflow-hidden rounded-full border-2 border-primary transition-transform hover:scale-105">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={avatarSrc}
-              alt={`Avatar de ${user.name}`}
-              className="h-full w-full object-cover"
-            />
+          <div className="flex items-center gap-3">
+            <span className="hidden text-sm font-bold text-on-surface md:block">{user.name}</span>
+            <div className="h-10 w-10 cursor-pointer overflow-hidden rounded-full border-2 border-primary transition-transform hover:scale-105">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={avatarSrc}
+                alt={`Avatar de ${user.name}`}
+                className="h-full w-full object-cover"
+              />
+            </div>
           </div>
         )}
       </header>
 
-      <main className="mx-auto min-h-screen max-w-[1200px] px-4 pt-24 pb-32 md:px-6">
+      <main className="mx-auto min-h-screen max-w-[1200px] px-4 pt-24 pb-32 md:px-8 md:pb-12 lg:px-12">
         {children}
       </main>
 
