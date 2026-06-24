@@ -79,11 +79,11 @@ export default function GuestsPage() {
           </p>
         </Card>
       ) : (
-        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="flex flex-col gap-4">
           {guests.map((guest) => (
             <li key={guest.id}>
-              <Card className="flex h-full items-center gap-4 p-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-container text-sm font-bold text-on-primary-container">
+              <Card className="-colors flex items-center gap-4 px-5 py-5 hover:bg-surface-container-low sm:px-6">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-container text-sm font-bold text-on-primary-container">
                   {initials(guest.name)}
                 </div>
                 <div className="min-w-0 flex-1">

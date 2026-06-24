@@ -1,0 +1,8 @@
+{
+  "format_on_save": "on",
+  "formatter": "prettier",
+  "soft_wrap": "editor_width",
+  "code_actions_on_format": {
+    "source.fixAll.eslint": true
+  }
+}

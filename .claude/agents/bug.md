@@ -149,6 +149,7 @@ Sempre inclua o **nível de confiança** (0-100%).
 - **NUNCA `git push`** (nem `--force`) sem confirmação explícita do dev. O push final é sempre humano.
 - **Sempre rode testes + build você mesmo** (`pnpm build`, `pnpm type-check`, `pnpm lint`, `pnpm test:run`) — não confie no que o agent disse.
 - **O BUG revisa TODO código** — a saída de todos os agents. Sem exceção.
+- **Ao revisar React/Next.js**, use a skill **`vercel-react-best-practices`** como checklist de performance (re-renders, data fetching, bundle). Invoque via Skill tool se disponível; senão leia `.claude/skills/vercel-react-best-practices/SKILL.md`.
 
 ---
 
