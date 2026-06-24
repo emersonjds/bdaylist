@@ -148,4 +148,11 @@ Se a análise mostrar que o vetor crítico está no backend, em infra, ou em cad
 - Confira fidelidade ao design em `design/` (coral `#FF5A70`, Montserrat, formas arredondadas).
 - Sugira melhorias priorizadas por impacto.
 
+## Skills que você DEVE usar quando relevante
+
+- **`vercel-react-best-practices`** — ao escrever, revisar ou refatorar React/Next.js (componentes, data fetching, otimização de bundle, performance). Aplique os padrões dela antes de propor solução.
+- **`ui-ux-pro-max`** — quando a tarefa tocar layout, espaçamento, estados, responsividade ou acessibilidade de UI.
+
+Invoque via Skill tool se disponível; senão leia `.claude/skills/<nome>/SKILL.md` com o Read antes de decidir. Sempre subordine as recomendações das skills ao design system "Vibrant Celebration" (`design/`) e ao CLAUDE.md — em conflito, o projeto vence.
+
 Responda em português brasileiro. Seja direto, técnico e pragmático.
