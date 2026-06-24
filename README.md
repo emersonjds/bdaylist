@@ -2,6 +2,8 @@
 
 # 🎉 BdayList
 
+**Português** · [English](README.en.md)
+
 ### Sua lista de presentes de aniversário — crie, compartilhe o link e deixe os convidados reservarem o presente.
 
 _Estilo casar.com, mas para aniversários. O aniversariante monta a lista; os convidados confirmam presença e **reservam** o que vão dar — sem presente duplicado, sem stress._
@@ -17,13 +19,34 @@ _Estilo casar.com, mas para aniversários. O aniversariante monta a lista; os co
 [![Zod](https://img.shields.io/badge/Zod-4-3E67B1?style=flat-square&logo=zod&logoColor=white)](https://zod.dev/)
 [![Supabase](https://img.shields.io/badge/Backend-Supabase-3FCF8E?style=flat-square&logo=supabase&logoColor=white)](docs/backend/README.md)
 
+[![CI](https://github.com/emersonjds/bdaylist/actions/workflows/ci.yml/badge.svg)](https://github.com/emersonjds/bdaylist/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/emersonjds/bdaylist/branch/main/graph/badge.svg)](https://codecov.io/gh/emersonjds/bdaylist)
+
+<!-- Netlify: troque SEU-SITE-ID pelo Site ID em Netlify → Site settings → General → Site information -->
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/SEU-SITE-ID/deploy-status)](https://app.netlify.com/sites/bdaylist/deploys)
+
 [![Vitest](https://img.shields.io/badge/Unit_%26_Int-Vitest-6E9F18?style=flat-square&logo=vitest&logoColor=white)](https://vitest.dev/)
 [![Playwright](https://img.shields.io/badge/E2E-Playwright-2EAD33?style=flat-square&logo=playwright&logoColor=white)](https://playwright.dev/)
 [![MSW](https://img.shields.io/badge/API_Mock-MSW-FF6A33?style=flat-square&logo=mockserviceworker&logoColor=white)](https://mswjs.io/)
-[![Tests](https://img.shields.io/badge/tests-44_passing-brightgreen?style=flat-square)](#-qualidade--testes)
-[![Coverage](https://img.shields.io/badge/coverage-82%25-brightgreen?style=flat-square)](#-qualidade--testes)
 [![pnpm](https://img.shields.io/badge/pnpm-10-F69220?style=flat-square&logo=pnpm&logoColor=white)](https://pnpm.io/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](#-licença)
+
+</div>
+
+---
+
+## 📸 As telas
+
+<div align="center">
+
+|                                                                         Landing                                                                         |                                                      Painel do aniversariante                                                       |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
+|                          [<img src="design/01-landing-page.png" width="380" alt="Landing page" />](design/01-landing-page.png)                          | [<img src="design/03-painel-aniversariante.png" width="380" alt="Painel do aniversariante" />](design/03-painel-aniversariante.png) |
+|                                                               **Lista (visão convidado)**                                                               |                                                       **Finalizar presente**                                                        |
+| [<img src="design/04-lista-presentes-convidado.png" width="380" alt="Lista de presentes (visão convidado)" />](design/04-lista-presentes-convidado.png) |       [<img src="design/05-finalizar-presente.png" width="380" alt="Finalizar presente" />](design/05-finalizar-presente.png)       |
+
+<sub>Telas de referência do design (Stitch). Evidências reais dos fluxos em <a href="e2e/">e2e/&lt;feature&gt;/evidence/\*.png</a>, geradas pelos testes Playwright (mobile 375px + desktop 1280px).</sub>
 
 </div>
 
@@ -37,29 +60,29 @@ O **BdayList** é uma plataforma de **lista de presentes de aniversário**. O an
 
 ### Quem faz o quê
 
-| 🎂 Aniversariante (host) | 🎁 Convidado |
-|---|---|
-| Cria evento + lista e compartilha o link | Acessa pelo link compartilhável |
-| Adiciona/edita presentes (imagem, preço de referência, link da loja) | Confirma presença (RSVP) |
-| Marca "Mais Desejado" e "Presente em Grupo" | Reserva o presente (sem duplicar) |
-| Acompanha convidados confirmados e atividade | Deixa um recado no mural |
-| Opção **"surpresa"**: não ver quem reservou | Filtra por preço e busca |
+| 🎂 Aniversariante (host)                                             | 🎁 Convidado                      |
+| -------------------------------------------------------------------- | --------------------------------- |
+| Cria evento + lista e compartilha o link                             | Acessa pelo link compartilhável   |
+| Adiciona/edita presentes (imagem, preço de referência, link da loja) | Confirma presença (RSVP)          |
+| Marca "Mais Desejado" e "Presente em Grupo"                          | Reserva o presente (sem duplicar) |
+| Acompanha convidados confirmados e atividade                         | Deixa um recado no mural          |
+| Opção **"surpresa"**: não ver quem reservou                          | Filtra por preço e busca          |
 
 ---
 
 ## 🧱 Stack
 
-| Camada | Tecnologia |
-|---|---|
-| **Framework** | Next.js 16 (App Router) · **static export** (`output: "export"`) |
-| **UI** | React 19 · TypeScript · Tailwind CSS 4 · `class-variance-authority` · `lucide-react` · `sonner` |
-| **Estado & dados** | TanStack Query 5 |
-| **Formulários & validação** | React Hook Form 7 · Zod 4 |
-| **Mock de API** | MSW (apenas em dev/testes) |
-| **Backend (planejado)** | Supabase — Postgres + RLS + Edge Functions (ver [`docs/backend/`](docs/backend/README.md)) |
-| **Testes** | Vitest · Testing Library · Playwright |
-| **Tooling** | pnpm 10 · ESLint 9 · Prettier 3 (+ plugin Tailwind) |
-| **Deploy** | Netlify (publish `out/`) |
+| Camada                      | Tecnologia                                                                                      |
+| --------------------------- | ----------------------------------------------------------------------------------------------- |
+| **Framework**               | Next.js 16 (App Router) · **static export** (`output: "export"`)                                |
+| **UI**                      | React 19 · TypeScript · Tailwind CSS 4 · `class-variance-authority` · `lucide-react` · `sonner` |
+| **Estado & dados**          | TanStack Query 5                                                                                |
+| **Formulários & validação** | React Hook Form 7 · Zod 4                                                                       |
+| **Mock de API**             | MSW (apenas em dev/testes)                                                                      |
+| **Backend (planejado)**     | Supabase — Postgres + RLS + Edge Functions (ver [`docs/backend/`](docs/backend/README.md))      |
+| **Testes**                  | Vitest · Testing Library · Playwright                                                           |
+| **Tooling**                 | pnpm 10 · ESLint 9 · Prettier 3 (+ plugin Tailwind)                                             |
+| **Deploy**                  | Netlify (publish `out/`)                                                                        |
 
 ---
 
@@ -80,12 +103,12 @@ src/
 
 ## 🎨 Identidade visual — _Vibrant Celebration_
 
-| Token | Cor |
-|---|---|
-| Primária (coral) | `#FF5A70` · CTA profundo `#b5213e` |
-| Secundária (turquesa) | `#26C6DA` |
-| Terciária (amarelo festivo) | `#FFD54F` |
-| Surface | branco sobre `#FFF9FB` · texto `#161d1f` |
+| Token                       | Cor                                      |
+| --------------------------- | ---------------------------------------- |
+| Primária (coral)            | `#FF5A70` · CTA profundo `#b5213e`       |
+| Secundária (turquesa)       | `#26C6DA`                                |
+| Terciária (amarelo festivo) | `#FFD54F`                                |
+| Surface                     | branco sobre `#FFF9FB` · texto `#161d1f` |
 
 **Tipografia:** Montserrat. **Formas:** botões pílula (`rounded-full`), cards `rounded-lg`. Mobile-first, light mode. Fonte de verdade do design: [`design/`](design/).
 
@@ -135,31 +158,31 @@ pnpm test:e2e        # Playwright (mobile + desktop)
 pnpm validate        # type-check + lint + format:check + testes
 ```
 
-**Snapshot atual:** ✅ **44 testes** passando (23 arquivos) ·
+**Snapshot atual:** ✅ **44 testes** passando · **23 arquivos**
 
-| Métrica | Cobertura |
-|---|---|
+| Métrica    | Cobertura  |
+| ---------- | ---------- |
 | Statements | **81.74%** |
-| Lines | **83.33%** |
-| Functions | **84.21%** |
-| Branches | **70.71%** |
+| Lines      | **83.33%** |
+| Functions  | **84.21%** |
+| Branches   | **70.71%** |
 
-> Sem CI no momento — os números acima são um snapshot de `pnpm test:coverage`. Rode o comando para o valor atual.
+> O **CI** (GitHub Actions) roda `type-check → lint → format:check → test:coverage` a cada push/PR na `main` e envia o `lcov` para o Codecov — as badges de **CI** e **codecov** no topo refletem o estado ao vivo. A tabela acima é um snapshot; rode `pnpm test:coverage` para o valor local.
 
 ---
 
 ## 📦 Scripts
 
-| Script | O que faz |
-|---|---|
-| `pnpm dev` | Servidor de desenvolvimento |
-| `pnpm build` | Build estático (`out/`) |
-| `pnpm lint` / `lint:fix` | ESLint |
-| `pnpm format` / `format:check` | Prettier (+ ordenação de classes Tailwind) |
-| `pnpm type-check` | `tsc --noEmit` |
-| `pnpm test` · `test:run` · `test:coverage` | Vitest |
-| `pnpm test:e2e` · `test:e2e:ui` · `test:e2e:report` | Playwright |
-| `pnpm validate` | Quality gate completo |
+| Script                                              | O que faz                                  |
+| --------------------------------------------------- | ------------------------------------------ |
+| `pnpm dev`                                          | Servidor de desenvolvimento                |
+| `pnpm build`                                        | Build estático (`out/`)                    |
+| `pnpm lint` / `lint:fix`                            | ESLint                                     |
+| `pnpm format` / `format:check`                      | Prettier (+ ordenação de classes Tailwind) |
+| `pnpm type-check`                                   | `tsc --noEmit`                             |
+| `pnpm test` · `test:run` · `test:coverage`          | Vitest                                     |
+| `pnpm test:e2e` · `test:e2e:ui` · `test:e2e:report` | Playwright                                 |
+| `pnpm validate`                                     | Quality gate completo                      |
 
 ---
 
